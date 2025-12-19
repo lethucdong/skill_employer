@@ -1508,7 +1508,7 @@ select {
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 120px;
+    min-height: 85px;
     padding: 20px;
     text-align: center;
     color: var(--color-text-muted);
@@ -1898,5 +1898,24 @@ select {
 
     .heatmap-row {
         grid-template-columns: minmax(0, 1.5fr) 70px 80px 1.1fr;
+    }
+
+    .overview-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .overview-identity {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 8px;
+    }
+
+    .overview-ai {
+        border-left: none;
+        border-top: 1px solid var(--color-border-subtle);
+        padding-left: 0;
+        padding-top: 8px;
+        margin-top: 6px;
     }
 }
