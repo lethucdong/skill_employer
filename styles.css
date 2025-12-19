@@ -65,6 +65,10 @@ select {
 
 
 /* donglt start*/
+.heatmap-lastused {
+    padding-left: 30%;
+}
+
 .topbar__left {
     display: flex;
     align-items: flex-start;
@@ -192,6 +196,13 @@ select {
 .heatmap-font {
     color: #020617 !important;
     font-weight: bold;
+}
+
+.panel-body--radar {
+        flex: 0 0 35%;
+        max-width: 100%;
+        height: 450px;
+        position: relative;
 }
 
 @media (min-width: 768px) {
@@ -1330,7 +1341,7 @@ select {
 
 .heatmap-row {
     display: grid;
-    grid-template-columns: minmax(0, 1.6fr) 80px 90px 1.2fr;
+    grid-template-columns: minmax(0, 1.6fr)  110px 180px 1.2fr;
     align-items: center;
     padding: 6px 6px;
     border-radius: 8px;
