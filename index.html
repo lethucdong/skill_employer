@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SIRAS – Skill-Based Intelligent Resource Allocation System</title>
+    <link rel="stylesheet" href="styles.css" />
+    <!-- Chart.js CDN for radar chart -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- FullCalendar for drag-and-drop calendar -->
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="app-shell">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar__logo">
+                <div class="logo-mark">S</div>
+                <div class="logo-text">
+                    <span class="logo-title">SIRAS</span>
+                    <span class="logo-subtitle">Skill Intelligence</span>
+                </div>
+            </div>
+            <nav class="sidebar__nav">
+                <button class="nav-item" data-view="dashboard">
+                    <span class="nav-icon">📊</span>
+                    <span class="nav-label">Dashboard</span>
+                </button>
+                <button class="nav-item nav-item--active" data-view="skill-matrix">
+                    <span class="nav-icon">📌</span>
+                    <span class="nav-label">Employee Skill List</span>
+                </button>
+                <button class="nav-item" data-view="project-list">
+                    <span class="nav-icon">📁</span>
+                    <span class="nav-label">Project Management</span>
+                </button>
+                <button class="nav-item" data-view="workload-overview">
+                    <span class="nav-icon">📈</span>
+                    <span class="nav-label">Course Management</span>
+                </button>
+                <button class="nav-item" data-view="reports">
+                    <span class="nav-icon">📑</span>
+                    <span class="nav-label">Employee Management</span>
+                </button>
+            </nav>
+            <div class="sidebar__footer">
+                <div class="sidebar-footer-text">
+                    <span class="footer-title">Demo Environment</span>
+                    <span class="footer-subtitle">HR-Tech Suite</span>
+                </div>
+            </div>
+        </aside>
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+        <!-- Main Content -->
+        <div class="main">
+            <!-- Top Bar -->
+            <header class="topbar">
+                <div class="topbar__left">
+                    <button id="sidebar-toggle" class="icon-button sidebar-toggle" title="Toggle sidebar">
+                        ☰
+                    </button>
+
+                    <div class="topbar__product">
+                        <span class="product-name">SIRAS</span>
+                        <span class="product-desc">Skill-Based Intelligent Resource Allocation System</span>
+                    </div>
+                </div>
+                <div class="topbar__right">
+                    <button class="icon-button" id="global-search-btn" title="Global search (demo)">
+                        🔍
+                    </button>
+                    <button class="icon-button" id="notification-btn" title="Notifications">
+                        🔔
+                        <span class="badge-dot"></span>
+                    </button>
+                    <div class="topbar__user">
+                        <div class="user-info">
+                            <span class="user-name">Alex Nguyen</span>
+                            <span class="user-role">HR Director</span>
+                        </div>
+                        <div class="user-avatar">AN</div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- View Container -->
+            <main class="content">
+                <!-- Dashboard Placeholder -->
+                <section class="view view--placeholder" id="view-dashboard" hidden>
+                    <h1 class="view-title">Executive Dashboard</h1>
+                    <p class="view-subtitle">
+                        High-level overview of utilization, skill gaps and allocation efficiency. This section is
+                        simplified in the demo.
+                    </p>
+                    <div class="placeholder-grid">
+                        <div class="placeholder-card">
+                            <h3>Utilization Overview</h3>
+                            <p>Track billable vs non-billable allocation across departments.</p>
+                        </div>
+                        <div class="placeholder-card">
+                            <h3>Skill Gap Snapshot</h3>
+                            <p>Identify critical shortages in cloud, security and leadership skills.</p>
+                        </div>
+                        <div class="placeholder-card">
+                            <h3>AI Staffing Signals</h3>
+                            <p>Early warnings for overloaded teams and underutilized experts.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Project List Placeholder -->
+                <section class="view view--placeholder" id="view-project-list" hidden>
+                    <h1 class="view-title">Project Management</h1>
+                    <p class="view-subtitle">
+                        Manage project assignments, timelines and resource allocation. Detailed project history and
+                        skill utilization available in the Employee Detail view.
+                    </p>
+                </section>
+
+                <!-- Course Management Placeholder -->
+                <section class="view view--placeholder" id="view-workload-overview" hidden>
+                    <h1 class="view-title">Course Management</h1>
+                    <p class="view-subtitle">
+                        Oversee training programs, course enrollments and learning paths. Detailed training data is
+                        available in the Employee Detail view.
+                    </p>
+                </section>
+
+                <!-- Employee Management Placeholder -->
+                <section class="view view--placeholder" id="view-reports" hidden>
+                    <h1 class="view-title">Employee Management</h1>
+                    <p class="view-subtitle">
+                        Tools for HR to manage employee records, roles and skill profiles. Detailed skill insights
+                        available via the Skill Matrix and Employee Detail views.
+                    </p>
+                </section>
+
+                <!-- Employee Skill List -->
+                <section class="view" id="view-skill-matrix">
+                    <header class="view-header">
+                        <div class="panel-header">
+                            <h1 class="view-title">Employee Skill List</h1>
+                            <p class="view-subtitle">
+                                Compare employee capabilities across key skills to support resource planning, department
+                                analysis and training decisions.
+                            </p>
+                        </div>
+                        <div class="view-header-actions">
+                            <label class="field">
+                                <span class="field-label">Group</span>
+                                <select id="department-filter" class="select">
+                                    <option value="all">All Groups</option>
+                                    <option value="WAO">WAO</option>
+                                    <option value="Sharp">Sharp</option>
+                                    <option value="OutsideSale">OutsideSale</option>
+                                    <option value="SWAT">SWAT</option>
+                                    <option value="Tester">Tester</option>
+                                </select>
+                            </label>
+                            <button id="export-excel-btn" class="btn btn--secondary">
+                                Export to Excel
+                            </button>
+                        </div>
+                    </header>
+
+                    <section class="view-body">
+
+                        <div class="table-wrapper">
+                            <table class="matrix-table">
+                                <thead>
+                                    <tr>
+                                        <th>Employee Name</th>
+                                        <th>Group</th>
+                                        <!-- Skill headers will be generated dynamically by app.js -->
+                                    </tr>
+                                </thead>
+                                <tbody id="skill-matrix-body">
+                                    <!-- Rows injected by app.js -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+                </section>
+
+                <!-- EMPLOYEE DETAIL VIEW -->
+                <section class="view" id="view-employee-detail" hidden>
+                    <header class="view-header view-header--split">
+                        <div>
+                            <button id="back-to-matrix-btn" class="btn btn--ghost">
+                                ← Back to Skill Matrix
+                            </button>
+                            <h1 class="view-title" id="employee-name-title">Employee Detail</h1>
+                            <p class="view-subtitle" id="employee-role-subtitle">
+                                Detailed skill profile, AI analysis and training footprint for the selected employee.
+                            </p>
+                        </div>
+                        <div class="view-header-actions">
+                            <div class="pill">
+                                <span class="pill-label">Status</span>
+                                <span class="pill-value" id="employee-status-pill">Loading...</span>
+                            </div>
+                            <div class="pill">
+                                <span class="pill-label">Experience</span>
+                                <span class="pill-value" id="employee-experience-pill">–</span>
+                            </div>
+                        </div>
+                    </header>
+
+                    <section class="view-body view-body--detail">
+                        <!-- SECTION 1 – EMPLOYEE OVERVIEW -->
+                        <section class="panel panel--overview">
+                            <div class="panel-header">
+                                <h2>Employee Overview</h2>
+                            </div>
+                            <div class="overview-grid">
+                                <div class="overview-main">
+                                    <div class="overview-identity">
+                                        <div class="overview-avatar" id="employee-avatar">E</div>
+                                        <div>
+                                            <div class="overview-name" id="employee-name-main">Loading</div>
+                                            <div class="overview-role" id="employee-role-main">Role</div>
+                                            <div class="overview-meta">
+                                                <span id="employee-department-meta">Department</span>
+                                                <span class="divider-dot">•</span>
+                                                <span id="employee-experience-meta">Experience</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="overview-ai">
+                                    <h3>AI Summary</h3>
+                                    <p id="employee-ai-summary">
+                                        The AI summary will highlight growth areas, risk of skill decay and recommended
+                                        focus skills based on the employee’s recent project and training history.
+                                    </p>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- donglt start -->
+                        <div class="skills-layout">
+                            <!-- SECTION 2 – SKILL RADAR CHART -->
+                            <section class="panel panel--radar">
+                                <div class="panel-header panel-header--inline">
+                                    <h2>Skill Radar</h2>
+                                    <span class="panel-caption">
+                                        Overall capability distribution across core skill domains.
+                                    </span>
+                                </div>
+                                <div class="panel-body panel-body--radar">
+                                    <canvas id="skill-radar-chart"></canvas>
+                                </div>
+                            </section>
+
+                            <!-- SECTION 3 – SKILL HEATMAP (COLLAPSIBLE) -->
+                            <section class="panel panel--heatmap">
+                                <div class="panel-header panel-header--inline">
+                                    <h2>Skill Heatmap</h2>
+                                    <span class="panel-caption">
+                                        Detailed view of individual skills, current level and trend.
+                                    </span>
+                                </div>
+                                <!-- <button class="panel-toggle" id="heatmap-toggle">
+                                <div>
+                                    <h2>Skill Heatmap</h2>
+                                    <span class="panel-caption">
+                                        Detailed view of individual skills, current level and trend.
+                                    </span>
+                                </div>
+                                <span class="panel-toggle-icon" id="heatmap-toggle-icon">▾</span>
+                            </button> -->
+                                <div class="panel-body panel-body--collapsible" id="heatmap-body">
+                                    <div class="heatmap-legend">
+                                        <span class="legend-item"><span
+                                                class="legend-dot legend-dot--up"></span>Growing</span>
+                                        <span class="legend-item"><span
+                                                class="legend-dot legend-dot--down"></span>Decaying</span>
+                                        <span class="legend-item"><span
+                                                class="legend-dot legend-dot--stable"></span>Stable</span>
+                                    </div>
+                                    <div id="skill-heatmap-list" class="heatmap-list">
+                                        <!-- Items injected by app.js -->
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                        <!-- donglt end -->
+
+                        <!-- SECTION 4 – AI SKILL ANALYSIS -->
+                        <section class="panel">
+                            <div class="panel-header">
+                                <h2>AI Skill Analysis</h2>
+                            </div>
+                            <div class="panel-body panel-body--ai">
+                                <div class="ai-columns">
+                                    <div>
+                                        <h3>Growth Signals</h3>
+                                        <ul id="ai-growth-list" class="tag-list">
+                                            <!-- Tags injected -->
+                                        </ul>
+                                    </div>
+                                    <div>
+                                        <h3>Decay Signals</h3>
+                                        <ul id="ai-decay-list" class="tag-list">
+                                            <!-- Tags injected -->
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="ai-recommendation-block">
+                                    <h3>AI Recommendation</h3>
+                                    <p id="ai-recommendation-text">
+                                        AI-generated recommendations will prioritize training, mentoring and project
+                                        types that best align with the employee’s growth trajectory and organizational
+                                        needs.
+                                    </p>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- SECTION 5 – TRAINING & COURSES -->
+                        <section class="panel">
+                            <div class="panel-header">
+                                <h2>Training &amp; Courses</h2>
+                            </div>
+                            <div class="panel-body">
+                                <div class="tabs" id="course-tabs">
+                                    <button class="tab tab--active" data-tab="current">Current Courses</button>
+                                    <button class="tab" data-tab="recommended">Recommended Courses</button>
+                                    <button class="tab" data-tab="history">Course History</button>
+                                </div>
+                                <div class="tab-panels">
+                                    <div class="tab-panel" id="tab-current">
+                                        <div id="current-courses-list" class="course-grid">
+                                            <!-- Course cards injected -->
+                                        </div>
+                                    </div>
+                                    <div class="tab-panel" id="tab-recommended" hidden>
+                                        <div id="recommended-courses-list" class="course-grid">
+                                            <!-- Course cards injected -->
+                                        </div>
+                                    </div>
+                                    <div class="tab-panel" id="tab-history" hidden>
+                                        <div id="history-courses-list" class="course-grid">
+                                            <!-- Course cards injected -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- SECTION 6 – COURSE CALENDAR -->
+                        <section class="panel">
+                            <div class="panel-header panel-header--inline">
+                                <h2>Course Calendar</h2>
+                                <span class="panel-caption">
+                                    Training activity timeline.
+                                </span>
+                            </div>
+                            <div class="panel-body panel-body--calendar">
+                                <div id="course-calendar">
+                                    <!-- FullCalendar will render here -->
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- SECTION 7 – PROJECT HISTORY -->
+                        <section class="panel">
+                            <div class="panel-header">
+                                <h2>Project History</h2>
+                            </div>
+                            <div class="panel-body panel-body--timeline">
+                                <div id="project-history-timeline" class="timeline">
+                                    <!-- Timeline items injected -->
+                                </div>
+                            </div>
+                        </section>
+                    </section>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
+    <script src="app.js"></script>
+</body>
+
+</html>

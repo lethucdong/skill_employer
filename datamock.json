@@ -1,0 +1,893 @@
+{
+    "groups": [
+        {
+            "id": 1,
+            "group_name": "WAO",
+            "manager_id": 6
+        },
+        {
+            "id": 2,
+            "group_name": "Sharp",
+            "manager_id": 4
+        },
+        {
+            "id": 3,
+            "group_name": "OutsideSale",
+            "manager_id": 5
+        },
+        {
+            "id": 4,
+            "group_name": "SWAT",
+            "manager_id": 3
+        },
+        {
+            "id": 5,
+            "group_name": "Tester",
+            "manager_id": 7
+        }
+    ],
+    "users": [
+        {
+            "id": 1,
+            "full_name": "Phạm Văn Hoàn",
+            "email": "hoanpv@saisystem.vn",
+            "password_hash": "hashed_password_1",
+            "role": "Software Developer",
+            "group_id": 1,
+            "status": "Active"
+        },
+        {
+            "id": 2,
+            "full_name": "Lê Thúc Đông",
+            "email": "donglt@saisystem.vn",
+            "password_hash": "hashed_password_2",
+            "role": "Software Developer",
+            "group_id": 1,
+            "status": "Active"
+        },
+        {
+            "id": 3,
+            "full_name": "Nguyễn Hồng Thắng",
+            "email": "thangnh@saisystem.vn",
+            "password_hash": "hashed_password_3",
+            "role": "Software Developer",
+            "group_id": 4,
+            "status": "Active"
+        },
+        {
+            "id": 4,
+            "full_name": "Ngô Tá Sinh",
+            "email": "sinhnt@saisystem.vn",
+            "password_hash": "hashed_password_4",
+            "role": "Leader",
+            "group_id": 2,
+            "status": "Active"
+        },
+        {
+            "id": 5,
+            "full_name": "Lê Quốc Khánh",
+            "email": "khanhlq@saisystem.vn",
+            "password_hash": "hashed_password_5",
+            "role": "Leader",
+            "group_id": 3,
+            "status": "Active"
+        },
+        {
+            "id": 6,
+            "full_name": "Nguyễn Duy Thanh",
+            "email": "thanhnd@saisystem.vn",
+            "password_hash": "hashed_password_6",
+            "role": "Software Developer",
+            "group_id": 1,
+            "status": "Active"
+        },
+        {
+            "id": 7,
+            "full_name": "Nguyễn Thị Thủy",
+            "email": "thuynt@saisystem.vn",
+            "password_hash": "hashed_password_7",
+            "role": "Tester",
+            "group_id": 5,
+            "status": "Active"
+        },
+        {
+            "id": 8,
+            "full_name": "Hồ Văn Quang Huy",
+            "email": "huyhvq@saisystem.vn",
+            "password_hash": "hashed_password_admin",
+            "role": "Software Developer",
+            "group_id": 3,
+            "status": "Active"
+        }
+    ],
+    "employee_profiles": [
+        {
+            "user_id": 1,
+            "job_title": "Senior Backend Engineer",
+            "join_date": "2021-01-15",
+            "learning_agility": 4.5,
+            "career_aspiration": "Technical Lead / Architect",
+            "avatar_url": "https://avatars.company.com/minh.jpg"
+        },
+        {
+            "user_id": 2,
+            "job_title": "Lead Frontend Engineer",
+            "join_date": "2018-03-20",
+            "learning_agility": 4.2,
+            "career_aspiration": "Engineering Manager",
+            "avatar_url": "https://avatars.company.com/lan.jpg"
+        },
+        {
+            "user_id": 3,
+            "job_title": "Data Analyst",
+            "join_date": "2020-02-10",
+            "learning_agility": 3.8,
+            "career_aspiration": "Analytics Manager",
+            "avatar_url": "https://avatars.company.com/huy.jpg"
+        },
+        {
+            "user_id": 4,
+            "job_title": "Product Manager",
+            "join_date": "2017-05-01",
+            "learning_agility": 4.3,
+            "career_aspiration": "Director of Product",
+            "avatar_url": "https://avatars.company.com/thao.jpg"
+        },
+        {
+            "user_id": 5,
+            "job_title": "HR Business Partner",
+            "join_date": "2015-07-15",
+            "learning_agility": 4.0,
+            "career_aspiration": "Head of HR",
+            "avatar_url": "https://avatars.company.com/mai.jpg"
+        },
+        {
+            "user_id": 6,
+            "job_title": "Cloud Architect",
+            "join_date": "2014-01-20",
+            "learning_agility": 4.7,
+            "career_aspiration": "Principal Architect",
+            "avatar_url": "https://avatars.company.com/khanh.jpg"
+        },
+        {
+            "user_id": 7,
+            "job_title": "Enterprise Account Executive",
+            "join_date": "2019-06-01",
+            "learning_agility": 3.9,
+            "career_aspiration": "Sales Director",
+            "avatar_url": "https://avatars.company.com/anh.jpg"
+        }
+    ],
+    "skill_categories": [
+        {
+            "id": 1,
+            "cat_name": "Backend"
+        },
+        {
+            "id": 2,
+            "cat_name": "Frontend"
+        },
+        {
+            "id": 3,
+            "cat_name": "Database"
+        },
+        {
+            "id": 4,
+            "cat_name": "Cloud"
+        },
+        {
+            "id": 5,
+            "cat_name": "Security"
+        },
+        {
+            "id": 6,
+            "cat_name": "Soft Skill"
+        },
+        {
+            "id": 7,
+            "cat_name": "Domain Skill"
+        }
+    ],
+    "skills_master": [
+        {
+            "id": 1,
+            "cat_id": 1,
+            "skill_name": "Node.js",
+            "description": "Server-side JavaScript runtime"
+        },
+        {
+            "id": 2,
+            "cat_id": 1,
+            "skill_name": "Python",
+            "description": "General-purpose programming language"
+        },
+        {
+            "id": 3,
+            "cat_id": 1,
+            "skill_name": "Java",
+            "description": "Enterprise backend language"
+        },
+        {
+            "id": 4,
+            "cat_id": 2,
+            "skill_name": "React",
+            "description": "Modern frontend framework"
+        },
+        {
+            "id": 5,
+            "cat_id": 2,
+            "skill_name": "Vue.js",
+            "description": "Progressive frontend framework"
+        },
+        {
+            "id": 6,
+            "cat_id": 2,
+            "skill_name": "UX Design",
+            "description": "User experience design principles"
+        },
+        {
+            "id": 7,
+            "cat_id": 3,
+            "skill_name": "SQL",
+            "description": "Relational database query language"
+        },
+        {
+            "id": 8,
+            "cat_id": 3,
+            "skill_name": "MongoDB",
+            "description": "NoSQL document database"
+        },
+        {
+            "id": 9,
+            "cat_id": 3,
+            "skill_name": "Data Analysis",
+            "description": "Statistical analysis and insights"
+        },
+        {
+            "id": 10,
+            "cat_id": 4,
+            "skill_name": "AWS",
+            "description": "Amazon Web Services platform"
+        },
+        {
+            "id": 11,
+            "cat_id": 7,
+            "skill_name": "Cloud Computing",
+            "description": "Cloud infrastructure and services"
+        },
+        {
+            "id": 12,
+            "cat_id": 4,
+            "skill_name": "Docker",
+            "description": "Containerization technology"
+        },
+        {
+            "id": 13,
+            "cat_id": 4,
+            "skill_name": "Kubernetes",
+            "description": "Container orchestration"
+        },
+        {
+            "id": 14,
+            "cat_id": 5,
+            "skill_name": "Security",
+            "description": "Application and infrastructure security"
+        },
+        {
+            "id": 15,
+            "cat_id": 5,
+            "skill_name": "Secure Coding",
+            "description": "Secure development practices"
+        },
+        {
+            "id": 16,
+            "cat_id": 6,
+            "skill_name": "Project Management",
+            "description": "Project planning and coordination"
+        }
+    ],
+    "employee_skills": [
+        {
+            "user_id": 1,
+            "skill_id": 2,
+            "level_score": 3,
+            "years_exp": 1.0,
+            "last_verified": "2025-11-30T00:00:00Z"
+        },
+        {
+            "user_id": 1,
+            "skill_id": 3,
+            "level_score": 1,
+            "years_exp": 1,
+            "last_verified": "2023-03-10T00:00:00Z"
+        },
+        {
+            "user_id": 1,
+            "skill_id": 6,
+            "level_score": 4,
+            "years_exp": 1.0,
+            "last_verified": "2025-08-01T00:00:00Z"
+        },
+        {
+            "user_id": 1,
+            "skill_id": 7,
+            "level_score": 3,
+            "years_exp": 4.0,
+            "last_verified": "2025-12-10T00:00:00Z"
+        },
+        {
+            "user_id": 1,
+            "skill_id": 9,
+            "level_score": 3,
+            "years_exp": 6.5,
+            "last_verified": "2025-09-18T00:00:00Z"
+        },
+        {
+            "user_id": 1,
+            "skill_id": 11,
+            "level_score": 3,
+            "years_exp": 6.5,
+            "last_verified": "2025-09-18T00:00:00Z"
+        },
+        {
+            "user_id": 1,
+            "skill_id": 12,
+            "level_score": 3,
+            "years_exp": 6.5,
+            "last_verified": "2025-09-18T00:00:00Z"
+        },
+        {
+            "user_id": 1,
+            "skill_id": 15,
+            "level_score": 3,
+            "years_exp": 1.0,
+            "last_verified": "2025-08-01T00:00:00Z"
+        },
+        {
+            "user_id": 1,
+            "skill_id": 16,
+            "level_score": 1,
+            "years_exp": 1.0,
+            "last_verified": "2025-08-01T00:00:00Z"
+        },
+        {
+            "user_id": 2,
+            "skill_id": 4,
+            "level_score": 5,
+            "years_exp": 7.0,
+            "last_verified": "2025-12-14T00:00:00Z"
+        },
+        {
+            "user_id": 2,
+            "skill_id": 1,
+            "level_score": 3,
+            "years_exp": 5.0,
+            "last_verified": "2025-10-02T00:00:00Z"
+        },
+        {
+            "user_id": 2,
+            "skill_id": 6,
+            "level_score": 4,
+            "years_exp": 6.5,
+            "last_verified": "2025-11-20T00:00:00Z"
+        },
+        {
+            "user_id": 2,
+            "skill_id": 9,
+            "level_score": 2,
+            "years_exp": 3.0,
+            "last_verified": "2024-11-01T00:00:00Z"
+        },
+        {
+            "user_id": 2,
+            "skill_id": 16,
+            "level_score": 4,
+            "years_exp": 5.5,
+            "last_verified": "2025-09-14T00:00:00Z"
+        },
+        {
+            "user_id": 3,
+            "skill_id": 9,
+            "level_score": 5,
+            "years_exp": 5.0,
+            "last_verified": "2025-12-16T00:00:00Z"
+        },
+        {
+            "user_id": 3,
+            "skill_id": 10,
+            "level_score": 2,
+            "years_exp": 2.0,
+            "last_verified": "2024-08-01T00:00:00Z"
+        },
+        {
+            "user_id": 3,
+            "skill_id": 16,
+            "level_score": 3,
+            "years_exp": 4.0,
+            "last_verified": "2025-05-10T00:00:00Z"
+        },
+        {
+            "user_id": 4,
+            "skill_id": 16,
+            "level_score": 5,
+            "years_exp": 8.0,
+            "last_verified": "2025-12-12T00:00:00Z"
+        },
+        {
+            "user_id": 4,
+            "skill_id": 9,
+            "level_score": 4,
+            "years_exp": 7.0,
+            "last_verified": "2025-11-01T00:00:00Z"
+        },
+        {
+            "user_id": 4,
+            "skill_id": 6,
+            "level_score": 3,
+            "years_exp": 6.0,
+            "last_verified": "2025-09-20T00:00:00Z"
+        },
+        {
+            "user_id": 4,
+            "skill_id": 11,
+            "level_score": 2,
+            "years_exp": 4.0,
+            "last_verified": "2024-06-01T00:00:00Z"
+        },
+        {
+            "user_id": 5,
+            "skill_id": 16,
+            "level_score": 4,
+            "years_exp": 9.0,
+            "last_verified": "2025-10-01T00:00:00Z"
+        },
+        {
+            "user_id": 5,
+            "skill_id": 9,
+            "level_score": 3,
+            "years_exp": 7.0,
+            "last_verified": "2025-09-01T00:00:00Z"
+        },
+        {
+            "user_id": 5,
+            "skill_id": 11,
+            "level_score": 1,
+            "years_exp": 2.0,
+            "last_verified": "2023-01-01T00:00:00Z"
+        },
+        {
+            "user_id": 6,
+            "skill_id": 10,
+            "level_score": 5,
+            "years_exp": 10.0,
+            "last_verified": "2025-12-15T00:00:00Z"
+        },
+        {
+            "user_id": 6,
+            "skill_id": 11,
+            "level_score": 5,
+            "years_exp": 10.0,
+            "last_verified": "2025-12-15T00:00:00Z"
+        },
+        {
+            "user_id": 6,
+            "skill_id": 14,
+            "level_score": 5,
+            "years_exp": 9.0,
+            "last_verified": "2025-11-20T00:00:00Z"
+        },
+        {
+            "user_id": 6,
+            "skill_id": 16,
+            "level_score": 3,
+            "years_exp": 5.0,
+            "last_verified": "2025-10-10T00:00:00Z"
+        },
+        {
+            "user_id": 7,
+            "skill_id": 16,
+            "level_score": 3,
+            "years_exp": 4.5,
+            "last_verified": "2025-06-01T00:00:00Z"
+        },
+        {
+            "user_id": 7,
+            "skill_id": 9,
+            "level_score": 2,
+            "years_exp": 2.0,
+            "last_verified": "2024-12-01T00:00:00Z"
+        }
+    ],
+    "skill_history": [
+        {
+            "id": 1,
+            "user_id": 1,
+            "skill_id": 2,
+            "old_level": 4,
+            "new_level": 5,
+            "change_date": "2025-12-10T00:00:00Z",
+            "reason": "Completed project: Global Billing Platform Modernization"
+        },
+        {
+            "id": 2,
+            "user_id": 1,
+            "skill_id": 3,
+            "old_level": 3,
+            "new_level": 2,
+            "change_date": "2025-11-30T00:00:00Z",
+            "reason": "Skill decay due to lack of use"
+        },
+        {
+            "id": 3,
+            "user_id": 2,
+            "skill_id": 4,
+            "old_level": 4,
+            "new_level": 5,
+            "change_date": "2025-12-14T00:00:00Z",
+            "reason": "Completed course: Enterprise Design Systems in React"
+        }
+    ],
+    "projects": [
+        {
+            "id": 1,
+            "name": "Global Billing Platform Modernization",
+            "start_date": "2024-01-15",
+            "end_date_plan": "2024-11-30",
+            "status": "Completed"
+        },
+        {
+            "id": 2,
+            "name": "SIRAS Frontend Shell",
+            "start_date": "2024-12-01",
+            "end_date_plan": "2025-12-31",
+            "status": "In-Progress"
+        },
+        {
+            "id": 3,
+            "name": "SIRAS Global Cloud Foundation",
+            "start_date": "2024-12-01",
+            "end_date_plan": "2025-12-31",
+            "status": "In-Progress"
+        },
+        {
+            "id": 4,
+            "name": "HR Analytics Dashboard",
+            "start_date": "2023-01-15",
+            "end_date_plan": "2024-03-31",
+            "status": "Completed"
+        },
+        {
+            "id": 5,
+            "name": "Enterprise SIRAS Rollout – APAC",
+            "start_date": "2024-07-01",
+            "end_date_plan": "2025-12-31",
+            "status": "In-Progress"
+        }
+    ],
+    "project_requirements": [
+        {
+            "id": 1,
+            "project_id": 1,
+            "skill_id": 1,
+            "min_level": 4,
+            "priority": 1
+        },
+        {
+            "id": 2,
+            "project_id": 1,
+            "skill_id": 10,
+            "min_level": 4,
+            "priority": 1
+        },
+        {
+            "id": 3,
+            "project_id": 1,
+            "skill_id": 14,
+            "min_level": 3,
+            "priority": 1
+        },
+        {
+            "id": 4,
+            "project_id": 2,
+            "skill_id": 4,
+            "min_level": 4,
+            "priority": 1
+        },
+        {
+            "id": 5,
+            "project_id": 2,
+            "skill_id": 6,
+            "min_level": 3,
+            "priority": 1
+        },
+        {
+            "id": 6,
+            "project_id": 3,
+            "skill_id": 10,
+            "min_level": 5,
+            "priority": 1
+        },
+        {
+            "id": 7,
+            "project_id": 3,
+            "skill_id": 14,
+            "min_level": 4,
+            "priority": 1
+        }
+    ],
+    "allocations": [
+        {
+            "id": 1,
+            "project_id": 1,
+            "user_id": 1,
+            "effort_rate": 80,
+            "start_date": "2024-01-15",
+            "end_date_actual": "2024-11-30",
+            "is_soft_booking": false
+        },
+        {
+            "id": 2,
+            "project_id": 2,
+            "user_id": 1,
+            "effort_rate": 60,
+            "start_date": "2024-12-01",
+            "end_date_actual": null,
+            "is_soft_booking": false
+        },
+        {
+            "id": 3,
+            "project_id": 3,
+            "user_id": 6,
+            "effort_rate": 100,
+            "start_date": "2024-01-01",
+            "end_date_actual": null,
+            "is_soft_booking": false
+        },
+        {
+            "id": 4,
+            "project_id": 5,
+            "user_id": 7,
+            "effort_rate": 80,
+            "start_date": "2024-07-01",
+            "end_date_actual": null,
+            "is_soft_booking": true
+        }
+    ],
+    "courses": [
+        {
+            "id": 1,
+            "course_name": "Designing Event-Driven Microservices with Node.js",
+            "target_skill_id": 1,
+            "level_gain": 1,
+            "resource_url": "https://courses.company.com/microservices-nodejs",
+            "start_date": "2025-05-15",
+            "end_date": "2025-12-31"
+        },
+        {
+            "id": 2,
+            "course_name": "AWS Well-Architected Advanced Workshop",
+            "target_skill_id": 10,
+            "level_gain": 1,
+            "resource_url": "https://courses.company.com/aws-advanced",
+            "start_date": "2025-12-01",
+            "end_date": "2026-01-15"
+        },
+        {
+            "id": 3,
+            "course_name": "React 18 Modern Patterns for Enterprise UI",
+            "target_skill_id": 4,
+            "level_gain": 1,
+            "resource_url": "https://courses.company.com/react-18",
+            "start_date": "2022-02-16",
+            "end_date": "2025-05-15"
+        },
+        {
+            "id": 4,
+            "course_name": "Enterprise Design Systems in React",
+            "target_skill_id": 6,
+            "level_gain": 1,
+            "resource_url": "https://courses.company.com/design-systems",
+            "start_date": "2025-05-15",
+            "end_date": "2025-07-15"
+        },
+        {
+            "id": 5,
+            "course_name": "Advanced Marketing Attribution with SQL",
+            "target_skill_id": 9,
+            "level_gain": 1,
+            "resource_url": "https://courses.company.com/sql-analytics",
+            "start_date": "2025-12-01",
+            "end_date": "2026-01-15"
+        },
+        {
+            "id": 6,
+            "course_name": "Advanced Product Discovery Techniques",
+            "target_skill_id": 16,
+            "level_gain": 1,
+            "resource_url": "https://courses.company.com/product-discovery",
+            "start_date": "2025-12-01",
+            "end_date": "2026-01-15"
+        },
+        {
+            "id": 7,
+            "course_name": "Strategic Workforce Planning",
+            "target_skill_id": 20,
+            "level_gain": 1,
+            "resource_url": "https://courses.company.com/workforce-planning",
+            "start_date": "2025-12-01",
+            "end_date": "2026-01-15"
+        },
+        {
+            "id": 8,
+            "course_name": "AWS Security Specialty Preparation",
+            "target_skill_id": 14,
+            "level_gain": 1,
+            "resource_url": "https://courses.company.com/aws-security",
+            "start_date": "2025-12-01",
+            "end_date": "2026-01-15"
+        },
+        {
+            "id": 9,
+            "course_name": "Best Advanced Java Courses & Certificates [2026]",
+            "target_skill_id": 14,
+            "level_gain": 1,
+            "resource_url": "https://courses.company.com/aws-security",
+            "start_date": "2025-12-31",
+            "end_date": "2026-05-15"
+        }
+    ],
+    "learning_enrollments": [
+        {
+            "id": 1,
+            "user_id": 1,
+            "course_id": 1,
+            "progress": 65,
+            "status": "In-progress",
+            "completed_at": null
+        },
+        {
+            "id": 3,
+            "user_id": 2,
+            "course_id": 4,
+            "progress": 75,
+            "status": "In-progress",
+            "completed_at": null
+        },
+        {
+            "id": 4,
+            "user_id": 3,
+            "course_id": 5,
+            "progress": 55,
+            "status": "In-progress",
+            "completed_at": null
+        },
+        {
+            "id": 5,
+            "user_id": 4,
+            "course_id": 6,
+            "progress": 50,
+            "status": "In-progress",
+            "completed_at": null
+        },
+        {
+            "id": 6,
+            "user_id": 5,
+            "course_id": 7,
+            "progress": 45,
+            "status": "In-progress",
+            "completed_at": null
+        },
+        {
+            "id": 7,
+            "user_id": 6,
+            "course_id": 8,
+            "progress": 70,
+            "status": "In-progress",
+            "completed_at": null
+        },
+        {
+            "id": 2,
+            "user_id": 1,
+            "course_id": 3,
+            "progress": 100,
+            "status": "Completed",
+            "completed_at": null
+        },
+        {
+            "id": 2,
+            "user_id": 1,
+            "course_id": 4,
+            "progress": 100,
+            "status": "Completed",
+            "completed_at": null
+        },
+        {
+            "id": 2,
+            "user_id": 1,
+            "course_id": 9,
+            "progress": 0,
+            "status": "Planned",
+            "completed_at": null
+        }
+    ],
+    "skill_gaps": [
+        {
+            "id": 1,
+            "user_id": 1,
+            "project_id": 1,
+            "missing_skill_id": 4,
+            "gap_level": 2,
+            "created_at": "2025-12-10T00:00:00Z"
+        },
+        {
+            "id": 2,
+            "user_id": 2,
+            "project_id": 3,
+            "missing_skill_id": 10,
+            "gap_level": 3,
+            "created_at": "2025-12-15T00:00:00Z"
+        }
+    ],
+    "project_evaluations": [
+        {
+            "id": 1,
+            "project_id": 1,
+            "reviewer_id": 6,
+            "reviewee_id": 1,
+            "skill_id": 1,
+            "score": 5,
+            "comments": "Excellent backend architecture and performance optimization",
+            "created_at": "2024-12-01T00:00:00Z"
+        },
+        {
+            "id": 2,
+            "project_id": 2,
+            "reviewer_id": 4,
+            "reviewee_id": 2,
+            "skill_id": 4,
+            "score": 5,
+            "comments": "Outstanding React component design and reusability",
+            "created_at": "2025-12-15T00:00:00Z"
+        },
+        {
+            "id": 3,
+            "project_id": 3,
+            "reviewer_id": 4,
+            "reviewee_id": 6,
+            "skill_id": 10,
+            "score": 5,
+            "comments": "Exceptional AWS infrastructure design with high availability",
+            "created_at": "2025-12-10T00:00:00Z"
+        }
+    ],
+    "skill_audit_logs": [
+        {
+            "id": 1,
+            "user_id": 1,
+            "action_type": "Skill_Update",
+            "description": "Node.js skill updated from 4 to 5",
+            "created_at": "2025-12-10T00:00:00Z"
+        },
+        {
+            "id": 2,
+            "user_id": 2,
+            "action_type": "Course_Complete",
+            "description": "Started course: Enterprise Design Systems in React",
+            "created_at": "2025-12-14T00:00:00Z"
+        },
+        {
+            "id": 3,
+            "user_id": 6,
+            "action_type": "Project_Review",
+            "description": "Evaluated backend engineer's security practices",
+            "created_at": "2024-12-01T00:00:00Z"
+        },
+        {
+            "id": 4,
+            "user_id": 1,
+            "action_type": "Skill_Decay",
+            "description": "React skill decreased from 3 to 2 due to inactivity",
+            "created_at": "2025-11-30T00:00:00Z"
+        }
+    ]
+}
