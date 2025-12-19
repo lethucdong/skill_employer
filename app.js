@@ -31,8 +31,6 @@ const skillMatrixBody = document.getElementById("skill-matrix-body");
 const backToMatrixBtn = document.getElementById("back-to-matrix-btn");
 
 // Employee detail DOM
-const employeeNameTitle = document.getElementById("employee-name-title");
-const employeeRoleSubtitle = document.getElementById("employee-role-subtitle");
 const employeeStatusPill = document.getElementById("employee-status-pill");
 const employeeExperiencePill = document.getElementById(
     "employee-experience-pill"
@@ -484,9 +482,6 @@ function openEmployeeDetail(employeeId) {
 }
 
 function populateEmployeeOverview(emp) {
-    employeeNameTitle.textContent = emp.name;
-    employeeRoleSubtitle.textContent = `${emp.role} • ${emp.department}`;
-
     employeeStatusPill.textContent = emp.availabilityStatus;
     employeeExperiencePill.textContent = `${emp.experienceYears} years`;
 
