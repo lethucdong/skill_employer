@@ -595,6 +595,13 @@ function populateHeatmap(emp) {
         return a.name.localeCompare(b.name);
     });
 
+    if (skills.length === 0) {
+        const emptyState = createElement("div", "empty-state");
+        emptyState.innerHTML = '<p>No skills recorded</p>';
+        heatmapList.appendChild(emptyState);
+        return;
+    }
+
     skills.forEach((skill) => {
         const row = createElement("div", "heatmap-row");
 
@@ -720,20 +727,35 @@ function populateCourses(emp) {
     recommendedCoursesList.innerHTML = "";
     historyCoursesList.innerHTML = "";
 
-    (courses.current || []).forEach((c) => {
-        currentCoursesList.appendChild(buildCourseCard(c));
-    });
+    const currentCourses = courses.current || [];
+    if (currentCourses.length === 0) {
+        currentCoursesList.innerHTML = '<div class="empty-state"><p>No current courses assigned</p></div>';
+    } else {
+        currentCourses.forEach((c) => {
+            currentCoursesList.appendChild(buildCourseCard(c));
+        });
+    }
 
-    (courses.recommended || []).forEach((c) => {
-        recommendedCoursesList.appendChild(buildCourseCard(c));
-    });
+    const recommendedCourses = courses.recommended || [];
+    if (recommendedCourses.length === 0) {
+        recommendedCoursesList.innerHTML = '<div class="empty-state"><p>No recommended courses</p></div>';
+    } else {
+        recommendedCourses.forEach((c) => {
+            recommendedCoursesList.appendChild(buildCourseCard(c));
+        });
+    }
 
     // After rendering course cards, make them draggable into the calendar
     makeCourseCardsDraggable();
 
-    (courses.history || []).forEach((c) => {
-        historyCoursesList.appendChild(buildCourseCard(c));
-    });
+    const historyCourses = courses.history || [];
+    if (historyCourses.length === 0) {
+        historyCoursesList.innerHTML = '<div class="empty-state"><p>No course history</p></div>';
+    } else {
+        historyCourses.forEach((c) => {
+            historyCoursesList.appendChild(buildCourseCard(c));
+        });
+    }
 }
 
 function populateCalendar(emp) {
@@ -954,6 +976,11 @@ function populateProjectHistory(emp) {
         const dateB = getStartDate(b.duration);
         return dateB - dateA; // descending (newest first)
     });
+
+    if (sortedProjects.length === 0) {
+        projectHistoryTimeline.innerHTML = '<div class="empty-state"><p>No project history</p></div>';
+        return;
+    }
 
     sortedProjects.forEach((p) => {
         const item = createElement("div", "timeline-item");
