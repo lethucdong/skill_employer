@@ -9,7 +9,7 @@ let skillsList = []; // dynamically loaded from mockData
 // Matrix sorting state
 let matrixSkillNames = []; // will be populated from mockData.skills_master
 
-let matrixSort = { key: null, dir: "asc" };
+let matrixSort = { key: "department", dir: "desc" };
 // FullCalendar instance
 let fullCalendar = null;
 const views = {
@@ -107,6 +107,19 @@ document.addEventListener("DOMContentLoaded", () => {
             appShell.classList.remove("sidebar-open");
         }
     });
+
+    // Matrix header controls: search, import, department filter, export
+    const matrixSearchEl = document.getElementById("matrix-search");
+    const importBtn = document.getElementById("import-btn");
+    const importFileInput = document.getElementById("import-file");
+    if (matrixSearchEl) matrixSearchEl.addEventListener("input", renderSkillMatrix);
+    if (departmentFilter) departmentFilter.addEventListener("change", renderSkillMatrix);
+    if (exportExcelBtn) exportExcelBtn.addEventListener("click", exportMatrixToCsv);
+    if (importBtn) {
+        importBtn.addEventListener("click", () => {
+            alert("Currently only mock, not yet attached to actual data processing.");
+        });
+    }
 });
 
 
@@ -120,7 +133,7 @@ function populateDepartmentFilter() {
     );
 
     if (departmentFilter && groups.size > 0) {
-        departmentFilter.innerHTML = '<option value="all">All Groups</option>';
+        departmentFilter.innerHTML = '<option value="all">All Teams</option>';
         Array.from(groups)
             .sort()
             .forEach((dept) => {
@@ -147,14 +160,12 @@ function setActiveNav(viewKey) {
 }
 
 function mapSkillLevelToLabel(level) {
-    const labels = {
-        1: "Level 1 – Critical",
-        2: "Level 2 – Low",
-        3: "Level 3 – Medium",
-        4: "Level 4 – Good",
-        5: "Level 5 – Expert",
-    };
-    return labels[level] || "Unspecified";
+    // Map numeric levels to symbol labels for display
+    // 1,2 -> △ ; 3,4 -> ◯ ; 5 -> ◉
+    if (level === 1 || level === 2) return '△';
+    if (level === 3 || level === 4) return '◯';
+    if (level === 5) return '◉';
+    return '';
 }
 
 function mapSkillLevelToClass(level) {
@@ -198,49 +209,71 @@ function getSkillLevel(employee, skillName) {
     return found || null;
 }
 
-function renderSkillCell(td, employee, skillName) {
+function renderSkillCell(td, employee, skillName, category = "") {
     const skill = getSkillLevel(employee, skillName);
+
+    // Determine input type based on category
+    const isPGLanguage = category === "PG Language";
+    const useNumericInput = isPGLanguage;
+
     if (!skill || !skill.level) {
+        if (useNumericInput) {
+            // Render number input for years of experience
+            const input = document.createElement('input');
+            input.type = 'number';
+            input.min = '0';
+            input.step = '0.5';
+            input.className = 'skill-number-input';
+            input.title = `${skillName}: years of experience`;
+            input.dataset.skillName = skillName;
+            input.addEventListener('change', (e) => {
+                e.stopPropagation();
+                const val = e.target.value ? Number(e.target.value) : null;
+                let s = employee.skills.find(s => s.name.toLowerCase() === skillName.toLowerCase());
+                if (!s) {
+                    s = { name: skillName, level: val };
+                    employee.skills.push(s);
+                } else {
+                    s.level = val;
+                }
+            });
+            td.appendChild(input);
+            return;
+        }
+
         // render an editable select with empty/default value
         const sel = document.createElement('select');
         sel.className = 'skill-select';
         sel.title = `${skillName}: no recent activity`;
         sel.dataset.skillName = skillName;
-        // options: -, ◯, △, 1, 2, 3, 4, 5
+
+        const isLanguage = category === "Language";
+
+        // Order: -, △, ◯, ◉ (Language excludes ◉)
         const emptyOpt = document.createElement('option');
         emptyOpt.value = '';
-        emptyOpt.textContent = '-';
+        emptyOpt.textContent = '';
         sel.appendChild(emptyOpt);
-        // Add ◯ (circle) and △ (triangle) options right after -
-        const circleOpt = document.createElement('option');
-        circleOpt.value = '6';
-        circleOpt.textContent = '◯';
-        sel.appendChild(circleOpt);
+
         const triangleOpt = document.createElement('option');
-        triangleOpt.value = '7';
+        // represent △ with numeric value 2 (maps from levels 1-2)
+        triangleOpt.value = '2';
         triangleOpt.textContent = '△';
         sel.appendChild(triangleOpt);
-        for (let i = 1; i <= 5; i++) {
-            const opt = document.createElement('option');
-            opt.value = String(i);
-            opt.textContent = String(i);
-            sel.appendChild(opt);
-            // preview on hover
-            opt.addEventListener('mouseenter', () => {
-                sel.__prevIndex = sel.selectedIndex;
-                sel.__previewing = true;
-                try { sel.selectedIndex = opt.index; } catch (e) { }
-                sel.classList.add(`level-preview-${i}`);
-            });
-            opt.addEventListener('mouseleave', () => {
-                sel.__previewing = false;
-                try { if (typeof sel.__prevIndex !== 'undefined') sel.selectedIndex = sel.__prevIndex; } catch (e) { }
-                sel.classList.remove(`level-preview-${i}`);
-            });
-            opt.addEventListener('mousedown', () => {
-                // mark that user intends to commit selection
-                sel.__committed = true;
-            });
+
+        const circleOpt = document.createElement('option');
+        // represent ◯ with numeric value 3 (maps from levels 3-4)
+        circleOpt.value = '3';
+        circleOpt.textContent = '◯';
+        sel.appendChild(circleOpt);
+
+        // Add ◉ (filled circle) for non-Language categories only
+        if (!isLanguage && !isPGLanguage) {
+            const filledCircleOpt = document.createElement('option');
+            // represent ◉ with numeric value 5 (maps from level 5)
+            filledCircleOpt.value = '5';
+            filledCircleOpt.textContent = '◉';
+            sel.appendChild(filledCircleOpt);
         }
         sel.addEventListener('click', (e) => e.stopPropagation());
         sel.addEventListener('change', (e) => {
@@ -256,10 +289,6 @@ function renderSkillCell(td, employee, skillName) {
             } else {
                 s.level = val;
             }
-            // update visual class
-            // remove preview classes
-            for (let j = 1; j <= 5; j++) sel.classList.remove(`level-preview-${j}`);
-            sel.className = 'skill-select' + (val ? ` level-${val}` : '');
             sel.__committed = false;
             sel.__previewing = false;
         });
@@ -267,46 +296,64 @@ function renderSkillCell(td, employee, skillName) {
         return;
     }
     const level = skill.level;
-    // render select with current level selected, styled by level
+
+    if (useNumericInput) {
+        // Render number input with current value
+        const input = document.createElement('input');
+        input.type = 'number';
+        input.min = '0';
+        input.step = '0.5';
+        input.value = level || '';
+        input.className = 'skill-number-input';
+        input.title = `${skillName}: years of experience`;
+        input.dataset.skillName = skillName;
+        input.addEventListener('change', (e) => {
+            e.stopPropagation();
+            const val = e.target.value ? Number(e.target.value) : null;
+            const s = employee.skills.find(s => s.name.toLowerCase() === skillName.toLowerCase());
+            if (s) s.level = val;
+        });
+        td.appendChild(input);
+        return;
+    }
+
+    // render select with current level selected, no color styling
     const sel = document.createElement('select');
-    sel.className = `skill-select level-${level}`;
-    sel.title = `${skillName} • ${mapSkillLevelToLabel(level)}`;
+    sel.className = 'skill-select';
+    sel.title = `${skillName}`;
     sel.dataset.skillName = skillName;
-    // allow clearing to '-'
+
+    const isLanguage = category === "Language";
+
+    // Order: -, △, ◯, ◉ (Language excludes ◉)
     const emptyOpt = document.createElement('option');
     emptyOpt.value = '';
-    emptyOpt.textContent = '-';
+    emptyOpt.textContent = '';
+    if (!level) emptyOpt.selected = true;
     sel.appendChild(emptyOpt);
-    // Add ◯ (circle) and △ (triangle) options right after -
-    const circleOpt = document.createElement('option');
-    circleOpt.value = '6';
-    circleOpt.textContent = '◯';
-    sel.appendChild(circleOpt);
+
     const triangleOpt = document.createElement('option');
-    triangleOpt.value = '7';
+    triangleOpt.value = '2';
     triangleOpt.textContent = '△';
+    // select △ for level 1 or 2
+    if (level === 1 || level === 2) triangleOpt.selected = true;
     sel.appendChild(triangleOpt);
 
-    for (let i = 1; i <= 5; i++) {
-        const opt = document.createElement('option');
-        opt.value = String(i);
-        opt.textContent = String(i);
-        if (i === level) opt.selected = true;
-        sel.appendChild(opt);
-        opt.addEventListener('mouseenter', () => {
-            sel.__prevIndex = sel.selectedIndex;
-            sel.__previewing = true;
-            try { sel.selectedIndex = opt.index; } catch (e) { }
-            sel.classList.add(`level-preview-${i}`);
-        });
-        opt.addEventListener('mouseleave', () => {
-            sel.__previewing = false;
-            try { if (typeof sel.__prevIndex !== 'undefined') sel.selectedIndex = sel.__prevIndex; } catch (e) { }
-            sel.classList.remove(`level-preview-${i}`);
-        });
-        opt.addEventListener('mousedown', () => {
-            sel.__committed = true;
-        });
+    const circleOpt = document.createElement('option');
+    circleOpt.value = '3';
+    circleOpt.textContent = '◯';
+    // select ◯ for level 3 or 4; Language level 5 also maps to ◯
+    if (level === 3 || level === 4 || (isLanguage && level === 5)) circleOpt.selected = true;
+    sel.appendChild(circleOpt);
+
+    // Add ◉ (filled circle) for non-Language categories only
+    if (!isLanguage && !isPGLanguage) {
+        const filledCircleOpt = document.createElement('option');
+        // represent ◉ with numeric value 5 (maps from level 5)
+        filledCircleOpt.value = '5';
+        filledCircleOpt.textContent = '◉';
+        if (level === 5) filledCircleOpt.selected = true;
+        sel.appendChild(filledCircleOpt);
     }
     sel.addEventListener('click', (e) => e.stopPropagation());
     sel.addEventListener('change', (e) => {
@@ -315,140 +362,232 @@ function renderSkillCell(td, employee, skillName) {
         const val = e.target.value ? Number(e.target.value) : null;
         const s = employee.skills.find(s => s.name.toLowerCase() === skillName.toLowerCase());
         if (s) s.level = val;
-        for (let j = 1; j <= 5; j++) sel.classList.remove(`level-preview-${j}`);
-        sel.className = 'skill-select' + (val ? ` level-${val}` : '');
         sel.__committed = false;
         sel.__previewing = false;
     });
     td.appendChild(sel);
 }
 
-function renderSkillMatrix() {
-    if (!mockData) return;
-    const selectedDept = departmentFilter.value;
-    const employees = mockData.employees || [];
-    skillMatrixBody.innerHTML = "";
-
-    const filtered = employees.filter((emp) => {
-        if (selectedDept === "all") return true;
-        return emp.department === selectedDept;
-    });
-
-    // Apply sorting if requested
-    const rowsSource = filtered.slice();
-    if (matrixSort && matrixSort.key) {
-        rowsSource.sort((a, b) => {
-            const key = matrixSort.key;
-            const dir = matrixSort.dir === "asc" ? 1 : -1;
-
-            // name and department are string fields
-            if (key === "name" || key === "department") {
-                const va = String(a[key] || "").toLowerCase();
-                const vb = String(b[key] || "").toLowerCase();
-                if (va < vb) return -1 * dir;
-                if (va > vb) return 1 * dir;
-                return 0;
-            }
-
-            // skill columns -> numeric compare on level
-            const sa = getSkillLevel(a, key);
-            const sb = getSkillLevel(b, key);
-            const la = (sa && sa.level) || 0;
-            const lb = (sb && sb.level) || 0;
-            if (la < lb) return -1 * dir;
-            if (la > lb) return 1 * dir;
-            // fallback to name
-            const na = String(a.name || "").toLowerCase();
-            const nb = String(b.name || "").toLowerCase();
-            if (na < nb) return -1;
-            if (na > nb) return 1;
-            return 0;
-        });
-    }
-
-    rowsSource.forEach((emp) => {
-        const tr = document.createElement("tr");
-        tr.dataset.employeeId = emp.id;
-
-        const nameTd = createElement("td", "employee-name-cell", emp.name);
-        const deptTd = createElement("td", "department-cell", emp.department);
-
-        tr.appendChild(nameTd);
-        tr.appendChild(deptTd);
-
-        // Use dynamically loaded skills from matrixSkillNames
-        matrixSkillNames.forEach((skillName) => {
-            const td = document.createElement("td");
-            renderSkillCell(td, emp, skillName);
-            tr.appendChild(td);
-        });
-
-        tr.addEventListener("click", () => openEmployeeDetail(emp.id));
-        skillMatrixBody.appendChild(tr);
-    });
-
-    // Update header sort indicators (if any)
-    updateHeaderSortIndicators();
-}
-
-
-function updateHeaderSortIndicators() {
-    const thead = document.querySelector(".matrix-table thead tr");
-    if (!thead) return;
-    const ths = Array.from(thead.children);
-
-    ths.forEach((th, idx) => {
-        // remove existing indicator
-        const existing = th.querySelector(".sort-indicator");
-        if (existing) existing.remove();
-
-        const key = idx === 0 ? "name" : idx === 1 ? "department" : matrixSkillNames[idx - 2];
-
-        // mark sorted column to hide the subtle hint (::after) via CSS
-        th.classList.toggle('sorted', matrixSort && matrixSort.key === key);
-
-        if (matrixSort && matrixSort.key === key) {
-            const span = document.createElement("span");
-            span.className = "sort-indicator";
-            span.textContent = matrixSort.dir === "asc" ? "▲" : "▼";
-            th.appendChild(span);
-        }
-    });
-}
-
 function initMatrixSorting() {
-    const thead = document.querySelector(".matrix-table thead tr");
-    if (!thead) return;
+    // Setup sorting controls for skill matrix
+    // This function initializes event listeners for sorting if needed
+    // Currently matrixSort is set to { key: "department", dir: "desc" }
+}
 
-    // Clear existing headers except Employee Name and Group
-    while (thead.children.length > 2) {
-        thead.removeChild(thead.lastChild);
+function renderSkillMatrix() {
+    if (!mockData) {
+        console.warn("renderSkillMatrix: mockData is null");
+        return;
     }
 
-    // Add dynamic skill headers
-    matrixSkillNames.forEach((skillName) => {
+    console.log("renderSkillMatrix: START, mockData.employees =", mockData.employees?.length);
+
+    const selectedDept = departmentFilter ? departmentFilter.value : "all";
+    const searchTerm = (document.getElementById("matrix-search") ? document.getElementById("matrix-search").value.trim().toLowerCase() : "");
+    const employees = mockData.employees || [];
+    const thead = document.querySelector(".skill-matrix thead tr");
+    const skillMatrixBody = document.getElementById("skill-matrix-body");
+
+    console.log("renderSkillMatrix: employees =", employees.length, "thead =", thead ? "found" : "NOT FOUND", "body =", skillMatrixBody ? "found" : "NOT FOUND");
+
+    if (!thead || !skillMatrixBody) {
+        console.warn("renderSkillMatrix: DOM elements not found!");
+        return;
+    }
+
+    // Filter employees
+    const filtered = employees.filter((emp) => {
+        if (selectedDept && selectedDept !== "all") {
+            const deptVal = emp.department || emp.group || emp.group_name || emp.department_name || "";
+            if (deptVal !== selectedDept) return false;
+        }
+        if (searchTerm) {
+            const hay = ((emp.name || emp.full_name || emp.email || emp.id || "") + "").toLowerCase();
+            if (!hay.includes(searchTerm)) return false;
+        }
+        return true;
+    });
+
+    // Sort by department then name
+    filtered.sort((a, b) => {
+        const deptA = (a.department || a.group || "").toLowerCase();
+        const deptB = (b.department || b.group || "").toLowerCase();
+        if (deptA !== deptB) return deptA.localeCompare(deptB);
+        const nameA = (a.name || a.full_name || "").toLowerCase();
+        const nameB = (b.name || b.full_name || "").toLowerCase();
+        return nameA.localeCompare(nameB);
+    });
+
+    // Build employee column headers (3 label columns + employee columns)
+    thead.innerHTML = '<th class="skill-label-col">Category</th><th class="skill-label-col">SubCategory</th><th class="skill-label-col">Skill</th>';
+    filtered.forEach((emp) => {
         const th = document.createElement("th");
-        th.textContent = skillName;
+        th.textContent = emp.name || emp.full_name || "Unknown";
+        th.title = emp.email || "";
+        th.dataset.employeeId = emp.id;
+        th.style.cursor = "pointer";
+        th.addEventListener("click", () => {
+            openEmployeeDetail(emp.id);
+        });
         thead.appendChild(th);
     });
 
-    const ths = Array.from(thead.children);
+    // Build skill matrix rows with 3 columns: category, subcategory, skill
+    skillMatrixBody.innerHTML = "";
+    const categories = mockData.skill_categories || [];
+    const skillsMaster = mockData.skills_master || [];
 
-    ths.forEach((th, idx) => {
-        const key = idx === 0 ? "name" : idx === 1 ? "department" : matrixSkillNames[idx - 2];
-        th.style.cursor = "pointer";
-        th.addEventListener("click", (e) => {
-            if (matrixSort.key === key) {
-                matrixSort.dir = matrixSort.dir === "asc" ? "desc" : "asc";
-            } else {
-                matrixSort.key = key;
-                matrixSort.dir = "desc"; // default to desc for numeric skills
+    // Create array of all skills with their category hierarchy
+    const skillRows = [];
+
+    const topCategories = categories.filter(c => c.level === 1);
+    topCategories.forEach((topCat) => {
+        const subCategories = categories.filter(c => c.parent_id === topCat.id);
+
+        if (subCategories.length > 0) {
+            // Has sub-categories
+            subCategories.forEach((subCat) => {
+                const skillsInSubCat = skillsMaster.filter(s => s.cat_id === subCat.id);
+                skillsInSubCat.forEach((skill) => {
+                    skillRows.push({
+                        category: topCat.cat_name,
+                        subcategory: subCat.cat_name,
+                        skill: skill,
+                    });
+                });
+            });
+        } else {
+            // No sub-categories: show skills directly under main category (linked to level 1 cat_id)
+            const skillsInMainCat = skillsMaster.filter(s => s.cat_id === topCat.id);
+            skillsInMainCat.forEach((skill) => {
+                skillRows.push({
+                    category: topCat.cat_name,
+                    subcategory: "",
+                    skill: skill,
+                });
+            });
+        }
+    });
+
+    // Calculate rowspans for category and subcategory
+    const categoryRowSpans = {};
+    const subcategoryRowSpans = {};
+    let currentCat = null;
+    let currentSubCat = null;
+    let catCount = 0;
+    let subCatCount = 0;
+    let prevCatKey = null;
+
+    skillRows.forEach((row, idx) => {
+        const catKey = row.category;
+        const subCatKey = row.category + "|" + row.subcategory;
+
+        // Track category changes
+        if (row.category !== currentCat) {
+            // Save previous category rowspan
+            if (currentCat !== null && catCount > 0) {
+                categoryRowSpans[currentCat] = catCount;
             }
-            renderSkillMatrix();
+            // Save previous subcategory rowspan
+            if (currentSubCat !== null && subCatCount > 0) {
+                subcategoryRowSpans[prevCatKey + "|" + currentSubCat] = subCatCount;
+            }
+            currentCat = row.category;
+            currentSubCat = null; // Reset subcategory when category changes
+            prevCatKey = catKey;
+            catCount = 1;
+            subCatCount = 0;
+        } else {
+            catCount++;
+        }
+
+        // Track subcategory changes
+        if (row.subcategory !== currentSubCat) {
+            if (currentSubCat !== null && subCatCount > 0) {
+                subcategoryRowSpans[prevCatKey + "|" + currentSubCat] = subCatCount;
+            }
+            currentSubCat = row.subcategory;
+            subCatCount = 1;
+        } else {
+            subCatCount++;
+        }
+    });
+
+    // Store last ones
+    if (currentCat !== null && catCount > 0) {
+        categoryRowSpans[currentCat] = catCount;
+    }
+    if (currentSubCat !== null && subCatCount > 0) {
+        subcategoryRowSpans[currentCat + "|" + currentSubCat] = subCatCount;
+    }
+
+    // Render each skill row with rowspan
+    const renderedCategories = new Set();
+    const renderedSubcategories = new Set();
+
+    skillRows.forEach((row, idx) => {
+        const tr = document.createElement("tr");
+        const catKey = row.category;
+        const subCatKey = row.category + "|" + row.subcategory;
+
+        // attach dataset keys so each row knows its category/subcategory
+        tr.dataset.catKey = catKey;
+        tr.dataset.subcatKey = subCatKey;
+
+        // Category column - with rowspan
+        if (!renderedCategories.has(catKey)) {
+            const catTd = document.createElement("td");
+            catTd.textContent = row.category;
+            catTd.className = "skill-label-col cat-col";
+            catTd.rowSpan = categoryRowSpans[catKey] || 1;
+            // mark the category cell so it can be highlighted when hovering other rows
+            catTd.dataset.catKey = catKey;
+            tr.appendChild(catTd);
+            renderedCategories.add(catKey);
+        }
+
+        // SubCategory column - with rowspan
+        if (!renderedSubcategories.has(subCatKey)) {
+            const subCatTd = document.createElement("td");
+            subCatTd.textContent = row.subcategory;
+            subCatTd.className = "skill-label-col subcat-col";
+            subCatTd.rowSpan = subcategoryRowSpans[subCatKey] || 1;
+            // mark the subcategory cell so it can be highlighted when hovering other rows
+            subCatTd.dataset.subcatKey = subCatKey;
+            tr.appendChild(subCatTd);
+            renderedSubcategories.add(subCatKey);
+        }
+
+        // Skill column
+        const skillTd = document.createElement("td");
+        skillTd.textContent = row.skill.skill_name || "";
+        skillTd.className = "skill-col";
+        tr.appendChild(skillTd);
+
+        // Employee skill cells
+        filtered.forEach((emp) => {
+            const td = document.createElement("td");
+            renderSkillCell(td, emp, row.skill.skill_name, row.category);
+            tr.appendChild(td);
         });
+
+        // when hovering any row, highlight the corresponding sticky category/subcategory cells
+        tr.addEventListener('mouseenter', function () {
+            const catSel = `.skill-matrix tbody td.cat-col[data-cat-key="${catKey}"]`;
+            const subSel = `.skill-matrix tbody td.subcat-col[data-subcat-key="${subCatKey}"]`;
+            document.querySelectorAll(catSel).forEach(el => el.classList.add('hovered'));
+            document.querySelectorAll(subSel).forEach(el => el.classList.add('hovered'));
+        });
+        tr.addEventListener('mouseleave', function () {
+            const catSel = `.skill-matrix tbody td.cat-col[data-cat-key="${catKey}"]`;
+            const subSel = `.skill-matrix tbody td.subcat-col[data-subcat-key="${subCatKey}"]`;
+            document.querySelectorAll(catSel).forEach(el => el.classList.remove('hovered'));
+            document.querySelectorAll(subSel).forEach(el => el.classList.remove('hovered'));
+        });
+
+        skillMatrixBody.appendChild(tr);
     });
 }
-// Employee detail rendering
 
 function openEmployeeDetail(employeeId) {
     if (!mockData) return;
@@ -468,7 +607,6 @@ function openEmployeeDetail(employeeId) {
     setActiveNav(null); // clear nav active; detail is context view
     showView("employee-detail");
     updateEmployeeAvatar(employee);
-
 
     // Populate calendar AFTER the view is visible to avoid FullCalendar height collapse
     // (rendering while hidden can cause a collapsed height until a browser repaint)
@@ -831,6 +969,57 @@ function initFullCalendarIfNeeded() {
     fullCalendar.render();
 }
 
+// Import JSON (datamock.json shape or a simple { employees: [...] })
+function handleImportFile(e) {
+    const file = e.target.files && e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function (evt) {
+        try {
+            const text = evt.target.result;
+            if (file.name.endsWith('.json')) {
+                const parsed = JSON.parse(text);
+                if (parsed.employees) {
+                    mockData = parsed;
+                } else if (parsed.users || parsed.employee_profiles) {
+                    const users = parsed.users || [];
+                    const groups = parsed.groups || [];
+                    const employees = users.map(u => ({
+                        id: u.id,
+                        name: u.full_name || u.name,
+                        email: u.email,
+                        department: groups.find(g => g.id === u.group_id)?.group_name || u.group || '',
+                        group: groups.find(g => g.id === u.group_id)?.group_name || u.group || '',
+                        status: u.status || 'Active',
+                        skills: []
+                    }));
+                    mockData = {
+                        employees,
+                        skills_master: parsed.skills_master || [],
+                        skill_categories: parsed.skill_categories || []
+                    };
+                } else {
+                    mockData = parsed;
+                }
+
+                populateDepartmentFilter();
+                if (mockData.skills_master) matrixSkillNames = mockData.skills_master.map(s => s.skill_name || s.skillName || s.name);
+                initMatrixSorting();
+                renderSkillMatrix();
+                alert('Import successful');
+            } else if (file.name.endsWith('.csv')) {
+                alert('CSV import not supported in this demo. Use JSON datamock format.');
+            }
+        } catch (err) {
+            console.error(err);
+            alert('Failed to import file: ' + (err && err.message ? err.message : err));
+        } finally {
+            try { e.target.value = ''; } catch (e) { }
+        }
+    };
+    reader.readAsText(file);
+}
+
 function makeCourseCardsDraggable() {
     // Make course cards draggable into FullCalendar
     if (!window.FullCalendar || !FullCalendar.Draggable) return;
@@ -1053,7 +1242,7 @@ function exportMatrixToCsv() {
     });
 
     // Use dynamic skills
-    const header = ["Employee Name", "Group", ...matrixSkillNames];
+    const header = ["Employee Name", "Team", ...matrixSkillNames];
 
     const csvRows = [header.join(",")];
 
@@ -1168,7 +1357,6 @@ function initCourseTabs() {
         });
     });
 }
-
 
 function initCalendarViewButtons() {
     if (!calendarViewBtns || calendarViewBtns.length === 0) return;
@@ -1529,16 +1717,21 @@ async function loadData() {
         const res = await fetch("datamock.json", { cache: "no-store" });
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const rawData = await res.json();
+        console.log("loadData: rawData loaded, employees:", rawData.users?.length);
         // Transform new database schema to legacy format
         mockData = transformDatabaseToLegacyFormat(rawData);
+        console.log("loadData: mockData transformed, employees:", mockData.employees?.length);
         // Preserve skills_master from raw data for dynamic header generation
         if (rawData && rawData.skills_master) {
             mockData.skills_master = rawData.skills_master;
+            console.log("loadData: skills_master added:", rawData.skills_master.length);
         }
         // Preserve skill_categories for radar axes
         if (rawData && rawData.skill_categories) {
             mockData.skill_categories = rawData.skill_categories;
+            console.log("loadData: skill_categories added:", rawData.skill_categories.length);
         }
+        console.log("loadData: complete, mockData =", mockData);
     } catch (err) {
         console.error("Failed to load datamock.json:", err);
         mockData = { employees: [] };
@@ -1573,8 +1766,40 @@ async function init() {
     // Initial view
     showView("skill-matrix");
     setActiveNav("skill-matrix");
+
+    // Initialize skill guide popup handlers
+    initSkillGuide();
 }
 
 window.addEventListener("DOMContentLoaded", init);
+
+// Skill guide popup logic
+function initSkillGuide() {
+    const btn = document.getElementById('skill-guide-btn');
+    const modal = document.getElementById('skill-guide-modal');
+    const closeBtn = document.getElementById('skill-guide-close');
+    if (!btn || !modal) return;
+    btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        modal.classList.add('open');
+        modal.setAttribute('aria-hidden', 'false');
+    });
+    if (closeBtn) closeBtn.addEventListener('click', () => {
+        modal.classList.remove('open');
+        modal.setAttribute('aria-hidden', 'true');
+    });
+    const overlay = modal.querySelector('.guide-overlay');
+    if (overlay) overlay.addEventListener('click', () => {
+        modal.classList.remove('open');
+        modal.setAttribute('aria-hidden', 'true');
+    });
+    // allow ESC to close
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.classList.contains('open')) {
+            modal.classList.remove('open');
+            modal.setAttribute('aria-hidden', 'true');
+        }
+    });
+}
 
 

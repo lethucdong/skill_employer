@@ -162,145 +162,243 @@
     "skill_categories": [
         {
             "id": 1,
-            "cat_name": "Backend"
+            "cat_name": "PG Language",
+            "parent_id": null,
+            "level": 1
         },
         {
             "id": 2,
-            "cat_name": "Frontend"
+            "cat_name": "Backend",
+            "parent_id": 1,
+            "level": 2
         },
         {
             "id": 3,
-            "cat_name": "Database"
+            "cat_name": "Frontend",
+            "parent_id": 1,
+            "level": 2
         },
         {
             "id": 4,
-            "cat_name": "Cloud"
+            "cat_name": "Web",
+            "parent_id": 3,
+            "level": 3
         },
         {
             "id": 5,
-            "cat_name": "Security"
+            "cat_name": "Mobile",
+            "parent_id": 3,
+            "level": 3
         },
         {
             "id": 6,
-            "cat_name": "Soft Skill"
+            "cat_name": "Database",
+            "parent_id": null,
+            "level": 1
         },
         {
             "id": 7,
-            "cat_name": "Domain Skill"
+            "cat_name": "Relational",
+            "parent_id": 6,
+            "level": 2
+        },
+        {
+            "id": 8,
+            "cat_name": "NoSQL",
+            "parent_id": 6,
+            "level": 2
+        },
+        {
+            "id": 9,
+            "cat_name": "Cloud & DevOps",
+            "parent_id": null,
+            "level": 1
+        },
+        {
+            "id": 10,
+            "cat_name": "Cloud Platform",
+            "parent_id": 9,
+            "level": 2
+        },
+        {
+            "id": 11,
+            "cat_name": "Containerization",
+            "parent_id": 9,
+            "level": 2
+        },
+        {
+            "id": 12,
+            "cat_name": "Security",
+            "parent_id": null,
+            "level": 1
+        },
+        {
+            "id": 13,
+            "cat_name": "Soft Skills",
+            "parent_id": null,
+            "level": 1
+        },
+        {
+            "id": 14,
+            "cat_name": "Language",
+            "parent_id": null,
+            "level": 1
         }
     ],
     "skills_master": [
         {
             "id": 1,
-            "cat_id": 1,
+            "cat_id": 2,
             "skill_name": "Node.js",
             "description": "Server-side JavaScript runtime",
-            "goalLevel": 5
+			"goalLevel": 5
         },
         {
             "id": 2,
-            "cat_id": 1,
+            "cat_id": 2,
             "skill_name": "Python",
             "description": "General-purpose programming language",
-            "goalLevel": 5
+			"goalLevel": 5
         },
         {
             "id": 3,
-            "cat_id": 1,
+            "cat_id": 2,
             "skill_name": "Java",
             "description": "Enterprise backend language",
-            "goalLevel": 5
+			"goalLevel": 5
         },
         {
             "id": 4,
-            "cat_id": 2,
+            "cat_id": 4,
             "skill_name": "React",
             "description": "Modern frontend framework",
-            "goalLevel": 5
+			"goalLevel": 5
         },
         {
             "id": 5,
-            "cat_id": 2,
+            "cat_id": 4,
             "skill_name": "Vue.js",
             "description": "Progressive frontend framework",
-            "goalLevel": 5
+			"goalLevel": 5
         },
         {
             "id": 6,
-            "cat_id": 2,
-            "skill_name": "UX Design",
-            "description": "User experience design principles",
-            "goalLevel": 5
+            "cat_id": 4,
+            "skill_name": "HTML / CSS",
+            "description": "Markup and styling",
+			"goalLevel": 5
         },
         {
             "id": 7,
-            "cat_id": 3,
-            "skill_name": "SQL",
-            "description": "Relational database query language",
-            "goalLevel": 5
+            "cat_id": 4,
+            "skill_name": "JavaScript",
+            "description": "Client-side scripting",
+			"goalLevel": 5
         },
         {
             "id": 8,
-            "cat_id": 3,
-            "skill_name": "MongoDB",
-            "description": "NoSQL document database",
-            "goalLevel": 5
+            "cat_id": 5,
+            "skill_name": "Swift",
+            "description": "iOS development language",
+			"goalLevel": 5
         },
         {
             "id": 9,
-            "cat_id": 3,
-            "skill_name": "Data Analysis",
-            "description": "Statistical analysis and insights",
-            "goalLevel": 5
+            "cat_id": 5,
+            "skill_name": "Flutter",
+            "description": "Cross-platform mobile framework",
+			"goalLevel": 5
         },
         {
             "id": 10,
-            "cat_id": 4,
-            "skill_name": "AWS",
-            "description": "Amazon Web Services platform",
-            "goalLevel": 5
+            "cat_id": 7,
+            "skill_name": "SQL",
+            "description": "Relational database query language",
+			"goalLevel": 5
         },
         {
             "id": 11,
             "cat_id": 7,
-            "skill_name": "Cloud Computing",
-            "description": "Cloud infrastructure and services",
-            "goalLevel": 5
+            "skill_name": "PostgreSQL",
+            "description": "Advanced relational database",
+			"goalLevel": 5
         },
         {
             "id": 12,
-            "cat_id": 4,
-            "skill_name": "Docker",
-            "description": "Containerization technology",
-            "goalLevel": 5
+            "cat_id": 8,
+            "skill_name": "MongoDB",
+            "description": "NoSQL document database",
+			"goalLevel": 5
         },
         {
             "id": 13,
-            "cat_id": 4,
-            "skill_name": "Kubernetes",
-            "description": "Container orchestration",
-            "goalLevel": 5
+            "cat_id": 8,
+            "skill_name": "Redis",
+            "description": "In-memory data store",
+			"goalLevel": 5
         },
         {
             "id": 14,
-            "cat_id": 5,
-            "skill_name": "Security",
-            "description": "Application and infrastructure security",
-            "goalLevel": 5
+            "cat_id": 10,
+            "skill_name": "AWS",
+            "description": "Amazon Web Services platform",
+			"goalLevel": 5
         },
         {
             "id": 15,
-            "cat_id": 5,
-            "skill_name": "Secure Coding",
-            "description": "Secure development practices",
-            "goalLevel": 5
+            "cat_id": 10,
+            "skill_name": "Google Cloud",
+            "description": "Google Cloud Platform",
+			"goalLevel": 5
         },
         {
             "id": 16,
-            "cat_id": 6,
+            "cat_id": 11,
+            "skill_name": "Docker",
+            "description": "Containerization technology",
+			"goalLevel": 5
+        },
+        {
+            "id": 17,
+            "cat_id": 11,
+            "skill_name": "Kubernetes",
+            "description": "Container orchestration",
+			"goalLevel": 5
+        },
+        {
+            "id": 18,
+            "cat_id": 12,
+            "skill_name": "Security",
+            "description": "Application and infrastructure security",
+			"goalLevel": 5
+        },
+        {
+            "id": 19,
+            "cat_id": 12,
+            "skill_name": "Secure Coding",
+            "description": "Secure development practices",
+			"goalLevel": 5
+        },
+        {
+            "id": 20,
+            "cat_id": 13,
             "skill_name": "Project Management",
             "description": "Project planning and coordination",
-            "goalLevel": 5
+			"goalLevel": 5
+        },
+        {
+            "id": 21,
+            "cat_id": 13,
+            "skill_name": "Communication",
+            "description": "Effective communication skills",
+			"goalLevel": 5
+        },
+        {
+            "id": 22,
+            "cat_id": 14,
+            "skill_name": "English",
+            "description": "English language proficiency",
+			"goalLevel": 5
         }
     ],
     "employee_skills": [
@@ -348,7 +446,6 @@
             "user_id": 1,
             "skill_id": 11,
             "level_score": 3,
-            "start_level_score": 1,
             "years_exp": 6.5,
             "last_verified": "2025-09-18T00:00:00Z"
         },
@@ -359,6 +456,14 @@
             "start_level_score": 1,
             "years_exp": 6.5,
             "last_verified": "2025-09-18T00:00:00Z"
+        },
+        {
+            "user_id": 1,
+            "skill_id": 22,
+            "level_score": 4,
+            "start_level_score": 1,
+            "years_exp": 5.0,
+            "last_verified": "2025-12-22T00:00:00Z"
         },
         {
             "user_id": 1,
