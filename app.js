@@ -1364,7 +1364,7 @@ function transformDatabaseToLegacyFormat(data) {
 function initTimelineSchedule(emp) {
     const container = document.getElementById("timelineSchedule");
     if (!container || !emp) return;
-    console.log(emp.courseCalendar)
+    container.innerHTML = "";
 
     // Convert courseCalendar to vis.js items
     const items = new vis.DataSet(
