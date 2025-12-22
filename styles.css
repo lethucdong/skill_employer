@@ -490,6 +490,23 @@ select {
     border-color: #424242 !important;
 }
 
+#employee-avatar {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    overflow: hidden;
+    background-color: #eee;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#employee-avatar img.employee-avatar-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
 
 /* donglt end*/
 

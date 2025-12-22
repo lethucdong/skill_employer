@@ -467,6 +467,8 @@ function openEmployeeDetail(employeeId) {
 
     setActiveNav(null); // clear nav active; detail is context view
     showView("employee-detail");
+    updateEmployeeAvatar(employee);
+
 
     // Populate calendar AFTER the view is visible to avoid FullCalendar height collapse
     // (rendering while hidden can cause a collapsed height until a browser repaint)
@@ -794,7 +796,7 @@ function populateCalendar(emp) {
         allDay: true,
     }));
     // replace events
-    fullCalendar.removeAllEvents();
+    // fullCalendar.removeAllEvents();
     fullCalendar.addEventSource(events);
 }
 
@@ -1312,6 +1314,7 @@ function transformDatabaseToLegacyFormat(data) {
         return {
             id: `E-${String(user.id).padStart(3, "0")}`,
             name: user.full_name,
+            avatar_url: user.avatar_url,
             role: user.role,
             department: group,
             experienceYears: experienceYears,
@@ -1360,6 +1363,20 @@ function transformDatabaseToLegacyFormat(data) {
 
     return { employees };
 }
+
+function updateEmployeeAvatar(emp) {
+    const avatarEl = document.getElementById("employee-avatar");
+
+    // Xóa nội dung cũ
+    avatarEl.innerHTML = "";
+
+    const img = document.createElement("img");
+    img.src = emp.avatar_url || 'https://img.freepik.com/premium-vector/default-avatar-profile-icon-social-media-user-image-gray-avatar-icon-blank-profile-silhouette-vector-illustration_561158-3396.jpg';
+    img.alt = `${emp.full_name}'s avatar`;
+    img.className = "employee-avatar-img";
+    avatarEl.appendChild(img);
+}
+
 
 function initTimelineSchedule(emp) {
     const container = document.getElementById("timelineSchedule");

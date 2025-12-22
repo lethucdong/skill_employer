@@ -34,7 +34,8 @@
             "password_hash": "hashed_password_1",
             "role": "Software Developer",
             "group_id": 1,
-            "status": "Active"
+            "status": "Active",
+            "avatar_url": "https://i.pinimg.com/236x/39/a5/27/39a527706239a83ad8be0525514fc62e.jpg"
         },
         {
             "id": 2,
