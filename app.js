@@ -456,6 +456,8 @@ function openEmployeeDetail(employeeId) {
     if (!employee) return;
     currentEmployee = employee;
 
+    initCourseTabs();
+    initTimelineSchedule(employee);
     populateEmployeeOverview(employee);
     populateRadarChart(employee);
     populateHeatmap(employee);
@@ -569,79 +571,107 @@ function populateRadarChart(emp) {
     });
 }
 
+function getLevelBadge(level) {
+    const lvl = Math.max(1, Math.min(5, level || 1)); // đảm bảo 1-5
+    return `<span class="skill-badge skill-badge--level-${lvl}">${lvl}</span>`;
+}
+
 function populateHeatmap(emp) {
     heatmapList.innerHTML = "";
 
-    // ===== HEADER ROW =====
-    const header = createElement("div", "heatmap-row heatmap-header");
-    header.appendChild(createElement("div", "heatmap-font heatmap-skill-name", "Skill"));
-    header.appendChild(createElement("div", "heatmap-font heatmap-level", "Level"));
-    header.appendChild(createElement("div", "heatmap-font heatmap-trend", "Trend"));
-    header.appendChild(createElement("div", "heatmap-font heatmap-lastused", "Last Used"));
-    heatmapList.appendChild(header);
-
-    const skills = [...(emp.skills || [])];
-
-    // Sort by level desc then name
-    skills.sort((a, b) => {
-        const la = a.level || 0;
-        const lb = b.level || 0;
-        if (lb !== la) return lb - la;
-        return a.name.localeCompare(b.name);
-    });
-
-    if (skills.length === 0) {
-        const emptyState = createElement("div", "empty-state");
-        emptyState.innerHTML = '<p>No skills recorded</p>';
-        heatmapList.appendChild(emptyState);
+    if (!emp || !emp.skills || emp.skills.length === 0) {
+        heatmapList.innerHTML = "<p>No skills recorded</p>";
         return;
     }
 
+    const table = document.createElement("table");
+    table.className = "skill-table";
+
+    table.innerHTML = `
+        <thead>
+            <tr>
+                <th>Skill Name</th>
+                <th>Start Level</th>
+                <th>Current Level</th>
+                <th>Goal Level</th>
+                <th>Trend</th>
+                <th>Comment</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    `;
+
+    const tbody = table.querySelector("tbody");
+
+    const skills = [...emp.skills].sort(
+        (a, b) => (b.level || 0) - (a.level || 0)
+    );
+
     skills.forEach((skill) => {
-        const row = createElement("div", "heatmap-row");
+        const comment = getSkillComment(skill);
+        const trendHtml = renderTrend(skill);
 
-        const nameEl = createElement("div", "heatmap-skill-name", skill.name);
-        const levelEl = createElement(
-            "div",
-            "heatmap-level",
-            mapSkillLevelToLabel(skill.level)
-        );
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+            <td>${skill.name}</td>
+            <td>${getLevelBadge(skill.startLevel)}</td>
+            <td>${getLevelBadge(skill.level)}</td>
+            <td>${getLevelBadge(skill.goalLevel)}</td>
+            <td>${trendHtml}</td>
+            <td>${comment}</td>
+        `;
 
-        // Trend
-        const trendEl = createElement("div", "heatmap-trend");
-        const arrowSpan = createElement("span");
-        const labelSpan = createElement("span");
-        let trendClass = "trend--stable";
-        if (skill.trend === "growing") {
-            arrowSpan.textContent = "↑";
-            labelSpan.textContent = "Growing";
-            trendClass = "trend--up";
-        } else if (skill.trend === "decaying") {
-            arrowSpan.textContent = "↓";
-            labelSpan.textContent = "Decaying";
-            trendClass = "trend--down";
-        } else {
-            arrowSpan.textContent = "→";
-            labelSpan.textContent = "Stable";
-        }
-        trendEl.classList.add(trendClass);
-        trendEl.appendChild(arrowSpan);
-        trendEl.appendChild(labelSpan);
-
-        const lastUsedEl = createElement(
-            "div",
-            "heatmap-lastused",
-            `Last used: ${formatDate(skill.lastUsedDate)}`
-        );
-
-        row.appendChild(nameEl);
-        row.appendChild(levelEl);
-        row.appendChild(trendEl);
-        row.appendChild(lastUsedEl);
-
-        heatmapList.appendChild(row);
+        tbody.appendChild(tr);
     });
+
+    heatmapList.appendChild(table);
 }
+
+document.querySelectorAll('.tabs-header .tab').forEach(btn => {
+    btn.addEventListener('click', () => {
+        const headerGroup = btn.closest('.tabs-header');
+        headerGroup
+            .querySelectorAll('.tab')
+            .forEach(t => t.classList.remove('tab--active'));
+        btn.classList.add('tab--active');
+
+        const tabId = btn.dataset.tab;
+        const panelsContainer = headerGroup.nextElementSibling; // chỉ panel chính
+        panelsContainer
+            .querySelectorAll('.tab-panel')
+            .forEach(panel => {
+                panel.hidden = panel.id !== `tab-${tabId}`;
+            });
+        console.log(tabId)
+        if (tabId === "courses") {
+            // App logic để render courses
+            setTimeout(() => {
+                if (currentEmployee) {
+                    populateCourses(currentEmployee);
+                }
+
+                // ==== MAKE FIRST SUBTAB VISIBLE ====
+                const courseTabsContainer = document.getElementById("course-tabs");
+                if (courseTabsContainer) {
+                    // remove active ở tất cả subtabs
+                    const subBtns = courseTabsContainer.querySelectorAll(".tab");
+                    subBtns.forEach((btn) => btn.classList.remove("tab--active"));
+
+                    // chọn default là Current Courses
+                    const defaultBtn = courseTabsContainer.querySelector("[data-tab='current']");
+                    if (defaultBtn) defaultBtn.classList.add("tab--active");
+
+                    // show chỉ panel current
+                    const panelWrapper = courseTabsContainer.closest(".panel-body");
+                    const nestedPanels = panelWrapper.querySelectorAll(".tab-panels > .tab-panel");
+                    nestedPanels.forEach((panel) => {
+                        panel.hidden = panel.id !== "tab-current";
+                    });
+                }
+            }, 0);
+        }
+    });
+});
 
 function populateAiAnalysis(emp) {
     aiGrowthList.innerHTML = "";
@@ -1112,23 +1142,31 @@ function initHeatmapToggle() {
 }
 
 function initCourseTabs() {
-    if (!courseTabs) return;
-    courseTabs.addEventListener("click", (e) => {
+    const courseTabsContainer = document.getElementById("course-tabs");
+    if (!courseTabsContainer) return;
+
+    const coursePanels = courseTabsContainer
+        .closest(".panel-body")
+        .querySelectorAll(".tab-panel");
+
+    courseTabsContainer.addEventListener("click", (e) => {
         const btn = e.target.closest(".tab");
         if (!btn) return;
+
         const tabName = btn.getAttribute("data-tab");
         if (!tabName) return;
 
-        courseTabs
+        courseTabsContainer
             .querySelectorAll(".tab")
             .forEach((t) => t.classList.remove("tab--active"));
         btn.classList.add("tab--active");
 
-        document.querySelectorAll(".tab-panel").forEach((panel) => {
+        coursePanels.forEach((panel) => {
             panel.hidden = panel.id !== `tab-${tabName}`;
         });
     });
 }
+
 
 function initCalendarViewButtons() {
     if (!calendarViewBtns || calendarViewBtns.length === 0) return;
@@ -1214,6 +1252,9 @@ function transformDatabaseToLegacyFormat(data) {
             }
 
             return {
+                skill_id: es.skill_id,
+                startLevel: es.start_level_score,
+                goalLevel: skillsMaster.find(s => s.id === es.skill_id)?.goalLevel || 5,
                 name: skillName,
                 level: es.level_score,
                 lastUsedDate: es.last_verified || new Date().toISOString(),
@@ -1294,11 +1335,15 @@ function transformDatabaseToLegacyFormat(data) {
             },
             courseCalendar: userEnrollments.map((e) => {
                 const course = courses.find((c) => c.id === e.course_id) || {};
+
                 return {
+                    courseId: course.id,
                     courseName: course.course_name || "Course",
-                    // prefer explicit course start/end fields from datamock; fall back to safe defaults
-                    startDate: course.start_date || course.startDate || "2025-01-01",
-                    endDate: course.end_date || course.endDate || "2025-12-31",
+                    startDate: course.start_date || course.startDate || null,
+                    endDate: course.end_date || course.endDate || null,
+                    status: e.status || null,
+                    progress: e.progress ?? null,
+                    completedAt: e.completed_at || null
                 };
             }),
             projectHistory: userAllocations.map((a) => {
@@ -1315,6 +1360,142 @@ function transformDatabaseToLegacyFormat(data) {
 
     return { employees };
 }
+
+function initTimelineSchedule(emp) {
+    const container = document.getElementById("timelineSchedule");
+    if (!container || !emp) return;
+    console.log(emp.courseCalendar)
+
+    // Convert courseCalendar to vis.js items
+    const items = new vis.DataSet(
+        (emp.courseCalendar || []).map((c, i) => ({
+            id: i + 1,
+            content: c.courseName,
+            start: c.startDate,
+            end: c.endDate,
+            title: `
+            <div style="white-space: normal; font-size: 12px; line-height: 1.4;">
+                <strong>${c.courseName}</strong><br>
+                Status: ${c.status}<br>
+                Progress: ${c.progress}%<br>
+                Start: ${c.startDate}<br>
+                End: ${c.endDate}
+            </div>
+        `,
+            className: (() => {
+                if (c.status === "In-progress") return "course-inprogress";
+                if (c.status === "Planned") return "course-planned";
+                if (c.status === "Completed") return "course-completed";
+                return "";
+            })()
+        }))
+    );
+
+
+    // Timeline options: auto zoom, show current time bar
+    const options = {
+        width: "100%",
+        height: "240px",
+        showCurrentTime: true,
+        stack: true,
+        zoomable: true,
+        horizontalScroll: true
+    };
+
+    // Create the vis Timeline instance
+    const timeline = new vis.Timeline(container, items, options);
+
+    // ---- Carousel / window control ----
+
+    // Determine slides by dividing timeline by months
+    const mapDates = emp.courseCalendar.map(cc => ({
+        start: new Date(cc.startDate),
+        end: new Date(cc.endDate)
+    }));
+
+    // Sort by earliest start
+    mapDates.sort((a, b) => a.start - b.start);
+
+    // Build view ranges per month
+    const viewRanges = [];
+    if (mapDates.length) {
+        let current = new Date(mapDates[0].start);
+        let lastDate = new Date(mapDates[mapDates.length - 1].end);
+
+        while (current <= lastDate) {
+            const next = new Date(current);
+            next.setMonth(next.getMonth() + 1);
+
+            viewRanges.push({
+                start: current.toISOString().split("T")[0],
+                end: next.toISOString().split("T")[0]
+            });
+
+            current = next;
+        }
+    }
+
+    let currentViewIndex = 0;
+
+    function showView(index) {
+        if (!viewRanges.length) {
+            // If no ranges defined, fit all items
+            timeline.fit();
+            return;
+        }
+        const range = viewRanges[index];
+        timeline.setWindow(range.start, range.end, { animation: true });
+    }
+
+    document.getElementById("prevSlide").addEventListener("click", () => {
+        if (viewRanges.length === 0) return;
+        currentViewIndex = Math.max(0, currentViewIndex - 1);
+        showView(currentViewIndex);
+    });
+
+    document.getElementById("nextSlide").addEventListener("click", () => {
+        if (viewRanges.length === 0) return;
+        currentViewIndex = Math.min(viewRanges.length - 1, currentViewIndex + 1);
+        showView(currentViewIndex);
+    });
+
+    // Initialize on first view (or fit if no ranges)
+    showView(currentViewIndex);
+}
+
+
+function getSkillComment(skill) {
+    const lastUsed = new Date(skill.lastUsedDate);
+    const now = new Date();
+    const diffMonths =
+        (now.getFullYear() - lastUsed.getFullYear()) * 12 +
+        (now.getMonth() - lastUsed.getMonth());
+
+    if (skill.level > skill.startLevel) {
+        return "Skill improved through recent project usage";
+    }
+
+    if (diffMonths > 12) {
+        return "Skill may be decaying due to long inactivity";
+    }
+
+    if (diffMonths <= 6) {
+        return "Skill actively used in recent projects";
+    }
+
+    return "Skill level remains stable";
+}
+
+function renderTrend(skill) {
+    if (skill.trend === "growing") {
+        return `<span class="trend trend--up">↑ Growing</span>`;
+    }
+    if (skill.trend === "decaying") {
+        return `<span class="trend trend--down">↓ Decaying</span>`;
+    }
+    return `<span class="trend trend--stable">→ Stable</span>`;
+}
+
 
 // Data loading
 

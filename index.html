@@ -10,6 +10,9 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- FullCalendar for drag-and-drop calendar -->
     <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css" rel="stylesheet" />
+    <link href="https://unpkg.com/vis-timeline@latest/styles/vis-timeline-graph2d.min.css" rel="stylesheet" />
+    <script src="https://unpkg.com/vis-timeline@latest/standalone/umd/vis-timeline-graph2d.min.js"></script>
+
 </head>
 
 <body>
@@ -52,7 +55,7 @@
                 </div>
             </div>
         </aside>
-    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+        <div class="sidebar-overlay" id="sidebar-overlay"></div>
 
         <!-- Main Content -->
         <div class="main">
@@ -252,132 +255,136 @@
                             </section>
 
                             <!-- SECTION 3 – SKILL HEATMAP (COLLAPSIBLE) -->
-                            <section class="panel panel--heatmap">
-                                <div class="panel-header panel-header--inline">
-                                    <h2>Skill Heatmap</h2>
-                                    <span class="panel-caption">
-                                        Detailed view of individual skills, current level and trend.
-                                    </span>
+                            <!-- TAB CONTAINER -->
+                            <div class="tabs-container">
+                                <div class="tabs-header">
+                                    <button class="tab tab--active" data-tab="heatmap">Skill Heatmap</button>
+                                    <button class="tab" data-tab="ai">AI Skill Analysis</button>
+                                    <button class="tab" data-tab="courses">Training & Courses</button>
+                                    <button class="tab" data-tab="calendar">Course Calendar</button>
+                                    <button class="tab" data-tab="projects">Project History</button>
                                 </div>
-                                <!-- <button class="panel-toggle" id="heatmap-toggle">
-                                <div>
-                                    <h2>Skill Heatmap</h2>
-                                    <span class="panel-caption">
-                                        Detailed view of individual skills, current level and trend.
-                                    </span>
-                                </div>
-                                <span class="panel-toggle-icon" id="heatmap-toggle-icon">▾</span>
-                            </button> -->
-                                <div class="panel-body panel-body--collapsible" id="heatmap-body">
-                                    <div class="heatmap-legend">
-                                        <span class="legend-item"><span
-                                                class="legend-dot legend-dot--up"></span>Growing</span>
-                                        <span class="legend-item"><span
-                                                class="legend-dot legend-dot--down"></span>Decaying</span>
-                                        <span class="legend-item"><span
-                                                class="legend-dot legend-dot--stable"></span>Stable</span>
-                                    </div>
-                                    <div id="skill-heatmap-list" class="heatmap-list">
-                                        <!-- Items injected by app.js -->
-                                    </div>
-                                </div>
-                            </section>
-                        </div>
-                        <!-- donglt end -->
 
-                        <!-- SECTION 4 – AI SKILL ANALYSIS -->
-                        <section class="panel">
-                            <div class="panel-header">
-                                <h2>AI Skill Analysis</h2>
-                            </div>
-                            <div class="panel-body panel-body--ai">
-                                <div class="ai-columns">
-                                    <div>
-                                        <h3>Growth Signals</h3>
-                                        <ul id="ai-growth-list" class="tag-list">
-                                            <!-- Tags injected -->
-                                        </ul>
+                                <div class="tabs-panels">
+                                    <!-- TAB 1 – SKILL HEATMAP -->
+                                    <div class="tab-panel" id="tab-heatmap">
+                                        <section class="panel panel--heatmap">
+                                            <div class="panel-header panel-header--inline">
+                                                <h2>Skill Heatmap</h2>
+                                                <span class="panel-caption">
+                                                    Detailed view of individual skills, current level and trend.
+                                                </span>
+                                            </div>
+                                            <div class="panel-body panel-body--collapsible" id="heatmap-body">
+                                                <div class="heatmap-legend">
+                                                    <span class="legend-item"><span
+                                                            class="legend-dot legend-dot--up"></span>Growing</span>
+                                                    <span class="legend-item"><span
+                                                            class="legend-dot legend-dot--down"></span>Decaying</span>
+                                                    <span class="legend-item"><span
+                                                            class="legend-dot legend-dot--stable"></span>Stable</span>
+                                                </div>
+                                                <div id="skill-heatmap-list" class="heatmap-container"></div>
+                                            </div>
+                                        </section>
                                     </div>
-                                    <div>
-                                        <h3>Decay Signals</h3>
-                                        <ul id="ai-decay-list" class="tag-list">
-                                            <!-- Tags injected -->
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="ai-recommendation-block">
-                                    <h3>AI Recommendation</h3>
-                                    <p id="ai-recommendation-text">
-                                        AI-generated recommendations will prioritize training, mentoring and project
-                                        types that best align with the employee’s growth trajectory and organizational
-                                        needs.
-                                    </p>
-                                </div>
-                            </div>
-                        </section>
 
-                        <!-- SECTION 5 – TRAINING & COURSES -->
-                        <section class="panel">
-                            <div class="panel-header">
-                                <h2>Training &amp; Courses</h2>
-                            </div>
-                            <div class="panel-body">
-                                <div class="tabs" id="course-tabs">
-                                    <button class="tab tab--active" data-tab="current">Current Courses</button>
-                                    <button class="tab" data-tab="recommended">Recommended Courses</button>
-                                    <button class="tab" data-tab="history">Course History</button>
-                                </div>
-                                <div class="tab-panels">
-                                    <div class="tab-panel" id="tab-current">
-                                        <div id="current-courses-list" class="course-grid">
-                                            <!-- Course cards injected -->
-                                        </div>
+                                    <!-- TAB 2 – AI SKILL ANALYSIS -->
+                                    <div class="tab-panel" id="tab-ai" hidden>
+                                        <section class="panel">
+                                            <div class="panel-header">
+                                                <h2>AI Skill Analysis</h2>
+                                            </div>
+                                            <div class="panel-body panel-body--ai">
+                                                <div class="ai-columns">
+                                                    <div>
+                                                        <h3>Growth Signals</h3>
+                                                        <ul id="ai-growth-list" class="tag-list"></ul>
+                                                    </div>
+                                                    <div>
+                                                        <h3>Decay Signals</h3>
+                                                        <ul id="ai-decay-list" class="tag-list"></ul>
+                                                    </div>
+                                                </div>
+                                                <div class="ai-recommendation-block">
+                                                    <h3>AI Recommendation</h3>
+                                                    <p id="ai-recommendation-text"></p>
+                                                </div>
+                                            </div>
+                                        </section>
                                     </div>
-                                    <div class="tab-panel" id="tab-recommended" hidden>
-                                        <div id="recommended-courses-list" class="course-grid">
-                                            <!-- Course cards injected -->
-                                        </div>
-                                    </div>
-                                    <div class="tab-panel" id="tab-history" hidden>
-                                        <div id="history-courses-list" class="course-grid">
-                                            <!-- Course cards injected -->
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
 
-                        <div class="course-project">
-                            <!-- SECTION 6 – COURSE CALENDAR -->
-                            <section class="panel panel--calendar">
-                                <div class="panel-header panel-header--inline">
-                                    <h2>Course Calendar</h2>
-                                    <span class="panel-caption">
-                                        Training activity timeline.
-                                    </span>
-                                </div>
-                                <div class="panel-body panel-body--calendar">
-                                    <div id="course-calendar">
-                                        <!-- FullCalendar will render here -->
+                                    <!-- TAB 3 – TRAINING & COURSES -->
+                                    <div class="tab-panel" id="tab-courses" hidden>
+                                        <section class="panel">
+                                            <div class="panel-header">
+                                                <h2>Training & Courses</h2>
+                                            </div>
+                                            <div class="panel-body">
+                                                <div class="tabs" id="course-tabs">
+                                                    <button class="tab tab--active" data-tab="current">Current
+                                                        Courses</button>
+                                                    <button class="tab" data-tab="recommended">Recommended
+                                                        Courses</button>
+                                                    <button class="tab" data-tab="history">Course History</button>
+                                                </div>
+                                                <div class="tab-panels">
+                                                    <div class="tab-panel" id="tab-current">
+                                                        <div id="current-courses-list" class="course-grid"></div>
+                                                    </div>
+                                                    <div class="tab-panel" id="tab-recommended" hidden>
+                                                        <div id="recommended-courses-list" class="course-grid"></div>
+                                                    </div>
+                                                    <div class="tab-panel" id="tab-history" hidden>
+                                                        <div id="history-courses-list" class="course-grid"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </section>
+                                    </div>
+
+                                    <!-- TAB 4 – COURSE CALENDAR -->
+                                    <div class="tab-panel" id="tab-calendar" hidden>
+                                        <section class="panel panel--calendar">
+                                            <div class="panel-header panel-header--inline">
+                                                <h2>Course Calendar</h2>
+                                                <span class="panel-caption">Training activity timeline.</span>
+                                            </div>
+                                            <!-- <div class="panel-body panel-body--calendar">
+                                                <div id="course-calendar"></div>
+                                            </div> -->
+
+                                            <div class="timeline-schedule-controls">
+                                                <button id="prevSlide">← Previous</button>
+                                                <button id="nextSlide">Next →</button>
+                                            </div>
+
+                                            <div id="timelineSchedule" style="height: 220px; border: 1px solid #ccc;">
+                                            </div>
+
+                                        </section>
+                                    </div>
+
+                                    <!-- TAB 5 – PROJECT HISTORY -->
+                                    <div class="tab-panel" id="tab-projects" hidden>
+                                        <section class="panel panel--project">
+                                            <div class="panel-header">
+                                                <h2>Project History</h2>
+                                            </div>
+                                            <div class="panel-body panel-body--timeline">
+                                                <div id="project-history-timeline" class="timeline"></div>
+                                            </div>
+                                        </section>
                                     </div>
                                 </div>
-                            </section>
-                            <!-- SECTION 7 – PROJECT HISTORY -->
-                            <section class="panel panel--project">
-                                <div class="panel-header">
-                                    <h2>Project History</h2>
-                                </div>
-                                <div class="panel-body panel-body--timeline">
-                                    <div id="project-history-timeline" class="timeline">
-                                        <!-- Timeline items injected -->
-                                    </div>
-                                </div>
-                            </section>
-                        </div>
+                            </div>
+
                     </section>
-                </section>
-            </main>
         </div>
+        </section>
+        </section>
+        </main>
+    </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>

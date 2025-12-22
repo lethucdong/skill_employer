@@ -193,97 +193,113 @@
             "id": 1,
             "cat_id": 1,
             "skill_name": "Node.js",
-            "description": "Server-side JavaScript runtime"
+            "description": "Server-side JavaScript runtime",
+            "goalLevel": 5
         },
         {
             "id": 2,
             "cat_id": 1,
             "skill_name": "Python",
-            "description": "General-purpose programming language"
+            "description": "General-purpose programming language",
+            "goalLevel": 5
         },
         {
             "id": 3,
             "cat_id": 1,
             "skill_name": "Java",
-            "description": "Enterprise backend language"
+            "description": "Enterprise backend language",
+            "goalLevel": 5
         },
         {
             "id": 4,
             "cat_id": 2,
             "skill_name": "React",
-            "description": "Modern frontend framework"
+            "description": "Modern frontend framework",
+            "goalLevel": 5
         },
         {
             "id": 5,
             "cat_id": 2,
             "skill_name": "Vue.js",
-            "description": "Progressive frontend framework"
+            "description": "Progressive frontend framework",
+            "goalLevel": 5
         },
         {
             "id": 6,
             "cat_id": 2,
             "skill_name": "UX Design",
-            "description": "User experience design principles"
+            "description": "User experience design principles",
+            "goalLevel": 5
         },
         {
             "id": 7,
             "cat_id": 3,
             "skill_name": "SQL",
-            "description": "Relational database query language"
+            "description": "Relational database query language",
+            "goalLevel": 5
         },
         {
             "id": 8,
             "cat_id": 3,
             "skill_name": "MongoDB",
-            "description": "NoSQL document database"
+            "description": "NoSQL document database",
+            "goalLevel": 5
         },
         {
             "id": 9,
             "cat_id": 3,
             "skill_name": "Data Analysis",
-            "description": "Statistical analysis and insights"
+            "description": "Statistical analysis and insights",
+            "goalLevel": 5
         },
         {
             "id": 10,
             "cat_id": 4,
             "skill_name": "AWS",
-            "description": "Amazon Web Services platform"
+            "description": "Amazon Web Services platform",
+            "goalLevel": 5
         },
         {
             "id": 11,
             "cat_id": 7,
             "skill_name": "Cloud Computing",
-            "description": "Cloud infrastructure and services"
+            "description": "Cloud infrastructure and services",
+            "goalLevel": 5
         },
         {
             "id": 12,
             "cat_id": 4,
             "skill_name": "Docker",
-            "description": "Containerization technology"
+            "description": "Containerization technology",
+            "goalLevel": 5
         },
         {
             "id": 13,
             "cat_id": 4,
             "skill_name": "Kubernetes",
-            "description": "Container orchestration"
+            "description": "Container orchestration",
+            "goalLevel": 5
         },
         {
             "id": 14,
             "cat_id": 5,
             "skill_name": "Security",
-            "description": "Application and infrastructure security"
+            "description": "Application and infrastructure security",
+            "goalLevel": 5
         },
         {
             "id": 15,
             "cat_id": 5,
             "skill_name": "Secure Coding",
-            "description": "Secure development practices"
+            "description": "Secure development practices",
+            "goalLevel": 5
         },
         {
             "id": 16,
             "cat_id": 6,
             "skill_name": "Project Management",
-            "description": "Project planning and coordination"
+            "description": "Project planning and coordination",
+            "goalLevel": 5
         }
     ],
     "employee_skills": [
@@ -291,6 +307,7 @@
             "user_id": 1,
             "skill_id": 2,
             "level_score": 3,
+            "start_level_score": 1,
             "years_exp": 1.0,
             "last_verified": "2025-11-30T00:00:00Z"
         },
@@ -298,6 +315,7 @@
             "user_id": 1,
             "skill_id": 3,
             "level_score": 1,
+            "start_level_score": 1,
             "years_exp": 1,
             "last_verified": "2023-03-10T00:00:00Z"
         },
@@ -305,6 +323,7 @@
             "user_id": 1,
             "skill_id": 6,
             "level_score": 4,
+            "start_level_score": 1,
             "years_exp": 1.0,
             "last_verified": "2025-08-01T00:00:00Z"
         },
@@ -312,6 +331,7 @@
             "user_id": 1,
             "skill_id": 7,
             "level_score": 3,
+            "start_level_score": 1,
             "years_exp": 4.0,
             "last_verified": "2025-12-10T00:00:00Z"
         },
@@ -319,6 +339,7 @@
             "user_id": 1,
             "skill_id": 9,
             "level_score": 3,
+            "start_level_score": 1,
             "years_exp": 6.5,
             "last_verified": "2025-09-18T00:00:00Z"
         },
@@ -326,6 +347,7 @@
             "user_id": 1,
             "skill_id": 11,
             "level_score": 3,
+            "start_level_score": 1,
             "years_exp": 6.5,
             "last_verified": "2025-09-18T00:00:00Z"
         },
@@ -333,6 +355,7 @@
             "user_id": 1,
             "skill_id": 12,
             "level_score": 3,
+            "start_level_score": 1,
             "years_exp": 6.5,
             "last_verified": "2025-09-18T00:00:00Z"
         },
@@ -340,6 +363,7 @@
             "user_id": 1,
             "skill_id": 15,
             "level_score": 3,
+            "start_level_score": 1,
             "years_exp": 1.0,
             "last_verified": "2025-08-01T00:00:00Z"
         },
@@ -347,6 +371,7 @@
             "user_id": 1,
             "skill_id": 16,
             "level_score": 1,
+            "start_level_score": 1,
             "years_exp": 1.0,
             "last_verified": "2025-08-01T00:00:00Z"
         },
@@ -354,6 +379,7 @@
             "user_id": 2,
             "skill_id": 4,
             "level_score": 5,
+            "start_level_score": 1,
             "years_exp": 7.0,
             "last_verified": "2025-12-14T00:00:00Z"
         },
@@ -361,6 +387,7 @@
             "user_id": 2,
             "skill_id": 1,
             "level_score": 3,
+            "start_level_score": 1,
             "years_exp": 5.0,
             "last_verified": "2025-10-02T00:00:00Z"
         },
@@ -368,6 +395,7 @@
             "user_id": 2,
             "skill_id": 6,
             "level_score": 4,
+            "start_level_score": 1,
             "years_exp": 6.5,
             "last_verified": "2025-11-20T00:00:00Z"
         },
@@ -375,6 +403,7 @@
             "user_id": 2,
             "skill_id": 9,
             "level_score": 2,
+            "start_level_score": 1,
             "years_exp": 3.0,
             "last_verified": "2024-11-01T00:00:00Z"
         },
@@ -382,6 +411,7 @@
             "user_id": 2,
             "skill_id": 16,
             "level_score": 4,
+            "start_level_score": 1,
             "years_exp": 5.5,
             "last_verified": "2025-09-14T00:00:00Z"
         },
@@ -389,6 +419,7 @@
             "user_id": 3,
             "skill_id": 9,
             "level_score": 5,
+            "start_level_score": 1,
             "years_exp": 5.0,
             "last_verified": "2025-12-16T00:00:00Z"
         },
@@ -396,6 +427,7 @@
             "user_id": 3,
             "skill_id": 10,
             "level_score": 2,
+            "start_level_score": 1,
             "years_exp": 2.0,
             "last_verified": "2024-08-01T00:00:00Z"
         },
@@ -403,6 +435,7 @@
             "user_id": 3,
             "skill_id": 16,
             "level_score": 3,
+            "start_level_score": 1,
             "years_exp": 4.0,
             "last_verified": "2025-05-10T00:00:00Z"
         },
@@ -410,6 +443,7 @@
             "user_id": 4,
             "skill_id": 16,
             "level_score": 5,
+            "start_level_score": 1,
             "years_exp": 8.0,
             "last_verified": "2025-12-12T00:00:00Z"
         },
@@ -417,6 +451,7 @@
             "user_id": 4,
             "skill_id": 9,
             "level_score": 4,
+            "start_level_score": 1,
             "years_exp": 7.0,
             "last_verified": "2025-11-01T00:00:00Z"
         },
@@ -424,6 +459,7 @@
             "user_id": 4,
             "skill_id": 6,
             "level_score": 3,
+            "start_level_score": 1,
             "years_exp": 6.0,
             "last_verified": "2025-09-20T00:00:00Z"
         },
@@ -431,6 +467,7 @@
             "user_id": 4,
             "skill_id": 11,
             "level_score": 2,
+            "start_level_score": 1,
             "years_exp": 4.0,
             "last_verified": "2024-06-01T00:00:00Z"
         },
@@ -438,6 +475,7 @@
             "user_id": 5,
             "skill_id": 16,
             "level_score": 4,
+            "start_level_score": 1,
             "years_exp": 9.0,
             "last_verified": "2025-10-01T00:00:00Z"
         },
@@ -445,6 +483,7 @@
             "user_id": 5,
             "skill_id": 9,
             "level_score": 3,
+            "start_level_score": 1,
             "years_exp": 7.0,
             "last_verified": "2025-09-01T00:00:00Z"
         },
@@ -452,6 +491,7 @@
             "user_id": 5,
             "skill_id": 11,
             "level_score": 1,
+            "start_level_score": 1,
             "years_exp": 2.0,
             "last_verified": "2023-01-01T00:00:00Z"
         },
@@ -459,6 +499,7 @@
             "user_id": 6,
             "skill_id": 10,
             "level_score": 5,
+            "start_level_score": 1,
             "years_exp": 10.0,
             "last_verified": "2025-12-15T00:00:00Z"
         },
@@ -466,6 +507,7 @@
             "user_id": 6,
             "skill_id": 11,
             "level_score": 5,
+            "start_level_score": 1,
             "years_exp": 10.0,
             "last_verified": "2025-12-15T00:00:00Z"
         },
@@ -473,6 +515,7 @@
             "user_id": 6,
             "skill_id": 14,
             "level_score": 5,
+            "start_level_score": 1,
             "years_exp": 9.0,
             "last_verified": "2025-11-20T00:00:00Z"
         },
@@ -480,6 +523,7 @@
             "user_id": 6,
             "skill_id": 16,
             "level_score": 3,
+            "start_level_score": 1,
             "years_exp": 5.0,
             "last_verified": "2025-10-10T00:00:00Z"
         },
@@ -487,6 +531,7 @@
             "user_id": 7,
             "skill_id": 16,
             "level_score": 3,
+            "start_level_score": 1,
             "years_exp": 4.5,
             "last_verified": "2025-06-01T00:00:00Z"
         },
@@ -494,6 +539,7 @@
             "user_id": 7,
             "skill_id": 9,
             "level_score": 2,
+            "start_level_score": 1,
             "years_exp": 2.0,
             "last_verified": "2024-12-01T00:00:00Z"
         }
