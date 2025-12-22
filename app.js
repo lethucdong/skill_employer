@@ -1391,7 +1391,7 @@ function initTimelineSchedule(emp) {
             start: c.startDate,
             end: c.endDate,
             title: `
-            <div style="white-space: normal; font-size: 12px; line-height: 1.4;">
+            <div class="tooltip-timeline" style="white-space: normal; font-size: 12px; line-height: 1.4;  border-radius: 10px !importnant;">
                 <strong>${c.courseName}</strong><br>
                 Status: ${c.status}<br>
                 Progress: ${c.progress}%<br>
@@ -1418,7 +1418,7 @@ function initTimelineSchedule(emp) {
     // Timeline options: auto zoom, show current time bar
     const options = {
         width: "100%",
-        height: "400px",
+        height: "350px",
         showCurrentTime: true,
         stack: true,
         zoomable: true,

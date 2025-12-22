@@ -29,7 +29,7 @@
     --radius-lg: 14px;
     --shadow-soft: 0 10px 30px rgba(15, 23, 42, 0.08);
     --shadow-subtle: 0 1px 2px rgba(15, 23, 42, 0.05);
-    --font-sans: 'Inter', 'Roboto', 'Noto Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-sans: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     --col1-width: 220px;
     --col2-width: 160px;
 }
@@ -65,6 +65,17 @@ select {
 
 
 /* donglt start*/
+.time-line{
+    padding-top: 10px;
+}
+.tabs-header{
+    background-color: #ececf0;
+    width: fit-content;
+    border-radius: 20px;
+    padding: 2px 4px;
+    margin-bottom: 24px;
+}
+
 .heatmap-lastused {
     padding-left: 30%;
 }
@@ -409,20 +420,19 @@ select {
 
 .tabs-header {
     display: flex;
-    border-bottom: 1px solid #ccc;
 }
 
 .tabs-header .tab {
-    padding: 10px 20px;
+    padding: 8px;
     cursor: pointer;
     background: none;
     border: none;
-    font-weight: bold;
+    margin: 2px 1px;
 }
 
 .tabs-header .tab--active {
-    border-bottom: 3px solid #007bff;
-    color: #007bff;
+    color: black;
+    background-color: white;
 }
 
 .tabs-panels .tab-panel {
@@ -433,6 +443,13 @@ select {
     display: none;
 }
 
+.tooltip-timeline{
+    border-radius: 10px;
+}
+
+.vis-item.vis-range{
+    border-radius: 7px !important;
+}
 /* course đang học */
 .vis-item.course-completed {
     background-color: #4caf50;
@@ -856,13 +873,10 @@ select {
 }
 
 .btn--ghost {
-    background: transparent;
-    color: var(--color-accent-strong);
-    border: 1px solid var(--color-border-subtle);
-}
 
-.btn--ghost:hover {
-    background: #e5edff;
+    background-color: #030213;
+    border-radius: 10px;
+    color: white;
 }
 
 .btn:active {
@@ -1488,17 +1502,18 @@ select {
 .overview-ai {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: start;
     border-left: 1px solid var(--color-border-subtle);
     padding-left: 12px;
 }
 
 .overview-ai h3 {
     margin: 0 0 4px;
-    font-size: 13px;
+    font-size: 14px;
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    color: var(--color-text-soft);
+    color: black;
+    font-weight: bold;
 }
 
 .overview-ai p {
@@ -1661,12 +1676,12 @@ select {
     display: inline-flex;
     background: #eff1f7;
     padding: 3px;
-    border-radius: 999px;
+    border-radius: 20px;
     margin-bottom: 10px;
 }
 
 .tab {
-    border-radius: 999px;
+    border-radius: 20px;
     padding: 6px 12px;
     border: none;
     background: transparent;
@@ -1674,14 +1689,11 @@ select {
     line-height: 1.4;
     font-weight: 500;
     cursor: pointer;
-    color: var(--color-text-muted);
     transition: background 0.12s ease, color 0.12s ease;
 }
 
 .tab--active {
     background: #ffffff;
-    color: var(--color-accent-strong);
-    box-shadow: 0 6px 12px rgba(148, 163, 184, 0.45);
 }
 
 .tab-panels {
