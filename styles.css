@@ -507,7 +507,16 @@ select {
     object-fit: cover;
 }
 
+.tabs-container{
+    width: 100%;
+}
 
+.tab-calendar{
+    height: 500px;
+}
+.panel--calendar{
+    height: 100%;
+}
 /* donglt end*/
 
 .course-project {

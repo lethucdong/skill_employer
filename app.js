@@ -582,7 +582,7 @@ function populateHeatmap(emp) {
     heatmapList.innerHTML = "";
 
     if (!emp || !emp.skills || emp.skills.length === 0) {
-        heatmapList.innerHTML = "<p>No skills recorded</p>";
+        heatmapList.innerHTML = '<div class="empty-state"><p>No skill</p></div>';
         return;
     }
 
@@ -1408,15 +1408,23 @@ function initTimelineSchedule(emp) {
         }))
     );
 
+    // Ngày hiện tại
+    const now = new Date();
+
+    const startOfMonth = new Date(now.getFullYear(), 1, 1);
+
+    const endOfMonth = new Date(now.getFullYear(), 12, 0);
 
     // Timeline options: auto zoom, show current time bar
     const options = {
         width: "100%",
-        height: "240px",
+        height: "400px",
         showCurrentTime: true,
         stack: true,
         zoomable: true,
-        horizontalScroll: true
+        horizontalScroll: true,
+        start: startOfMonth,
+        end: endOfMonth
     };
 
     // Create the vis Timeline instance
