@@ -172,6 +172,7 @@ select {
     height: 100%;
     background: auto;
     z-index: 2;
+    background-color: white;
 }
 
 .heatmap-header {
