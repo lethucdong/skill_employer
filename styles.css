@@ -1,3 +1,21 @@
+.skill-matrix tbody tr:hover td.employee-name-col,
+.skill-matrix tbody tr:hover td.team-col {
+    background: #f9fafb !important;
+}
+
+.skill-matrix td.employee-name-col,
+.skill-matrix td.team-col {
+    background: #ffffff !important;
+}
+
+.skill-matrix th.employee-col,
+.skill-matrix th.team-col-header {
+    z-index: 30 !important;
+    box-shadow: 2px 0 8px -2px rgba(0, 0, 0, 0.10), 1px 0 0 0 #e0e4f0;
+    border-right: 1px solid #e0e4f0;
+    background: #f1f5f9;
+}
+
 :root {
     --color-bg: #f5f7fb;
     --color-bg-panel: #ffffff;
@@ -188,21 +206,21 @@ select {
 .heatmap-skill-name {
     display: flex;
     align-items: center;
-    position: sticky;
-    left: 0;
+    /* position: sticky;
+    left: 0; */
     height: 100%;
     background: auto;
-    z-index: 2;
+    /* z-index: 2; */
     background-color: white;
 }
 
 .heatmap-header {
     text-align: center;
-    position: sticky;
-    top: 0;
+    /* position: sticky;
+    top: 0; */
     background: #f8f9fa;
     font-weight: 600;
-    z-index: 3;
+    /* z-index: 3; */
     border-bottom: 1px solid #ddd;
 }
 
@@ -358,7 +376,72 @@ select {
 .skill-table td {
     padding: 10px 12px;
     border-bottom: 1px solid #e5e7eb;
+    top: 0;
     text-align: left;
+
+    /* Skill matrix multi-row header and sticky columns */
+    .skill-matrix {
+        width: 100%;
+        border-collapse: collapse;
+        table-layout: fixed;
+    }
+
+    .skill-matrix thead th {
+        /* position: sticky;
+        top: 0;
+        background: #fafafa;
+        z-index: 8; */
+        /* above body sticky columns */
+        padding: 8px 10px;
+        text-align: center;
+        font-weight: 600;
+    }
+
+    .skill-matrix thead tr:nth-child(1) th.employee-col,
+    .skill-matrix thead tr:nth-child(1) th.team-col-header {
+        text-align: left;
+    }
+
+    .employee-name-col,
+    .employee-col {
+        min-width: var(--col1-width);
+        max-width: var(--col1-width);
+        width: var(--col1-width);
+        /* position: sticky;
+        left: 0;
+        z-index: 6; */
+        background: #fff;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+
+    .team-col,
+    .team-col-header {
+        min-width: var(--col2-width);
+        max-width: var(--col2-width);
+        width: var(--col2-width);
+        /* position: sticky;
+        left: var(--col1-width);
+        z-index: 5; */
+        background: #fff;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+
+    .skill-header {
+        padding: 6px 8px;
+        font-weight: 500;
+    }
+
+    /* ensure cells don't overflow their columns */
+    .skill-matrix td,
+    .skill-matrix th {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
 }
 
 .skill-table th {
@@ -406,10 +489,10 @@ select {
 
 .skill-table th {
     background-color: #f4f4f4;
-    position: sticky;
-    top: 0;
+    /* position: sticky;
+    top: 0; */
     /* cố định header khi scroll dọc */
-    z-index: 2;
+    /* z-index: 2; */
 }
 
 .skill-badge {
@@ -1526,12 +1609,36 @@ select {
 
 .skill-matrix thead {
     background: #f1f5f9;
+}
+
+
+
+/* Sticky first two columns: Employee and Team */
+.skill-matrix th.employee-col,
+.skill-matrix td.employee-name-col {
+    position: sticky;
+    left: 0;
+    z-index: 10;
+    background: #fff;
+}
+
+.skill-matrix th.team-col-header,
+.skill-matrix td.team-col {
+    position: sticky;
+    left: 140px;
+    z-index: 9;
+}
+
+/* Sticky header */
+.skill-matrix thead th {
     position: sticky;
     top: 0;
-    z-index: 30;
+    z-index: 20;
+    background: #f1f5f9;
 }
 
 .skill-matrix th {
+    border-right: 1px solid #e0e4f0;
     padding: 12px 10px;
     text-align: center !important;
     font-weight: 600;
@@ -1557,23 +1664,17 @@ select {
 
 .skill-matrix th:first-child {
     text-align: left;
-    width: 120px !important;
-    min-width: 120px !important;
-    max-width: 120px !important;
-    position: sticky;
-    left: 0 !important;
-    z-index: 31;
+    width: 140px !important;
+    min-width: 140px !important;
+    max-width: 140px !important;
     background: #f1f5f9;
 }
 
 .skill-matrix th:nth-child(2) {
     text-align: left;
-    width: 120px !important;
-    min-width: 120px !important;
-    max-width: 120px !important;
-    position: sticky;
-    left: 120px !important;
-    z-index: 31;
+    width: 140px !important;
+    min-width: 140px !important;
+    max-width: 140px !important;
     background: #f1f5f9;
 }
 
@@ -1582,9 +1683,6 @@ select {
     width: 140px !important;
     min-width: 140px !important;
     max-width: 140px !important;
-    position: sticky;
-    left: 240px !important;
-    z-index: 31;
     background: #f1f5f9;
 }
 
@@ -1597,10 +1695,6 @@ select {
 
 /* Category column - col 1 */
 .skill-matrix tbody td.cat-col {
-    position: sticky;
-    left: 0 !important;
-    z-index: 20;
-    background: #e5e7eb;
     border-right: 1px solid var(--color-border-subtle);
     font-weight: 700;
     vertical-align: middle;
@@ -1611,10 +1705,6 @@ select {
 
 /* SubCategory column - col 2 */
 .skill-matrix tbody td.subcat-col {
-    position: sticky;
-    left: 100px !important;
-    z-index: 20;
-    background: #f3f4f6;
     border-right: 1px solid var(--color-border-subtle);
     font-weight: 600;
     vertical-align: middle;
@@ -1625,10 +1715,6 @@ select {
 
 /* Skill column - col 3 */
 .skill-matrix tbody td.skill-col {
-    position: sticky;
-    left: 200px !important;
-    z-index: 20;
-    background: #ffffff;
     border-right: 1px solid var(--color-border-subtle);
     vertical-align: middle;
     text-align: left !important;
@@ -1656,53 +1742,6 @@ select {
 
 .skill-matrix tbody tr:hover td.subcat-col {
     background: #e5e7eb;
-}
-
-/* Responsive: shrink first three sticky columns on small screens so column 4 becomes visible */
-@media (max-width: 600px) {
-    .skill-matrix th:first-child {
-        min-width: 80px !important;
-        left: 0 !important;
-    }
-
-    .skill-matrix th:nth-child(2) {
-        min-width: 80px !important;
-        left: 80px !important;
-    }
-
-    .skill-matrix th:nth-child(3) {
-        min-width: 36px !important;
-        left: 160px !important;
-    }
-
-    .skill-matrix tbody td.cat-col {
-        left: 0 !important;
-    }
-
-    .skill-matrix tbody td.subcat-col {
-        left: 80px !important;
-    }
-
-    .skill-matrix tbody td.skill-col {
-        left: 160px !important;
-    }
-
-    /* slightly reduce padding for mobile */
-    .skill-matrix th,
-    .skill-matrix td {
-        padding: 8px 6px;
-    }
-
-    /* make col 3 compact and use ellipsis */
-    .skill-matrix th:nth-child(3),
-    .skill-matrix tbody td.skill-col {
-        max-width: 100px !important;
-        min-width: 100px !important;
-        width: 100px !important;
-        overflow: hidden !important;
-        text-overflow: ellipsis !important;
-        white-space: nowrap !important;
-    }
 }
 
 .skill-matrix tbody tr:hover td.skill-col {
@@ -1760,9 +1799,6 @@ select {
 .skill-matrix td:first-child {
     text-align: left;
     padding: 10px 8px;
-    position: sticky;
-    left: 0;
-    z-index: 10;
     background: inherit;
     font-weight: 500;
 }
@@ -1792,21 +1828,6 @@ select {
 }
 
 
-@media (max-width: 1024px) {
-
-    .skill-matrix th,
-    .skill-matrix td {
-        padding: 8px 6px;
-        font-size: 12px;
-        min-width: 80px;
-    }
-
-    .skill-matrix th:first-child,
-    .skill-matrix td:first-child {
-        min-width: 150px;
-    }
-}
-
 /* Responsive tweak: if viewport is wide enough, remove the artificial min-width */
 @media (min-width: 1200px) {
     .matrix-table {
@@ -1820,8 +1841,6 @@ select {
 }
 
 .matrix-table thead th {
-    position: sticky;
-    top: 0;
     background: #f1f5f9;
     box-shadow: 0 1px 0 var(--color-border-subtle);
     z-index: 30;
@@ -1855,20 +1874,16 @@ select {
 .matrix-table td:first-child {
     position: sticky;
     left: 0;
-    z-index: 6;
-    width: var(--col1-width);
-    min-width: var(--col1-width);
-    max-width: var(--col1-width);
+    z-index: 2;
+    background: #fff;
 }
 
 .matrix-table th:nth-child(2),
 .matrix-table td:nth-child(2) {
     position: sticky;
     left: var(--col1-width);
-    z-index: 6;
-    width: var(--col2-width);
-    min-width: var(--col2-width);
-    max-width: var(--col2-width);
+    z-index: 2;
+    background: #fff;
 }
 
 /* ensure header cells for sticky columns sit above body */
@@ -2217,8 +2232,8 @@ select {
 }
 
 .overview-avatar {
-    width: 56px;
-    height: 56px;
+    width: 48px;
+    height: 48px;
     border-radius: 16px;
     background: linear-gradient(135deg, #22c1c3, #2563eb);
     color: #e5f0ff;

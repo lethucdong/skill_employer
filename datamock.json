@@ -2,22 +2,22 @@
     "groups": [
         {
             "id": 1,
-            "group_name": "WAO",
+            "group_name": "Developers",
             "manager_id": 6
         },
         {
             "id": 2,
-            "group_name": "Sharp",
+            "group_name": "QA",
             "manager_id": 4
         },
         {
             "id": 3,
-            "group_name": "OutsideSale",
+            "group_name": "Design",
             "manager_id": 5
         },
         {
             "id": 4,
-            "group_name": "SWAT",
+            "group_name": "Marketing",
             "manager_id": 3
         },
         {
@@ -29,9 +29,9 @@
     "users": [
         {
             "id": 1,
-            "full_name": "Phạm Văn Hoàn",
-            "account_name": "HoanPV",
-            "email": "hoanpv@saisystem.vn",
+            "full_name": "Phạm Văn A",
+            "account_name": "APV",
+            "email": "apv@sample.vn",
             "password_hash": "hashed_password_1",
             "role": "Software Developer",
             "group_id": 1,
@@ -40,9 +40,9 @@
         },
         {
             "id": 2,
-            "full_name": "Lê Thúc Đông",
-            "account_name": "DongLT",
-            "email": "donglt@saisystem.vn",
+            "full_name": "Lê Văn B",
+            "account_name": "BLT",
+            "email": "blt@sample.vn",
             "password_hash": "hashed_password_2",
             "role": "Software Developer",
             "group_id": 1,
@@ -50,9 +50,9 @@
         },
         {
             "id": 3,
-            "full_name": "Nguyễn Hồng Thắng",
-            "account_name": "ThangNH",
-            "email": "thangnh@saisystem.vn",
+            "full_name": "Nguyễn Văn C",
+            "account_name": "CNH",
+            "email": "cnh@sample.vn",
             "password_hash": "hashed_password_3",
             "role": "Software Developer",
             "group_id": 4,
@@ -60,9 +60,9 @@
         },
         {
             "id": 4,
-            "full_name": "Ngô Tá Sinh",
-            "account_name": "SinhNT",
-            "email": "sinhnt@saisystem.vn",
+            "full_name": "Ngô Thị D",
+            "account_name": "DNT",
+            "email": "snt@sample.vn",
             "password_hash": "hashed_password_4",
             "role": "Leader",
             "group_id": 2,
@@ -70,9 +70,9 @@
         },
         {
             "id": 5,
-            "full_name": "Lê Quốc Khánh",
-            "account_name": "KhanhLQ",
-            "email": "khanhlq@saisystem.vn",
+            "full_name": "Lê Thị E",
+            "account_name": "ELQ",
+            "email": "elq@sample.vn",
             "password_hash": "hashed_password_5",
             "role": "Leader",
             "group_id": 3,
@@ -80,9 +80,9 @@
         },
         {
             "id": 6,
-            "full_name": "Nguyễn Duy Thanh",
-            "account_name": "ThanhND",
-            "email": "thanhnd@saisystem.vn",
+            "full_name": "Nguyễn Văn F",
+            "account_name": "FND",
+            "email": "fnd@sample.vn",
             "password_hash": "hashed_password_6",
             "role": "Software Developer",
             "group_id": 1,
@@ -90,9 +90,9 @@
         },
         {
             "id": 7,
-            "full_name": "Nguyễn Thị Thủy",
-            "account_name": "ThuyNT",
-            "email": "thuynt@saisystem.vn",
+            "full_name": "Nguyễn Thị G",
+            "account_name": "GNT",
+            "email": "gnt@sample.vn",
             "password_hash": "hashed_password_7",
             "role": "Tester",
             "group_id": 5,
@@ -100,9 +100,9 @@
         },
         {
             "id": 8,
-            "full_name": "Hồ Văn Quang Huy",
-            "account_name": "HuyHVQ",
-            "email": "huyhvq@saisystem.vn",
+            "full_name": "Hồ Văn A",
+            "account_name": "AVQ",
+            "email": "ahv@sample.vn",
             "password_hash": "hashed_password_admin",
             "role": "Software Developer",
             "group_id": 3,

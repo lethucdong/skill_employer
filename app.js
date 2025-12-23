@@ -385,7 +385,7 @@ function renderSkillMatrix() {
     const selectedDept = departmentFilter ? departmentFilter.value : "all";
     const searchTerm = (document.getElementById("matrix-search") ? document.getElementById("matrix-search").value.trim().toLowerCase() : "");
     const employees = mockData.employees || [];
-    const thead = document.querySelector(".skill-matrix thead tr");
+    const thead = document.querySelector(".skill-matrix thead");
     const skillMatrixBody = document.getElementById("skill-matrix-body");
 
     console.log("renderSkillMatrix: employees =", employees.length, "thead =", thead ? "found" : "NOT FOUND", "body =", skillMatrixBody ? "found" : "NOT FOUND");
@@ -418,172 +418,116 @@ function renderSkillMatrix() {
         return nameA.localeCompare(nameB);
     });
 
-    // Build employee column headers (3 label columns + employee columns)
-    thead.innerHTML = '<th class="skill-label-col">Category</th><th class="skill-label-col">SubCategory</th><th class="skill-label-col">Skill</th>';
-    filtered.forEach((emp) => {
-        const th = document.createElement("th");
-        th.textContent = emp.name || emp.full_name || "Unknown";
-        th.title = emp.email || "";
-        th.dataset.employeeId = emp.id;
-        th.style.cursor = "pointer";
-        th.addEventListener("click", () => {
-            openEmployeeDetail(emp.id);
-        });
-        thead.appendChild(th);
-    });
-
-    // Build skill matrix rows with 3 columns: category, subcategory, skill
+    // Build columns for skills; header will be 3 rows: Category, Sub-Category, Skill
     skillMatrixBody.innerHTML = "";
     const categories = mockData.skill_categories || [];
     const skillsMaster = mockData.skills_master || [];
 
-    // Create array of all skills with their category hierarchy
-    const skillRows = [];
-
+    // Build mapping: category -> subcategory -> skills
+    const catMap = {};
+    // Ensure using canonical keys from categories list
     const topCategories = categories.filter(c => c.level === 1);
-    topCategories.forEach((topCat) => {
-        const subCategories = categories.filter(c => c.parent_id === topCat.id);
+    // helper to push skill under category/subcategory
+    const pushSkill = (catName, subName, sk) => {
+        if (!catMap[catName]) catMap[catName] = {};
+        const subKey = subName || '';
+        if (!catMap[catName][subKey]) catMap[catName][subKey] = [];
+        catMap[catName][subKey].push(sk);
+    };
 
-        if (subCategories.length > 0) {
-            // Has sub-categories
-            subCategories.forEach((subCat) => {
-                const skillsInSubCat = skillsMaster.filter(s => s.cat_id === subCat.id);
-                skillsInSubCat.forEach((skill) => {
-                    skillRows.push({
-                        category: topCat.cat_name,
-                        subcategory: subCat.cat_name,
-                        skill: skill,
-                    });
+    if (topCategories.length > 0) {
+        topCategories.forEach(top => {
+            const subs = categories.filter(c => c.parent_id === top.id);
+            if (subs.length > 0) {
+                subs.forEach(s => {
+                    skillsMaster.filter(sk => sk.cat_id === s.id).forEach(sk => pushSkill(top.cat_name, s.cat_name, sk));
                 });
-            });
-        } else {
-            // No sub-categories: show skills directly under main category (linked to level 1 cat_id)
-            const skillsInMainCat = skillsMaster.filter(s => s.cat_id === topCat.id);
-            skillsInMainCat.forEach((skill) => {
-                skillRows.push({
-                    category: topCat.cat_name,
-                    subcategory: "",
-                    skill: skill,
-                });
-            });
-        }
-    });
-
-    // Calculate rowspans for category and subcategory
-    const categoryRowSpans = {};
-    const subcategoryRowSpans = {};
-    let currentCat = null;
-    let currentSubCat = null;
-    let catCount = 0;
-    let subCatCount = 0;
-    let prevCatKey = null;
-
-    skillRows.forEach((row, idx) => {
-        const catKey = row.category;
-        const subCatKey = row.category + "|" + row.subcategory;
-
-        // Track category changes
-        if (row.category !== currentCat) {
-            // Save previous category rowspan
-            if (currentCat !== null && catCount > 0) {
-                categoryRowSpans[currentCat] = catCount;
+            } else {
+                skillsMaster.filter(sk => sk.cat_id === top.id).forEach(sk => pushSkill(top.cat_name, '', sk));
             }
-            // Save previous subcategory rowspan
-            if (currentSubCat !== null && subCatCount > 0) {
-                subcategoryRowSpans[prevCatKey + "|" + currentSubCat] = subCatCount;
-            }
-            currentCat = row.category;
-            currentSubCat = null; // Reset subcategory when category changes
-            prevCatKey = catKey;
-            catCount = 1;
-            subCatCount = 0;
-        } else {
-            catCount++;
-        }
-
-        // Track subcategory changes
-        if (row.subcategory !== currentSubCat) {
-            if (currentSubCat !== null && subCatCount > 0) {
-                subcategoryRowSpans[prevCatKey + "|" + currentSubCat] = subCatCount;
-            }
-            currentSubCat = row.subcategory;
-            subCatCount = 1;
-        } else {
-            subCatCount++;
-        }
-    });
-
-    // Store last ones
-    if (currentCat !== null && catCount > 0) {
-        categoryRowSpans[currentCat] = catCount;
-    }
-    if (currentSubCat !== null && subCatCount > 0) {
-        subcategoryRowSpans[currentCat + "|" + currentSubCat] = subCatCount;
+        });
+    } else {
+        // fallback: no category metadata, group all skills under 'Skills'
+        skillsMaster.forEach(sk => pushSkill('Skills', '', sk));
     }
 
-    // Render each skill row with rowspan
-    const renderedCategories = new Set();
-    const renderedSubcategories = new Set();
+    // Flatten ordered lists for header generation
+    const headerCategories = Object.keys(catMap);
+    // total skill columns count
+    let totalSkillCols = 0;
+    headerCategories.forEach(cat => {
+        Object.keys(catMap[cat]).forEach(sub => {
+            totalSkillCols += catMap[cat][sub].length;
+        });
+    });
 
-    skillRows.forEach((row, idx) => {
-        const tr = document.createElement("tr");
-        const catKey = row.category;
-        const subCatKey = row.category + "|" + row.subcategory;
+    // Build THEAD with 3 rows
+    // First row: Employee, Team (rowspan=3) + Category headers with colspan
+    let theadHtml = '<tr>';
+    theadHtml += '<th class="employee-col" rowspan="3">Employee</th>';
+    theadHtml += '<th class="team-col-header" rowspan="3">Team</th>';
+    headerCategories.forEach(cat => {
+        let catSpan = 0;
+        Object.keys(catMap[cat]).forEach(sub => { catSpan += catMap[cat][sub].length; });
+        theadHtml += `<th class="cat-header" colspan="${catSpan}">${cat}</th>`;
+    });
+    theadHtml += '</tr>';
 
-        // attach dataset keys so each row knows its category/subcategory
-        tr.dataset.catKey = catKey;
-        tr.dataset.subcatKey = subCatKey;
+    // Second row: Sub-categories
+    theadHtml += '<tr>';
+    headerCategories.forEach(cat => {
+        Object.keys(catMap[cat]).forEach(sub => {
+            const span = catMap[cat][sub].length;
+            theadHtml += `<th class="subcat-header" colspan="${span}">${sub || ''}</th>`;
+        });
+    });
+    theadHtml += '</tr>';
 
-        // Category column - with rowspan
-        if (!renderedCategories.has(catKey)) {
-            const catTd = document.createElement("td");
-            catTd.textContent = row.category;
-            catTd.className = "skill-label-col cat-col";
-            catTd.rowSpan = categoryRowSpans[catKey] || 1;
-            // mark the category cell so it can be highlighted when hovering other rows
-            catTd.dataset.catKey = catKey;
-            tr.appendChild(catTd);
-            renderedCategories.add(catKey);
-        }
+    // Third row: Skill labels
+    theadHtml += '<tr>';
+    headerCategories.forEach(cat => {
+        Object.keys(catMap[cat]).forEach(sub => {
+            catMap[cat][sub].forEach(sk => {
+                const name = sk.skill_name || sk.name || sk.skillName || '';
+                theadHtml += `<th class="skill-header" data-skill-name="${name}">${name}</th>`;
+            });
+        });
+    });
+    theadHtml += '</tr>';
 
-        // SubCategory column - with rowspan
-        if (!renderedSubcategories.has(subCatKey)) {
-            const subCatTd = document.createElement("td");
-            subCatTd.textContent = row.subcategory;
-            subCatTd.className = "skill-label-col subcat-col";
-            subCatTd.rowSpan = subcategoryRowSpans[subCatKey] || 1;
-            // mark the subcategory cell so it can be highlighted when hovering other rows
-            subCatTd.dataset.subcatKey = subCatKey;
-            tr.appendChild(subCatTd);
-            renderedSubcategories.add(subCatKey);
-        }
+    thead.innerHTML = theadHtml;
 
-        // Skill column
-        const skillTd = document.createElement("td");
-        skillTd.textContent = row.skill.skill_name || "";
-        skillTd.className = "skill-col";
-        tr.appendChild(skillTd);
+    // Now render one row per employee
+    const skillOrder = [];
+    headerCategories.forEach(cat => Object.keys(catMap[cat]).forEach(sub => catMap[cat][sub].forEach(sk => skillOrder.push({ skill: sk, category: cat, subcategory: sub }))));
 
-        // Employee skill cells
-        filtered.forEach((emp) => {
-            const td = document.createElement("td");
-            renderSkillCell(td, emp, row.skill.skill_name, row.category);
+
+    filtered.forEach(emp => {
+        const tr = document.createElement('tr');
+        tr.className = 'employee-row';
+        tr.dataset.employeeId = emp.id;
+
+        const nameTd = document.createElement('td');
+        nameTd.className = 'employee-name-col';
+        nameTd.textContent = emp.name || emp.full_name || 'Unknown';
+        nameTd.title = emp.email || '';
+        tr.appendChild(nameTd);
+
+        const teamTd = document.createElement('td');
+        teamTd.className = 'team-col';
+        teamTd.textContent = emp.department || emp.group || '';
+        tr.appendChild(teamTd);
+
+        // skill cells
+        skillOrder.forEach(item => {
+            const td = document.createElement('td');
+            const skillName = item.skill.skill_name || item.skill.name || item.skill.skillName || '';
+            renderSkillCell(td, emp, skillName, item.category);
             tr.appendChild(td);
         });
 
-        // when hovering any row, highlight the corresponding sticky category/subcategory cells
-        tr.addEventListener('mouseenter', function () {
-            const catSel = `.skill-matrix tbody td.cat-col[data-cat-key="${catKey}"]`;
-            const subSel = `.skill-matrix tbody td.subcat-col[data-subcat-key="${subCatKey}"]`;
-            document.querySelectorAll(catSel).forEach(el => el.classList.add('hovered'));
-            document.querySelectorAll(subSel).forEach(el => el.classList.add('hovered'));
-        });
-        tr.addEventListener('mouseleave', function () {
-            const catSel = `.skill-matrix tbody td.cat-col[data-cat-key="${catKey}"]`;
-            const subSel = `.skill-matrix tbody td.subcat-col[data-subcat-key="${subCatKey}"]`;
-            document.querySelectorAll(catSel).forEach(el => el.classList.remove('hovered'));
-            document.querySelectorAll(subSel).forEach(el => el.classList.remove('hovered'));
-        });
+        // row click open detail
+        tr.addEventListener('click', () => openEmployeeDetail(emp.id));
 
         skillMatrixBody.appendChild(tr);
     });
