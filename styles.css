@@ -150,6 +150,17 @@ select {
     }
 
 }
+.skill-badge{
+    cursor: default;
+}
+.goal-badge .skill-badge{
+    cursor: text;
+    border-color: red;
+}
+
+.goal-badge .skill-badge:hover{
+    border: 1px solid red
+}
 
 .goal-input {
     width: 40px;       /* ngắn giống badge */
@@ -157,7 +168,6 @@ select {
     text-align: center;
     padding: 2px 4px;
     border-radius: 4px;
-    border: 1px solid #ccc;
 }
 
 .view-header {

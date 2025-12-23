@@ -869,7 +869,7 @@ function populateHeatmap(emp) {
             // Tạo input thay thế badge
             const input = document.createElement("input");
             input.type = "number";
-            input.min = 1;
+            input.min = 0;
             input.max = 5;
             input.value = skill.goalLevel || 0;
             input.className = "goal-input";
@@ -878,6 +878,8 @@ function populateHeatmap(emp) {
             const save = () => {
                 let val = parseInt(input.value);
                 if (isNaN(val)) val = 0;
+                if (val>5) val = 5;
+                if (val<0) val = 0;
                 skill.goalLevel = val;
 
                 // Cập nhật badge mới
