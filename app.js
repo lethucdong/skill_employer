@@ -672,28 +672,95 @@ function populateEmployeeOverview(emp) {
     if (guideOverlay) guideOverlay.addEventListener('click', function () { hideGuide(); });
 })();
 
+function buildRadarTripleScore(emp, categories, skillsMaster) {
+    const parents = categories.filter(c => c.level === 1);
+
+    // map skill_id -> employee skill object
+    const empSkillMap = Object.fromEntries(
+        (emp.skills || []).map(s => [s.skill_id, s])
+    );
+
+    const labels = [];
+    const levelData = [];
+    const startLevelData = [];
+    const goalLevelData = [];
+
+    parents.forEach(parent => {
+        const childCats = categories.filter(c => c.parent_id === parent.id);
+
+        let levelSum = 0;
+        let startSum = 0;
+        let goalSum = 0;
+
+        childCats.forEach(cat => {
+            skillsMaster
+                .filter(skill => skill.cat_id === cat.id)
+                .forEach(skill => {
+                    const empSkill = empSkillMap[skill.id];
+                    if (!empSkill) return;
+
+                    levelSum += empSkill.level || 0;
+                    startSum += empSkill.startLevel || 0;
+                    goalSum += empSkill.goalLevel || skill.goalLevel || 0;
+                });
+        });
+
+        labels.push(parent.cat_name);
+        levelData.push(levelSum);
+        startLevelData.push(startSum);
+        goalLevelData.push(goalSum);
+    });
+
+    return {
+        labels,
+        datasets: {
+            levelData,
+            startLevelData,
+            goalLevelData
+        }
+    };
+}
+
 function populateRadarChart(emp) {
     if (!radarCanvas) return;
-    // Use skill_categories as radar axes if available, otherwise fallback to defaults
-    console.log('mockData', mockData);
-    const categories = (mockData && mockData.skill_categories && mockData.skill_categories.length)
-        ? mockData.skill_categories
-        : [
-            { cat_name: "Backend" },
-            { cat_name: "Frontend" },
-            { cat_name: "Database" },
-            { cat_name: "Cloud" },
-            { cat_name: "Security" },
-            { cat_name: "Soft Skills" },
-        ];
 
-    const labels = categories.map((c) => c.cat_name);
-    const scores = emp.radarSkills || {};
-    const data = labels.map((lab) => (typeof scores[lab] !== "undefined" ? scores[lab] : 0));
+    const { labels, datasets } = buildRadarTripleScore(
+        emp,
+        mockData.skill_categories,
+        mockData.skills_master
+    );
+
+    const radarDatasets = [
+        {
+            label: "Current Level",
+            data: datasets.levelData,
+            backgroundColor: "rgba(37, 99, 235, 0.2)",
+            borderColor: "rgba(37, 99, 235, 1)",
+            borderWidth: 2,
+            pointRadius: 3,
+        },
+        {
+            label: "Start Level",
+            data: datasets.startLevelData,
+            backgroundColor: "rgba(16, 185, 129, 0.15)",
+            borderColor: "rgba(16, 185, 129, 1)",
+            borderWidth: 2,
+            borderDash: [5, 5],
+            pointRadius: 2,
+        },
+        {
+            label: "Goal Level",
+            data: datasets.goalLevelData,
+            backgroundColor: "rgba(239, 68, 68, 0.15)",
+            borderColor: "rgba(239, 68, 68, 1)",
+            borderWidth: 2,
+            pointRadius: 2,
+        }
+    ];
 
     if (radarChart) {
         radarChart.data.labels = labels;
-        radarChart.data.datasets[0].data = data;
+        radarChart.data.datasets = radarDatasets;
         radarChart.update();
         return;
     }
@@ -702,49 +769,27 @@ function populateRadarChart(emp) {
         type: "radar",
         data: {
             labels,
-            datasets: [
-                {
-                    label: emp.name,
-                    data,
-                    backgroundColor: "rgba(37, 99, 235, 0.2)",
-                    borderColor: "rgba(37, 99, 235, 0.9)",
-                    borderWidth: 2,
-                    pointBackgroundColor: "rgba(37, 99, 235, 1)",
-                    pointRadius: 3,
-                },
-            ],
+            datasets: radarDatasets,
         },
         options: {
             responsive: true,
             scales: {
                 r: {
-                    angleLines: {
-                        color: "#e5e7eb",
-                    },
-                    grid: {
-                        color: "#e5e7eb",
-                    },
                     suggestedMin: 0,
-                    suggestedMax: 5,
-                    ticks: {
-                        display: false,
-                    },
-                    pointLabels: {
-                        font: {
-                            size: 12,
-                        },
-                        color: "#374151",
-                    },
+                    suggestedMax: 20, // vì là tổng nhiều skill
+                    ticks: { display: false },
                 },
             },
             plugins: {
                 legend: {
-                    display: false,
+                    position: "top",
                 },
             },
         },
     });
 }
+
+
 
 function getLevelBadge(level) {
     const lvl = Math.max(1, Math.min(5, level || 1)); // đảm bảo 1-5

@@ -2208,8 +2208,8 @@ select {
 }
 
 .overview-avatar {
-    width: 48px;
-    height: 48px;
+    width: 56px;
+    height: 56px;
     border-radius: 16px;
     background: linear-gradient(135deg, #22c1c3, #2563eb);
     color: #e5f0ff;
