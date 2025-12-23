@@ -827,16 +827,19 @@ function populateHeatmap(emp) {
         (a, b) => (b.level || 0) - (a.level || 0)
     );
 
-    skills.forEach((skill) => {
+    skills.forEach((skill, index) => {
         const comment = getSkillComment(skill);
         const trendHtml = renderTrend(skill);
 
         const tr = document.createElement("tr");
+
         tr.innerHTML = `
             <td>${skill.name}</td>
             <td>${getLevelBadge(skill.startLevel)}</td>
             <td>${getLevelBadge(skill.level)}</td>
-            <td>${getLevelBadge(skill.goalLevel)}</td>
+            <td>
+                <span class="goal-badge" data-index="${index}">${getLevelBadge(skill.goalLevel)}</span>
+            </td>
             <td>${trendHtml}</td>
             <td>${comment}</td>
         `;
@@ -844,8 +847,51 @@ function populateHeatmap(emp) {
         tbody.appendChild(tr);
     });
 
+    // Thêm sự kiện click cho badge để edit
+    tbody.querySelectorAll(".goal-badge").forEach(span => {
+        span.addEventListener("click", (e) => {
+            const idx = parseInt(span.dataset.index);
+            const skill = emp.skills[idx];
+
+            // Tạo input thay thế badge
+            const input = document.createElement("input");
+            input.type = "number";
+            input.min = 1;
+            input.max = 5;
+            input.value = skill.goalLevel || 0;
+            input.className = "goal-input";
+
+            // Khi input mất focus hoặc nhấn Enter, cập nhật và quay về badge
+            const save = () => {
+                let val = parseInt(input.value);
+                if (isNaN(val)) val = 0;
+                skill.goalLevel = val;
+
+                // Cập nhật badge mới
+                span.innerHTML = getLevelBadge(val);
+                span.style.display = "";
+                input.remove();
+                populateRadarChart(emp);
+            };
+
+            input.addEventListener("blur", save);
+            input.addEventListener("keydown", (ev) => {
+                if (ev.key === "Enter") {
+                    input.blur();
+                }
+            });
+            input.className = "goal-input"; 
+
+            // Thay badge bằng input
+            span.style.display = "none";
+            span.parentElement.appendChild(input);
+            input.focus();
+        });
+    });
+
     heatmapList.appendChild(table);
 }
+
 
 document.querySelectorAll('.tabs-header .tab').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -1524,7 +1570,7 @@ function transformDatabaseToLegacyFormat(data) {
             return {
                 skill_id: es.skill_id,
                 startLevel: es.start_level_score,
-                goalLevel: skillsMaster.find(s => s.id === es.skill_id)?.goalLevel || 5,
+                goalLevel: es.goal_level || skillsMaster.find(s => s.id === es.skill_id)?.goal_level || 4,
                 name: skillName,
                 level: es.level_score,
                 lastUsedDate: es.last_verified || new Date().toISOString(),

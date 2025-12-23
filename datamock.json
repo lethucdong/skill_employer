@@ -259,154 +259,154 @@
             "cat_id": 2,
             "skill_name": "Node.js",
             "description": "Server-side JavaScript runtime",
-			"goalLevel": 5
+			"goal_level": 5
         },
         {
             "id": 2,
             "cat_id": 2,
             "skill_name": "Python",
             "description": "General-purpose programming language",
-			"goalLevel": 5
+			"goal_level": 5
         },
         {
             "id": 3,
             "cat_id": 2,
             "skill_name": "Java",
             "description": "Enterprise backend language",
-			"goalLevel": 5
+			"goal_level": 5
         },
         {
             "id": 4,
             "cat_id": 4,
             "skill_name": "React",
             "description": "Modern frontend framework",
-			"goalLevel": 5
+			"goal_level": 5
         },
         {
             "id": 5,
             "cat_id": 4,
             "skill_name": "Vue.js",
             "description": "Progressive frontend framework",
-			"goalLevel": 5
+			"goal_level": 5
         },
         {
             "id": 6,
             "cat_id": 4,
             "skill_name": "HTML / CSS",
             "description": "Markup and styling",
-			"goalLevel": 5
+			"goal_level": 5
         },
         {
             "id": 7,
             "cat_id": 4,
             "skill_name": "JavaScript",
             "description": "Client-side scripting",
-			"goalLevel": 5
+			"goal_level": 5
         },
         {
             "id": 8,
             "cat_id": 5,
             "skill_name": "Swift",
             "description": "iOS development language",
-			"goalLevel": 5
+			"goal_level": 5
         },
         {
             "id": 9,
             "cat_id": 5,
             "skill_name": "Flutter",
             "description": "Cross-platform mobile framework",
-			"goalLevel": 5
+			"goal_level": 5
         },
         {
             "id": 10,
             "cat_id": 7,
             "skill_name": "SQL",
             "description": "Relational database query language",
-			"goalLevel": 5
+			"goal_level": 5
         },
         {
             "id": 11,
             "cat_id": 7,
             "skill_name": "PostgreSQL",
             "description": "Advanced relational database",
-			"goalLevel": 5
+			"goal_level": 5
         },
         {
             "id": 12,
             "cat_id": 8,
             "skill_name": "MongoDB",
             "description": "NoSQL document database",
-			"goalLevel": 5
+			"goal_level": 5
         },
         {
             "id": 13,
             "cat_id": 8,
             "skill_name": "Redis",
             "description": "In-memory data store",
-			"goalLevel": 5
+			"goal_level": 5
         },
         {
             "id": 14,
             "cat_id": 10,
             "skill_name": "AWS",
             "description": "Amazon Web Services platform",
-			"goalLevel": 5
+			"goal_level": 5
         },
         {
             "id": 15,
             "cat_id": 10,
             "skill_name": "Google Cloud",
             "description": "Google Cloud Platform",
-			"goalLevel": 5
+			"goal_level": 5
         },
         {
             "id": 16,
             "cat_id": 11,
             "skill_name": "Docker",
             "description": "Containerization technology",
-			"goalLevel": 5
+			"goal_level": 5
         },
         {
             "id": 17,
             "cat_id": 11,
             "skill_name": "Kubernetes",
             "description": "Container orchestration",
-			"goalLevel": 5
+			"goal_level": 5
         },
         {
             "id": 18,
             "cat_id": 12,
             "skill_name": "Security",
             "description": "Application and infrastructure security",
-			"goalLevel": 5
+			"goal_level": 5
         },
         {
             "id": 19,
             "cat_id": 12,
             "skill_name": "Secure Coding",
             "description": "Secure development practices",
-			"goalLevel": 5
+			"goal_level": 5
         },
         {
             "id": 20,
             "cat_id": 13,
             "skill_name": "Project Management",
             "description": "Project planning and coordination",
-			"goalLevel": 5
+			"goal_level": 5
         },
         {
             "id": 21,
             "cat_id": 13,
             "skill_name": "Communication",
             "description": "Effective communication skills",
-			"goalLevel": 5
+			"goal_level": 5
         },
         {
             "id": 22,
             "cat_id": 14,
             "skill_name": "English",
             "description": "English language proficiency",
-			"goalLevel": 5
+			"goal_level": 5
         }
     ],
     "employee_skills": [
@@ -416,7 +416,8 @@
             "level_score": 3,
             "start_level_score": 1,
             "years_exp": 1.0,
-            "last_verified": "2025-11-30T00:00:00Z"
+            "last_verified": "2025-11-30T00:00:00Z",
+            "goal_level": 5
         },
         {
             "user_id": 1,
@@ -424,7 +425,8 @@
             "level_score": 1,
             "start_level_score": 1,
             "years_exp": 1,
-            "last_verified": "2023-03-10T00:00:00Z"
+            "last_verified": "2023-03-10T00:00:00Z",
+            "goal_level": 5
         },
         {
             "user_id": 1,
@@ -432,7 +434,8 @@
             "level_score": 4,
             "start_level_score": 1,
             "years_exp": 1.0,
-            "last_verified": "2025-08-01T00:00:00Z"
+            "last_verified": "2025-08-01T00:00:00Z",
+            "goal_level": 5
         },
         {
             "user_id": 1,
@@ -440,7 +443,8 @@
             "level_score": 3,
             "start_level_score": 1,
             "years_exp": 4.0,
-            "last_verified": "2025-12-10T00:00:00Z"
+            "last_verified": "2025-12-10T00:00:00Z",
+            "goal_level": 5
         },
         {
             "user_id": 1,
@@ -448,14 +452,16 @@
             "level_score": 3,
             "start_level_score": 1,
             "years_exp": 6.5,
-            "last_verified": "2025-09-18T00:00:00Z"
+            "last_verified": "2025-09-18T00:00:00Z",
+            "goal_level": 5
         },
         {
             "user_id": 1,
             "skill_id": 11,
             "level_score": 3,
             "years_exp": 6.5,
-            "last_verified": "2025-09-18T00:00:00Z"
+            "last_verified": "2025-09-18T00:00:00Z",
+            "goal_level": 5
         },
         {
             "user_id": 1,
@@ -463,7 +469,8 @@
             "level_score": 3,
             "start_level_score": 1,
             "years_exp": 6.5,
-            "last_verified": "2025-09-18T00:00:00Z"
+            "last_verified": "2025-09-18T00:00:00Z",
+            "goal_level": 5
         },
         {
             "user_id": 1,
@@ -471,7 +478,8 @@
             "level_score": 4,
             "start_level_score": 1,
             "years_exp": 5.0,
-            "last_verified": "2025-12-22T00:00:00Z"
+            "last_verified": "2025-12-22T00:00:00Z",
+            "goal_level": 5
         },
         {
             "user_id": 1,
@@ -479,7 +487,8 @@
             "level_score": 3,
             "start_level_score": 1,
             "years_exp": 1.0,
-            "last_verified": "2025-08-01T00:00:00Z"
+            "last_verified": "2025-08-01T00:00:00Z",
+            "goal_level": 5
         },
         {
             "user_id": 1,
@@ -487,7 +496,8 @@
             "level_score": 1,
             "start_level_score": 1,
             "years_exp": 1.0,
-            "last_verified": "2025-08-01T00:00:00Z"
+            "last_verified": "2025-08-01T00:00:00Z",
+            "goal_level": 5
         },
         {
             "user_id": 2,
@@ -495,7 +505,8 @@
             "level_score": 5,
             "start_level_score": 1,
             "years_exp": 7.0,
-            "last_verified": "2025-12-14T00:00:00Z"
+            "last_verified": "2025-12-14T00:00:00Z",
+            "goal_level": 5
         },
         {
             "user_id": 2,
@@ -503,7 +514,8 @@
             "level_score": 3,
             "start_level_score": 1,
             "years_exp": 5.0,
-            "last_verified": "2025-10-02T00:00:00Z"
+            "last_verified": "2025-10-02T00:00:00Z",
+            "goal_level": 5
         },
         {
             "user_id": 2,
@@ -511,7 +523,8 @@
             "level_score": 4,
             "start_level_score": 1,
             "years_exp": 6.5,
-            "last_verified": "2025-11-20T00:00:00Z"
+            "last_verified": "2025-11-20T00:00:00Z",
+            "goal_level": 5
         },
         {
             "user_id": 2,
@@ -519,7 +532,8 @@
             "level_score": 2,
             "start_level_score": 1,
             "years_exp": 3.0,
-            "last_verified": "2024-11-01T00:00:00Z"
+            "last_verified": "2024-11-01T00:00:00Z",
+            "goal_level": 5
         },
         {
             "user_id": 2,
@@ -527,7 +541,8 @@
             "level_score": 4,
             "start_level_score": 1,
             "years_exp": 5.5,
-            "last_verified": "2025-09-14T00:00:00Z"
+            "last_verified": "2025-09-14T00:00:00Z",
+            "goal_level": 5
         },
         {
             "user_id": 3,
@@ -535,7 +550,8 @@
             "level_score": 5,
             "start_level_score": 1,
             "years_exp": 5.0,
-            "last_verified": "2025-12-16T00:00:00Z"
+            "last_verified": "2025-12-16T00:00:00Z",
+            "goal_level": 5
         },
         {
             "user_id": 3,
@@ -543,7 +559,8 @@
             "level_score": 2,
             "start_level_score": 1,
             "years_exp": 2.0,
-            "last_verified": "2024-08-01T00:00:00Z"
+            "last_verified": "2024-08-01T00:00:00Z",
+            "goal_level": 5
         },
         {
             "user_id": 3,
@@ -551,7 +568,8 @@
             "level_score": 3,
             "start_level_score": 1,
             "years_exp": 4.0,
-            "last_verified": "2025-05-10T00:00:00Z"
+            "last_verified": "2025-05-10T00:00:00Z",
+            "goal_level": 5
         },
         {
             "user_id": 4,
@@ -559,7 +577,8 @@
             "level_score": 5,
             "start_level_score": 1,
             "years_exp": 8.0,
-            "last_verified": "2025-12-12T00:00:00Z"
+            "last_verified": "2025-12-12T00:00:00Z",
+            "goal_level": 5
         },
         {
             "user_id": 4,
@@ -567,7 +586,8 @@
             "level_score": 4,
             "start_level_score": 1,
             "years_exp": 7.0,
-            "last_verified": "2025-11-01T00:00:00Z"
+            "last_verified": "2025-11-01T00:00:00Z",
+            "goal_level": 5
         },
         {
             "user_id": 4,
@@ -575,7 +595,8 @@
             "level_score": 3,
             "start_level_score": 1,
             "years_exp": 6.0,
-            "last_verified": "2025-09-20T00:00:00Z"
+            "last_verified": "2025-09-20T00:00:00Z",
+            "goal_level": 5
         },
         {
             "user_id": 4,
@@ -583,7 +604,8 @@
             "level_score": 2,
             "start_level_score": 1,
             "years_exp": 4.0,
-            "last_verified": "2024-06-01T00:00:00Z"
+            "last_verified": "2024-06-01T00:00:00Z",
+            "goal_level": 5
         },
         {
             "user_id": 5,
@@ -591,7 +613,8 @@
             "level_score": 4,
             "start_level_score": 1,
             "years_exp": 9.0,
-            "last_verified": "2025-10-01T00:00:00Z"
+            "last_verified": "2025-10-01T00:00:00Z",
+            "goal_level": 5
         },
         {
             "user_id": 5,
@@ -599,7 +622,8 @@
             "level_score": 3,
             "start_level_score": 1,
             "years_exp": 7.0,
-            "last_verified": "2025-09-01T00:00:00Z"
+            "last_verified": "2025-09-01T00:00:00Z",
+            "goal_level": 5
         },
         {
             "user_id": 5,
@@ -607,7 +631,8 @@
             "level_score": 1,
             "start_level_score": 1,
             "years_exp": 2.0,
-            "last_verified": "2023-01-01T00:00:00Z"
+            "last_verified": "2023-01-01T00:00:00Z",
+            "goal_level": 5
         },
         {
             "user_id": 6,
@@ -615,7 +640,8 @@
             "level_score": 5,
             "start_level_score": 1,
             "years_exp": 10.0,
-            "last_verified": "2025-12-15T00:00:00Z"
+            "last_verified": "2025-12-15T00:00:00Z",
+            "goal_level": 5
         },
         {
             "user_id": 6,
@@ -623,7 +649,8 @@
             "level_score": 5,
             "start_level_score": 1,
             "years_exp": 10.0,
-            "last_verified": "2025-12-15T00:00:00Z"
+            "last_verified": "2025-12-15T00:00:00Z",
+            "goal_level": 5
         },
         {
             "user_id": 6,
@@ -631,7 +658,8 @@
             "level_score": 5,
             "start_level_score": 1,
             "years_exp": 9.0,
-            "last_verified": "2025-11-20T00:00:00Z"
+            "last_verified": "2025-11-20T00:00:00Z",
+            "goal_level": 5
         },
         {
             "user_id": 6,
@@ -639,7 +667,8 @@
             "level_score": 3,
             "start_level_score": 1,
             "years_exp": 5.0,
-            "last_verified": "2025-10-10T00:00:00Z"
+            "last_verified": "2025-10-10T00:00:00Z",
+            "goal_level": 5
         },
         {
             "user_id": 7,
@@ -647,7 +676,8 @@
             "level_score": 3,
             "start_level_score": 1,
             "years_exp": 4.5,
-            "last_verified": "2025-06-01T00:00:00Z"
+            "last_verified": "2025-06-01T00:00:00Z",
+            "goal_level": 5
         },
         {
             "user_id": 7,
@@ -655,7 +685,8 @@
             "level_score": 2,
             "start_level_score": 1,
             "years_exp": 2.0,
-            "last_verified": "2024-12-01T00:00:00Z"
+            "last_verified": "2024-12-01T00:00:00Z",
+            "goal_level": 5
         }
     ],
     "skill_history": [
