@@ -638,9 +638,44 @@ function populateEmployeeOverview(emp) {
         "Employee shows balanced capability profile with clear opportunities for targeted training and project assignments.";
 }
 
+// Skill guide modal behavior
+(function () {
+    const guideBtn = document.getElementById('skill-guide-btn');
+    const guideModal = document.getElementById('skill-guide-modal');
+    const guideClose = document.getElementById('skill-guide-close');
+    const guideOverlay = guideModal ? guideModal.querySelector('[data-role="overlay"]') : null;
+    let lastFocusedBeforeGuide = null;
+
+    function onKeyDown(e) {
+        if (e.key === 'Escape') hideGuide();
+    }
+
+    function showGuide() {
+        if (!guideModal) return;
+        lastFocusedBeforeGuide = document.activeElement;
+        guideModal.setAttribute('aria-hidden', 'false');
+        guideModal.classList.add('open');
+        if (guideClose && typeof guideClose.focus === 'function') guideClose.focus();
+        document.addEventListener('keydown', onKeyDown);
+    }
+
+    function hideGuide() {
+        if (!guideModal) return;
+        guideModal.setAttribute('aria-hidden', 'true');
+        guideModal.classList.remove('open');
+        if (lastFocusedBeforeGuide && typeof lastFocusedBeforeGuide.focus === 'function') lastFocusedBeforeGuide.focus();
+        document.removeEventListener('keydown', onKeyDown);
+    }
+
+    if (guideBtn) guideBtn.addEventListener('click', function (e) { e.preventDefault(); showGuide(); });
+    if (guideClose) guideClose.addEventListener('click', function (e) { e.preventDefault(); hideGuide(); });
+    if (guideOverlay) guideOverlay.addEventListener('click', function () { hideGuide(); });
+})();
+
 function populateRadarChart(emp) {
     if (!radarCanvas) return;
     // Use skill_categories as radar axes if available, otherwise fallback to defaults
+    console.log('mockData', mockData);
     const categories = (mockData && mockData.skill_categories && mockData.skill_categories.length)
         ? mockData.skill_categories
         : [
