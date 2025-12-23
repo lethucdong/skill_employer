@@ -51,6 +51,10 @@
                         <i class="nav-icon fas fa-id-badge" aria-hidden="true"></i>
                         <span class="nav-label">Employee Management</span>
                     </button>
+                    <button class="nav-item" data-view="skill-management">
+                        <i class="nav-icon fas fa-cogs" aria-hidden="true"></i>
+                        <span class="nav-label">Skill Management</span>
+                    </button>
                 </div>
 
             </nav>
@@ -60,22 +64,14 @@
                     <div class="user-profile">
                         <div class="user-avatar-small">AN</div>
                         <div class="user-info-small">
-                            <span class="user-name-small">Admin</span>
-                            <span class="user-email-small">admin@saisystem.vn</span>
+                            <span class="user-name-small">Người quản trị</span>
+                            <span class="user-email-small">admin@acme-corp.vn</span>
                         </div>
                     </div>
                     <button class="logout-btn" title="Đăng xuất">
-                        <i class="fas fa-ellipsis-v"></i>
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Đăng xuất</span>
                     </button>
-                </div>
-                <!-- Dropdown menu -->
-                <div class="user-dropdown" id="userDropdown">
-                    <a href="#" class="dropdown-item">
-                        <i class="fas fa-user"></i> Profile
-                    </a>
-                    <a href="#" class="dropdown-item logout">
-                        <i class="fas fa-sign-out-alt"></i> Logout
-                    </a>
                 </div>
             </div>
         </aside>
@@ -93,6 +89,19 @@
                     <div class="topbar__product">
                         <span class="product-name">SIRAS</span>
                         <span class="product-desc">Skill-Based Intelligent Resource Allocation System</span>
+                    </div>
+                </div>
+                <div class="topbar__right">
+                    <button class="icon-button" id="notification-btn" title="Notifications">
+                        🔔
+                        <span class="badge-dot"></span>
+                    </button>
+                    <div class="topbar__user">
+                        <div class="user-info">
+                            <span class="user-name">Alex Nguyen</span>
+                            <span class="user-role">HR Director</span>
+                        </div>
+                        <div class="user-avatar">AN</div>
                     </div>
                 </div>
             </header>
@@ -146,6 +155,15 @@
                     <p class="view-subtitle">
                         Tools for HR to manage employee records, roles and skill profiles. Detailed skill insights
                         available via the Skill Matrix and Employee Detail views.
+                    </p>
+                </section>
+
+                <!-- Skill Management Placeholder -->
+                <section class="view view--placeholder" id="view-skill-management" hidden>
+                    <h1 class="view-title">Skill Management</h1>
+                    <p class="view-subtitle">
+                        Manage the skill taxonomy, categories and proficiency levels. This section allows admins to
+                        customize the skills tracked in the Skill Matrix and Employee Detail views.
                     </p>
                 </section>
 
@@ -419,11 +437,14 @@
             <h3 id="skill-guide-title">How to use</h3>
             <div class="guide-content">
                 <ol class="guide-list">
-                    <li><strong>Language</strong><br>Please self-assess and select one of the levels: ◯ / △ / leave blank
+                    <li><strong>Language</strong><br>Please self-assess and select one of the levels: ◯ / △ / leave
+                        blank
                         according to your proficiency.</li>
-                    <li><strong>PG Language</strong><br>Please enter the total number of years of actual paid work experience.<br>
+                    <li><strong>PG Language</strong><br>Please enter the total number of years of actual paid work
+                        experience.<br>
                         Unit: 0.5 year<br>Does not include self-study or training time.</li>
-                    <li><strong>Other Items</strong><br>Please self-assess and select one of the levels: ◉ / ◯ / △ / leave blank
+                    <li><strong>Other Items</strong><br>Please self-assess and select one of the levels: ◉ / ◯ / △ /
+                        leave blank
                     </li>
                 </ol>
                 <div class="guide-legend">

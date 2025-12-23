@@ -22,6 +22,7 @@ const views = {
     "notification-center": document.getElementById("view-notification-center"),
     reports: document.getElementById("view-reports"),
     "employee-detail": document.getElementById("view-employee-detail"),
+    "skill-management": document.getElementById("view-skill-management"),
 };
 
 const navButtons = Array.from(document.querySelectorAll(".nav-item"));
@@ -237,6 +238,7 @@ function renderSkillCell(td, employee, skillName, category = "") {
                     s.level = val;
                 }
             });
+            input.addEventListener('click', (e) => e.stopPropagation());
             td.appendChild(input);
             return;
         }
@@ -313,6 +315,7 @@ function renderSkillCell(td, employee, skillName, category = "") {
             const s = employee.skills.find(s => s.name.toLowerCase() === skillName.toLowerCase());
             if (s) s.level = val;
         });
+        input.addEventListener('click', (e) => e.stopPropagation());
         td.appendChild(input);
         return;
     }
@@ -395,6 +398,9 @@ function renderSkillMatrix() {
         return;
     }
 
+    // Phân trang
+    const pageSize = 10; // Số nhân viên mỗi trang
+    let currentPage = window.skillMatrixCurrentPage || 1;
     // Filter employees
     const filtered = employees.filter((emp) => {
         if (selectedDept && selectedDept !== "all") {
@@ -418,7 +424,16 @@ function renderSkillMatrix() {
         return nameA.localeCompare(nameB);
     });
 
-    // Build columns for skills; header will be 3 rows: Category, Sub-Category, Skill
+    // Tính tổng số trang
+    const totalPages = Math.ceil(filtered.length / pageSize) || 1;
+    if (currentPage > totalPages) currentPage = totalPages;
+    if (currentPage < 1) currentPage = 1;
+    window.skillMatrixCurrentPage = currentPage;
+
+    // Lấy danh sách nhân viên cho trang hiện tại
+    const pagedEmployees = filtered.slice((currentPage - 1) * pageSize, currentPage * pageSize);
+
+    // Build columns for skills; header sẽ là 3 hàng: Category, Sub-Category, Skill
     skillMatrixBody.innerHTML = "";
     const categories = mockData.skill_categories || [];
     const skillsMaster = mockData.skills_master || [];
@@ -502,7 +517,7 @@ function renderSkillMatrix() {
     headerCategories.forEach(cat => Object.keys(catMap[cat]).forEach(sub => catMap[cat][sub].forEach(sk => skillOrder.push({ skill: sk, category: cat, subcategory: sub }))));
 
 
-    filtered.forEach(emp => {
+    pagedEmployees.forEach(emp => {
         const tr = document.createElement('tr');
         tr.className = 'employee-row';
         tr.dataset.employeeId = emp.id;
@@ -526,11 +541,65 @@ function renderSkillMatrix() {
             tr.appendChild(td);
         });
 
-        // row click open detail
-        tr.addEventListener('click', () => openEmployeeDetail(emp.id));
+        // Chỉ mở detail khi click vào 2 cột đầu
+        nameTd.addEventListener('click', (e) => {
+            e.stopPropagation();
+            openEmployeeDetail(emp.id);
+        });
+        teamTd.addEventListener('click', (e) => {
+            e.stopPropagation();
+            openEmployeeDetail(emp.id);
+        });
 
         skillMatrixBody.appendChild(tr);
     });
+
+    // Hiển thị phân trang
+    const paginationEl = document.getElementById('pagination');
+    if (paginationEl) {
+        paginationEl.innerHTML = '';
+        // Previous button
+        const prevLi = document.createElement('li');
+        const prevBtn = document.createElement('button');
+        prevBtn.textContent = '«';
+        prevBtn.disabled = currentPage === 1;
+        prevBtn.onclick = function() {
+            if (currentPage > 1) {
+                window.skillMatrixCurrentPage = currentPage - 1;
+                renderSkillMatrix();
+            }
+        };
+        prevLi.appendChild(prevBtn);
+        paginationEl.appendChild(prevLi);
+
+        // Page numbers
+        for (let i = 1; i <= totalPages; i++) {
+            const li = document.createElement('li');
+            const btn = document.createElement('button');
+            btn.textContent = i;
+            if (i === currentPage) btn.classList.add('active');
+            btn.onclick = function() {
+                window.skillMatrixCurrentPage = i;
+                renderSkillMatrix();
+            };
+            li.appendChild(btn);
+            paginationEl.appendChild(li);
+        }
+
+        // Next button
+        const nextLi = document.createElement('li');
+        const nextBtn = document.createElement('button');
+        nextBtn.textContent = '»';
+        nextBtn.disabled = currentPage === totalPages;
+        nextBtn.onclick = function() {
+            if (currentPage < totalPages) {
+                window.skillMatrixCurrentPage = currentPage + 1;
+                renderSkillMatrix();
+            }
+        };
+        nextLi.appendChild(nextBtn);
+        paginationEl.appendChild(nextLi);
+    }
 }
 
 function openEmployeeDetail(employeeId) {
@@ -824,7 +893,7 @@ function populateHeatmap(emp) {
                     input.blur();
                 }
             });
-            input.className = "goal-input"; 
+            input.className = "goal-input";
 
             // Thay badge bằng input
             span.style.display = "none";

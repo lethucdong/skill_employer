@@ -1,6 +1,7 @@
 .skill-matrix tbody tr:hover td.employee-name-col,
 .skill-matrix tbody tr:hover td.team-col {
     background: #f9fafb !important;
+    cursor: pointer;
 }
 
 .skill-matrix td.employee-name-col,
@@ -272,7 +273,7 @@ select {
 
 
 @media (min-width: 1024px) {
-    .sidebar-toggle, .topbar {
+    .sidebar-toggle {
         display: none !important;
     }
 }
@@ -297,13 +298,13 @@ select {
 }
 
 /* ===== Desktop ≥ 1024px ===== */
-#sidebar-toggle, .topbar {
+#sidebar-toggle {
     display: none;
 }
 
 /* ===== Tablet & Mobile < 1024px ===== */
 @media (max-width: 1024px) {
-    #sidebar-toggle, .topbar {
+    #sidebar-toggle {
         display: inline-flex;
     }
 
@@ -754,9 +755,8 @@ select {
 
 .user-section {
     display: flex;
+    flex-direction: column;
     gap: 8px;
-    justify-content: space-between;
-    position: relative;
 }
 
 .user-profile {
@@ -1399,7 +1399,7 @@ select {
     right: 15px;
     z-index: 100;
     position: fixed;
-    top: 195px;
+    top: 255px;
 
     width: 44px;
     height: 44px;
@@ -1486,7 +1486,7 @@ select {
     }
 
     .guide-floating {
-        top: 310px;
+        top: 325px;
         right: -3px;
     }
 }
@@ -1657,16 +1657,6 @@ select {
     min-width: 100px;
 }
 
-.skill-matrix th:not(.skill-label-col) {
-    cursor: pointer;
-    transition: background-color 0.2s ease, color 0.2s ease;
-}
-
-.skill-matrix th:not(.skill-label-col):hover {
-    background-color: #e0e7ff;
-    color: var(--color-text-main);
-}
-
 .skill-matrix th:first-child {
     text-align: left;
     width: 140px !important;
@@ -1760,6 +1750,7 @@ select {
 
 .skill-matrix tbody tr:hover {
     background: #f9fafb;
+    cursor: default;
 }
 
 .skill-matrix tbody tr.category-row {
@@ -2080,11 +2071,16 @@ select {
     text-align: center;
     font-weight: 600;
     font-size: 13px;
+    cursor: pointer;
 }
 
 .skill-select:focus {
     outline: none;
     box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+.skill-select:hover {
+    border-color: #1976d2;
 }
 
 /* Color variants to match badge colors */
@@ -2150,6 +2146,10 @@ select {
     outline: none;
     box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
     border-color: #2563eb;
+}
+
+.skill-number-input:hover {
+    border-color: #1976d2;
 }
 
 /* Hide spinner arrows on number input */
