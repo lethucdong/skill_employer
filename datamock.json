@@ -30,6 +30,7 @@
         {
             "id": 1,
             "full_name": "Phạm Văn Hoàn",
+            "account_name": "HoanPV",
             "email": "hoanpv@saisystem.vn",
             "password_hash": "hashed_password_1",
             "role": "Software Developer",
@@ -40,6 +41,7 @@
         {
             "id": 2,
             "full_name": "Lê Thúc Đông",
+            "account_name": "DongLT",
             "email": "donglt@saisystem.vn",
             "password_hash": "hashed_password_2",
             "role": "Software Developer",
@@ -49,6 +51,7 @@
         {
             "id": 3,
             "full_name": "Nguyễn Hồng Thắng",
+            "account_name": "ThangNH",
             "email": "thangnh@saisystem.vn",
             "password_hash": "hashed_password_3",
             "role": "Software Developer",
@@ -58,6 +61,7 @@
         {
             "id": 4,
             "full_name": "Ngô Tá Sinh",
+            "account_name": "SinhNT",
             "email": "sinhnt@saisystem.vn",
             "password_hash": "hashed_password_4",
             "role": "Leader",
@@ -67,6 +71,7 @@
         {
             "id": 5,
             "full_name": "Lê Quốc Khánh",
+            "account_name": "KhanhLQ",
             "email": "khanhlq@saisystem.vn",
             "password_hash": "hashed_password_5",
             "role": "Leader",
@@ -76,6 +81,7 @@
         {
             "id": 6,
             "full_name": "Nguyễn Duy Thanh",
+            "account_name": "ThanhND",
             "email": "thanhnd@saisystem.vn",
             "password_hash": "hashed_password_6",
             "role": "Software Developer",
@@ -85,6 +91,7 @@
         {
             "id": 7,
             "full_name": "Nguyễn Thị Thủy",
+            "account_name": "ThuyNT",
             "email": "thuynt@saisystem.vn",
             "password_hash": "hashed_password_7",
             "role": "Tester",
@@ -94,6 +101,7 @@
         {
             "id": 8,
             "full_name": "Hồ Văn Quang Huy",
+            "account_name": "HuyHVQ",
             "email": "huyhvq@saisystem.vn",
             "password_hash": "hashed_password_admin",
             "role": "Software Developer",

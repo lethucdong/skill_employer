@@ -1766,40 +1766,8 @@ async function init() {
     // Initial view
     showView("skill-matrix");
     setActiveNav("skill-matrix");
-
-    // Initialize skill guide popup handlers
-    initSkillGuide();
 }
 
 window.addEventListener("DOMContentLoaded", init);
-
-// Skill guide popup logic
-function initSkillGuide() {
-    const btn = document.getElementById('skill-guide-btn');
-    const modal = document.getElementById('skill-guide-modal');
-    const closeBtn = document.getElementById('skill-guide-close');
-    if (!btn || !modal) return;
-    btn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        modal.classList.add('open');
-        modal.setAttribute('aria-hidden', 'false');
-    });
-    if (closeBtn) closeBtn.addEventListener('click', () => {
-        modal.classList.remove('open');
-        modal.setAttribute('aria-hidden', 'true');
-    });
-    const overlay = modal.querySelector('.guide-overlay');
-    if (overlay) overlay.addEventListener('click', () => {
-        modal.classList.remove('open');
-        modal.setAttribute('aria-hidden', 'true');
-    });
-    // allow ESC to close
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && modal.classList.contains('open')) {
-            modal.classList.remove('open');
-            modal.setAttribute('aria-hidden', 'true');
-        }
-    });
-}
 
 
