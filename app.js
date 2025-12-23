@@ -1690,6 +1690,8 @@ function initTimelineSchedule(emp) {
         showCurrentTime: true,
         stack: true,
         zoomable: true,
+        zoomKey: 'ctrlKey', // mac: cmdKey
+        moveable: true,
         horizontalScroll: true,
         start: startOfMonth,
         end: endOfMonth
