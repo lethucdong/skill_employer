@@ -399,7 +399,8 @@ function renderSkillMatrix() {
     }
 
     // Phân trang
-    const pageSize = 10; // Số nhân viên mỗi trang
+    // Xử lý pageSize động
+    let pageSize = window.skillMatrixPageSize || 10;
     let currentPage = window.skillMatrixCurrentPage || 1;
     // Filter employees
     const filtered = employees.filter((emp) => {
@@ -429,9 +430,28 @@ function renderSkillMatrix() {
     if (currentPage > totalPages) currentPage = totalPages;
     if (currentPage < 1) currentPage = 1;
     window.skillMatrixCurrentPage = currentPage;
+    window.skillMatrixPageSize = pageSize;
 
     // Lấy danh sách nhân viên cho trang hiện tại
     const pagedEmployees = filtered.slice((currentPage - 1) * pageSize, currentPage * pageSize);
+
+    // Hiển thị thông tin phân trang
+    const paginationInfoEl = document.getElementById('pagination-info');
+    if (paginationInfoEl) {
+        const startIdx = filtered.length === 0 ? 0 : (currentPage - 1) * pageSize + 1;
+        const endIdx = Math.min(currentPage * pageSize, filtered.length);
+        paginationInfoEl.textContent = `Showing ${startIdx}-${endIdx} of ${filtered.length} employees`;
+    }
+    // Xử lý thay đổi pageSize
+    const pageSizeSelect = document.getElementById('page-size-select');
+    if (pageSizeSelect) {
+        pageSizeSelect.value = pageSize;
+        pageSizeSelect.onchange = function () {
+            window.skillMatrixPageSize = Number(pageSizeSelect.value);
+            window.skillMatrixCurrentPage = 1;
+            renderSkillMatrix();
+        };
+    }
 
     // Build columns for skills; header sẽ là 3 hàng: Category, Sub-Category, Skill
     skillMatrixBody.innerHTML = "";
@@ -563,7 +583,7 @@ function renderSkillMatrix() {
         const prevBtn = document.createElement('button');
         prevBtn.textContent = '«';
         prevBtn.disabled = currentPage === 1;
-        prevBtn.onclick = function() {
+        prevBtn.onclick = function () {
             if (currentPage > 1) {
                 window.skillMatrixCurrentPage = currentPage - 1;
                 renderSkillMatrix();
@@ -578,7 +598,7 @@ function renderSkillMatrix() {
             const btn = document.createElement('button');
             btn.textContent = i;
             if (i === currentPage) btn.classList.add('active');
-            btn.onclick = function() {
+            btn.onclick = function () {
                 window.skillMatrixCurrentPage = i;
                 renderSkillMatrix();
             };
@@ -591,7 +611,7 @@ function renderSkillMatrix() {
         const nextBtn = document.createElement('button');
         nextBtn.textContent = '»';
         nextBtn.disabled = currentPage === totalPages;
-        nextBtn.onclick = function() {
+        nextBtn.onclick = function () {
             if (currentPage < totalPages) {
                 window.skillMatrixCurrentPage = currentPage + 1;
                 renderSkillMatrix();
