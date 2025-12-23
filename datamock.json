@@ -251,6 +251,24 @@
             "cat_name": "Language",
             "parent_id": null,
             "level": 1
+        },
+        {
+            "id": 15,
+            "cat_name": "",
+            "parent_id": 14,
+            "level": 2
+        },
+        {
+            "id": 16,
+            "cat_name": "",
+            "parent_id": 13,
+            "level": 2
+        },
+        {
+            "id": 17,
+            "cat_name": "",
+            "parent_id": 12,
+            "level": 2
         }
     ],
     "skills_master": [
@@ -375,35 +393,35 @@
         },
         {
             "id": 18,
-            "cat_id": 12,
+            "cat_id": 17,
             "skill_name": "Security",
             "description": "Application and infrastructure security",
 			"goal_level": 5
         },
         {
             "id": 19,
-            "cat_id": 12,
+            "cat_id": 17,
             "skill_name": "Secure Coding",
             "description": "Secure development practices",
 			"goal_level": 5
         },
         {
             "id": 20,
-            "cat_id": 13,
+            "cat_id": 16,
             "skill_name": "Project Management",
             "description": "Project planning and coordination",
 			"goal_level": 5
         },
         {
             "id": 21,
-            "cat_id": 13,
+            "cat_id": 16,
             "skill_name": "Communication",
             "description": "Effective communication skills",
 			"goal_level": 5
         },
         {
             "id": 22,
-            "cat_id": 14,
+            "cat_id": 15,
             "skill_name": "English",
             "description": "English language proficiency",
 			"goal_level": 5
