@@ -1394,7 +1394,12 @@ select {
 }
 
 .guide-floating {
-    position: static;
+    border-radius: 24px;
+    right: -3px;
+    z-index: 100;
+    position: fixed;
+    top: 240px;
+
     width: 44px;
     height: 44px;
     display: inline-flex;
@@ -1404,7 +1409,6 @@ select {
     border: 1px solid var(--color-border-subtle);
     color: var(--color-accent-strong);
     box-shadow: 0 6px 18px rgba(37, 99, 235, 0.06);
-    border-radius: 10px;
     transition: background 0.15s ease, transform 0.05s ease;
     cursor: pointer;
 }
@@ -1481,8 +1485,7 @@ select {
     }
 
     .guide-floating {
-        right: 8px;
-        top: 8px;
+        top: 310px;
     }
 }
 
