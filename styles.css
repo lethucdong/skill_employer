@@ -272,7 +272,7 @@ select {
 
 
 @media (min-width: 1024px) {
-    .sidebar-toggle {
+    .sidebar-toggle, .topbar {
         display: none !important;
     }
 }
@@ -297,13 +297,13 @@ select {
 }
 
 /* ===== Desktop ≥ 1024px ===== */
-#sidebar-toggle {
+#sidebar-toggle, .topbar {
     display: none;
 }
 
 /* ===== Tablet & Mobile < 1024px ===== */
 @media (max-width: 1024px) {
-    #sidebar-toggle {
+    #sidebar-toggle, .topbar {
         display: inline-flex;
     }
 
@@ -754,8 +754,9 @@ select {
 
 .user-section {
     display: flex;
-    flex-direction: column;
     gap: 8px;
+    justify-content: space-between;
+    position: relative;
 }
 
 .user-profile {
@@ -2892,4 +2893,68 @@ select {
         padding-top: 8px;
         margin-top: 6px;
     }
+}
+
+.user-dropdown {
+    position: absolute;
+    right: -10px;
+    bottom: 50px;
+    width: 150px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    display: none;
+    flex-direction: column;
+    z-index: 1000;
+}
+
+.user-dropdown.show {
+    display: flex;
+}
+
+.dropdown-item {
+    padding: 10px 14px;
+    text-decoration: none;
+    color: #333;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background 0.2s;
+}
+
+.dropdown-item:hover {
+    background: #f5f5f5;
+}
+
+.dropdown-item.logout {
+    color: #e74c3c;
+}
+
+.dropdown-item.logout:hover {
+    background: #fdecea;
+}
+
+.cat-header {
+    background-color: #E3F2FD !important;
+    color: #1565C0 !important;
+}
+
+.subcat-header {
+    background-color: #E8F5E9 !important;
+    color: #2E7D32 !important;
+}
+
+.skill-header {
+    background-color: #F3E5F5 !important;
+    color: #6A1B9A !important;
+}
+
+.employee-col, .team-col-header {
+    background-color: #FFF3E0 !important;
+    color: #EF6C00 !important;
+}
+
+.employee-name-col {
+    color: #0277BD !important;
 }

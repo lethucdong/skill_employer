@@ -60,14 +60,22 @@
                     <div class="user-profile">
                         <div class="user-avatar-small">AN</div>
                         <div class="user-info-small">
-                            <span class="user-name-small">Người quản trị</span>
-                            <span class="user-email-small">admin@acme-corp.vn</span>
+                            <span class="user-name-small">Admin</span>
+                            <span class="user-email-small">admin@saisystem.vn</span>
                         </div>
                     </div>
                     <button class="logout-btn" title="Đăng xuất">
-                        <i class="fas fa-sign-out-alt"></i>
-                        <span>Đăng xuất</span>
+                        <i class="fas fa-ellipsis-v"></i>
                     </button>
+                </div>
+                <!-- Dropdown menu -->
+                <div class="user-dropdown" id="userDropdown">
+                    <a href="#" class="dropdown-item">
+                        <i class="fas fa-user"></i> Profile
+                    </a>
+                    <a href="#" class="dropdown-item logout">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </a>
                 </div>
             </div>
         </aside>
@@ -85,19 +93,6 @@
                     <div class="topbar__product">
                         <span class="product-name">SIRAS</span>
                         <span class="product-desc">Skill-Based Intelligent Resource Allocation System</span>
-                    </div>
-                </div>
-                <div class="topbar__right">
-                    <button class="icon-button" id="notification-btn" title="Notifications">
-                        🔔
-                        <span class="badge-dot"></span>
-                    </button>
-                    <div class="topbar__user">
-                        <div class="user-info">
-                            <span class="user-name">Alex Nguyen</span>
-                            <span class="user-role">HR Director</span>
-                        </div>
-                        <div class="user-avatar">AN</div>
                     </div>
                 </div>
             </header>
@@ -194,9 +189,14 @@
                         </div>
                     </div>
 
-                    <button id="skill-guide-btn" class="icon-button guide-floating" aria-label="How to use">
-                        <i class="fas fa-info-circle" aria-hidden="true"></i>
-                    </button>
+                    <div class="guide-trigger-row">
+                        <div class="guide-trigger" style="display:flex;justify-content:flex-end; padding-bottom: 10px;">
+                            <button id="skill-guide-btn" class="icon-button guide-floating"
+                                aria-label="Hướng dẫn đánh giá kỹ năng">
+                                <i class="fas fa-info-circle" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                    </div>
 
                     <section class="view-body">
                         <div class="skill-matrix-wrapper">
