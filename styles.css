@@ -595,7 +595,7 @@ select {
 }
 
 .heatmap-container {
-    max-height: 500px;
+    max-height: 450px;
     /* hoặc chiều cao bạn muốn */
     overflow: auto;
     /* cho phép scroll dọc & ngang */
