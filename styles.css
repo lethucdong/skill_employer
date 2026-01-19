@@ -2394,6 +2394,11 @@ select {
     text-align: center;
 }
 
+.goal-input {
+    width: 40px;
+    border: 2px solid #4caf50;
+}
+
 .delete-skill {
     padding-left: 5px;
     cursor: pointer;

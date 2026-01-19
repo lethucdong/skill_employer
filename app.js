@@ -798,6 +798,14 @@ function populateRadarChart(emp) {
         return;
     }
 
+    const allValues = [
+        ...datasets.levelData,
+        ...datasets.startLevelData,
+        ...datasets.goalLevelData,
+    ];
+
+    const suggestedMax = Math.ceil(Math.max(...allValues, 1));
+
     radarChart = new Chart(radarCanvas, {
         type: "radar",
         data: {
@@ -809,7 +817,7 @@ function populateRadarChart(emp) {
             scales: {
                 r: {
                     suggestedMin: 0,
-                    suggestedMax: 20, // vì là tổng nhiều skill
+                    suggestedMax: suggestedMax + 1,
                     ticks: { display: false },
                 },
             },
@@ -869,11 +877,30 @@ function populateHeatmap(emp) {
 
         tr.innerHTML = `
             <td>${skill.name}</td>
-            <td>${getLevelBadge(skill.startLevel)}</td>
-            <td>${getLevelBadge(skill.level)}</td>
             <td>
-                <span class="goal-badge" data-index="${index}">${getLevelBadge(skill.goalLevel)}</span>
+                <span class="level-badge editable" 
+                    data-index="${index}" 
+                    data-field="startLevel">
+                    ${getLevelBadge(skill.startLevel)}
+                </span>
             </td>
+
+            <td>
+                <span class="level-badge editable" 
+                    data-index="${index}" 
+                    data-field="level">
+                    ${getLevelBadge(skill.level)}
+                </span>
+            </td>
+
+            <td>
+                <span class="level-badge editable" 
+                    data-index="${index}" 
+                    data-field="goalLevel">
+                    ${getLevelBadge(skill.goalLevel)}
+                </span>
+            </td>
+
             <td>${trendHtml}</td>
             <td>${comment}</td>
             <td class="action-cell">
@@ -886,48 +913,49 @@ function populateHeatmap(emp) {
     });
 
     // Thêm sự kiện click cho badge để edit
-    tbody.querySelectorAll(".goal-badge").forEach(span => {
-        span.addEventListener("click", (e) => {
+    tbody.querySelectorAll(".editable").forEach(span => {
+        span.addEventListener("click", () => {
             const idx = parseInt(span.dataset.index);
+            const field = span.dataset.field; // startLevel | level | goalLevel
             const skill = emp.skills[idx];
 
-            // Tạo input thay thế badge
             const input = document.createElement("input");
             input.type = "number";
             input.min = 0;
             input.max = 5;
-            input.value = skill.goalLevel || 0;
+            input.value = skill[field] ?? 0;
             input.className = "goal-input";
 
-            // Khi input mất focus hoặc nhấn Enter, cập nhật và quay về badge
             const save = () => {
                 let val = parseInt(input.value);
                 if (isNaN(val)) val = 0;
-                if (val>5) val = 5;
-                if (val<0) val = 0;
-                skill.goalLevel = val;
+                if (val > 5) val = 5;
+                if (val < 0) val = 0;
 
-                // Cập nhật badge mới
+                skill[field] = val;
+
                 span.innerHTML = getLevelBadge(val);
                 span.style.display = "";
                 input.remove();
+
                 populateRadarChart(emp);
             };
 
             input.addEventListener("blur", save);
-            input.addEventListener("keydown", (ev) => {
-                if (ev.key === "Enter") {
-                    input.blur();
+            input.addEventListener("keydown", e => {
+                if (e.key === "Enter") input.blur();
+                if (e.key === "Escape") {
+                    span.style.display = "";
+                    input.remove();
                 }
             });
-            input.className = "goal-input";
 
-            // Thay badge bằng input
             span.style.display = "none";
             span.parentElement.appendChild(input);
             input.focus();
         });
     });
+
 
     tbody.querySelectorAll(".delete-skill").forEach(icon => {
         icon.addEventListener("click", () => {
