@@ -78,22 +78,6 @@
     color: var(--color-text-muted, #6b7280);
 }
 
-.pagination-page-size {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 15px;
-    color: var(--color-text-main, #111827);
-}
-
-.pagination-page-size select {
-    padding: 4px 8px;
-    border-radius: 4px;
-    border: 1px solid var(--color-border-subtle, #e0e4f0);
-    background: #fff;
-    font-size: 15px;
-}
-
 .skill-matrix tbody tr:hover td.employee-name-col,
 .skill-matrix tbody tr:hover td.team-col {
     background: #f9fafb !important;
@@ -1320,7 +1304,9 @@ select {
 }
 
 .select {
-    min-width: 180px;
+    border-radius: 15px;
+    height: 40px;
+    min-width: 130px;
     padding: 7px 30px 7px 10px;
     border-radius: 0.5rem;
     border: 1px solid var(--color-border-subtle);
