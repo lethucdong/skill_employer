@@ -2390,6 +2390,33 @@ select {
 }
 
 /* Heatmap */
+.action-cell {
+    text-align: center;
+}
+
+.delete-skill {
+    padding-left: 5px;
+    cursor: pointer;
+    color: #d9534f;
+    font-size: 16px;
+}
+
+.edit-skill {
+    cursor: pointer;
+    color: rgb(87, 87, 252);
+    font-size: 16px;
+}
+
+.skill-table tbody tr:hover td .delete-skill {
+    color: #c9302c;
+    transform: scale(1.1);
+}
+
+
+.skill-table tbody tr:hover td .edit-skill {
+    color: rgb(71, 71, 252);
+    transform: scale(1.1);
+}
 
 .heatmap-legend {
     font-size: 11px;
@@ -2398,6 +2425,12 @@ select {
     flex-wrap: wrap;
     gap: 12px;
     margin-bottom: 6px;
+}
+
+.panel-heatmap-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
 }
 
 .legend-item {

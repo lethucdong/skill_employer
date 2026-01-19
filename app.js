@@ -849,6 +849,7 @@ function populateHeatmap(emp) {
                 <th>Goal Level</th>
                 <th>Trend</th>
                 <th>Comment</th>
+                <th style="width:70px">Actions</th>
             </tr>
         </thead>
         <tbody></tbody>
@@ -875,6 +876,10 @@ function populateHeatmap(emp) {
             </td>
             <td>${trendHtml}</td>
             <td>${comment}</td>
+            <td class="action-cell">
+                <i class="fa fa-edit edit-skill" data-index="${index}" aria-hidden="true" title="Edit skill"></i>
+                <i class="fa fa-trash delete-skill" data-index="${index}" aria-hidden="true" title="Delete skill"></i>
+            </td>
         `;
 
         tbody.appendChild(tr);
@@ -924,9 +929,21 @@ function populateHeatmap(emp) {
         });
     });
 
+    tbody.querySelectorAll(".delete-skill").forEach(icon => {
+        icon.addEventListener("click", () => {
+            const idx = parseInt(icon.dataset.index);
+
+            if (!confirm("Are you sure you want to delete this skill?")) return;
+
+            emp.skills.splice(idx, 1);
+
+            populateHeatmap(emp);
+            populateRadarChart(emp);
+        });
+    });
+
     heatmapList.appendChild(table);
 }
-
 
 document.querySelectorAll('.tabs-header .tab').forEach(btn => {
     btn.addEventListener('click', () => {
