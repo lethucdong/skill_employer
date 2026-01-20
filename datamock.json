@@ -60,7 +60,7 @@
         },
         {
             "id": 4,
-            "full_name": "Ngô Thị D",
+            "full_name": "Ngô Như D",
             "account_name": "DNT",
             "email": "snt@sample.vn",
             "password_hash": "hashed_password_4",
@@ -110,7 +110,7 @@
         },
         {
             "id": 9,
-            "full_name": "Phạm Văn A",
+            "full_name": "Phạm Thị V",
             "account_name": "APV",
             "email": "apv@sample.vn",
             "password_hash": "hashed_password_1",
@@ -121,7 +121,7 @@
         },
         {
             "id": 10,
-            "full_name": "Lê Văn B",
+            "full_name": "Lê Quang B",
             "account_name": "BLT",
             "email": "blt@sample.vn",
             "password_hash": "hashed_password_2",
@@ -131,7 +131,7 @@
         },
         {
             "id": 11,
-            "full_name": "Nguyễn Văn C",
+            "full_name": "Nguyễn Văn W",
             "account_name": "CNH",
             "email": "cnh@sample.vn",
             "password_hash": "hashed_password_3",
@@ -151,7 +151,7 @@
         },
         {
             "id": 13,
-            "full_name": "Lê Thị E",
+            "full_name": "Lê Như F",
             "account_name": "ELQ",
             "email": "elq@sample.vn",
             "password_hash": "hashed_password_5",
@@ -161,7 +161,7 @@
         },
         {
             "id": 14,
-            "full_name": "Nguyễn Văn F",
+            "full_name": "Nguyễn Giao G",
             "account_name": "FND",
             "email": "fnd@sample.vn",
             "password_hash": "hashed_password_6",
@@ -171,7 +171,7 @@
         },
         {
             "id": 15,
-            "full_name": "Nguyễn Thị G",
+            "full_name": "Nguyễn Thiết A",
             "account_name": "GNT",
             "email": "gnt@sample.vn",
             "password_hash": "hashed_password_7",
@@ -181,8 +181,8 @@
         },
         {
             "id": 16,
-            "full_name": "Hồ Văn A",
-            "account_name": "AVQ",
+            "full_name": "Trương Văn H",
+            "account_name": "AVQB",
             "email": "ahv@sample.vn",
             "password_hash": "hashed_password_admin",
             "role": "Software Developer",
@@ -542,7 +542,7 @@
             "level_score": 3,
             "start_level_score": 1,
             "years_exp": 4.0,
-            "last_verified": "2025-12-10T00:00:00Z",
+            "last_verified": "2026-01-10T00:00:00Z",
             "goal_level": 5
         },
         {
@@ -577,7 +577,7 @@
             "level_score": 4,
             "start_level_score": 1,
             "years_exp": 5.0,
-            "last_verified": "2025-12-22T00:00:00Z",
+            "last_verified": "2026-01-22T00:00:00Z",
             "goal_level": 5
         },
         {
@@ -604,7 +604,7 @@
             "level_score": 5,
             "start_level_score": 1,
             "years_exp": 7.0,
-            "last_verified": "2025-12-14T00:00:00Z",
+            "last_verified": "2026-01-14T00:00:00Z",
             "goal_level": 5
         },
         {
@@ -649,7 +649,7 @@
             "level_score": 5,
             "start_level_score": 1,
             "years_exp": 5.0,
-            "last_verified": "2025-12-16T00:00:00Z",
+            "last_verified": "2026-01-16T00:00:00Z",
             "goal_level": 5
         },
         {
@@ -676,7 +676,7 @@
             "level_score": 5,
             "start_level_score": 1,
             "years_exp": 8.0,
-            "last_verified": "2025-12-12T00:00:00Z",
+            "last_verified": "2026-01-12T00:00:00Z",
             "goal_level": 5
         },
         {
@@ -739,7 +739,7 @@
             "level_score": 5,
             "start_level_score": 1,
             "years_exp": 10.0,
-            "last_verified": "2025-12-15T00:00:00Z",
+            "last_verified": "2026-01-15T00:00:00Z",
             "goal_level": 5
         },
         {
@@ -748,7 +748,7 @@
             "level_score": 5,
             "start_level_score": 1,
             "years_exp": 10.0,
-            "last_verified": "2025-12-15T00:00:00Z",
+            "last_verified": "2026-01-15T00:00:00Z",
             "goal_level": 5
         },
         {
@@ -795,7 +795,7 @@
             "skill_id": 2,
             "old_level": 4,
             "new_level": 5,
-            "change_date": "2025-12-10T00:00:00Z",
+            "change_date": "2026-12-10T00:00:00Z",
             "reason": "Completed project: Global Billing Platform Modernization"
         },
         {
@@ -804,7 +804,7 @@
             "skill_id": 3,
             "old_level": 3,
             "new_level": 2,
-            "change_date": "2025-11-30T00:00:00Z",
+            "change_date": "2026-11-30T00:00:00Z",
             "reason": "Skill decay due to lack of use"
         },
         {
@@ -813,7 +813,7 @@
             "skill_id": 4,
             "old_level": 4,
             "new_level": 5,
-            "change_date": "2025-12-14T00:00:00Z",
+            "change_date": "2026-12-14T00:00:00Z",
             "reason": "Completed course: Enterprise Design Systems in React"
         }
     ],
@@ -829,14 +829,14 @@
             "id": 2,
             "name": "SIRAS Frontend Shell",
             "start_date": "2024-12-01",
-            "end_date_plan": "2025-12-31",
+            "end_date_plan": "2026-12-31",
             "status": "In-Progress"
         },
         {
             "id": 3,
             "name": "SIRAS Global Cloud Foundation",
             "start_date": "2024-12-01",
-            "end_date_plan": "2025-12-31",
+            "end_date_plan": "2026-12-31",
             "status": "In-Progress"
         },
         {
@@ -850,7 +850,7 @@
             "id": 5,
             "name": "Enterprise SIRAS Rollout – APAC",
             "start_date": "2024-07-01",
-            "end_date_plan": "2025-12-31",
+            "end_date_plan": "2026-12-31",
             "status": "In-Progress"
         }
     ],
@@ -951,7 +951,7 @@
             "level_gain": 1,
             "resource_url": "https://courses.company.com/microservices-nodejs",
             "start_date": "2025-05-15",
-            "end_date": "2025-12-31"
+            "end_date": "2026-12-31"
         },
         {
             "id": 2,
@@ -959,7 +959,7 @@
             "target_skill_id": 10,
             "level_gain": 1,
             "resource_url": "https://courses.company.com/aws-advanced",
-            "start_date": "2025-12-01",
+            "start_date": "2026-01-01",
             "end_date": "2026-01-15"
         },
         {
@@ -969,7 +969,7 @@
             "level_gain": 1,
             "resource_url": "https://courses.company.com/react-18",
             "start_date": "2022-02-16",
-            "end_date": "2025-05-15"
+            "end_date": "2026-05-15"
         },
         {
             "id": 4,
@@ -978,7 +978,7 @@
             "level_gain": 1,
             "resource_url": "https://courses.company.com/design-systems",
             "start_date": "2025-05-15",
-            "end_date": "2025-07-15"
+            "end_date": "2026-07-15"
         },
         {
             "id": 5,
@@ -986,8 +986,8 @@
             "target_skill_id": 9,
             "level_gain": 1,
             "resource_url": "https://courses.company.com/sql-analytics",
-            "start_date": "2025-12-01",
-            "end_date": "2026-01-15"
+            "start_date": "2026-01-01",
+            "end_date": "2026-12-15"
         },
         {
             "id": 6,
@@ -995,8 +995,8 @@
             "target_skill_id": 16,
             "level_gain": 1,
             "resource_url": "https://courses.company.com/product-discovery",
-            "start_date": "2025-12-01",
-            "end_date": "2026-01-15"
+            "start_date": "2026-01-01",
+            "end_date": "2026-12-15"
         },
         {
             "id": 7,
@@ -1004,8 +1004,8 @@
             "target_skill_id": 20,
             "level_gain": 1,
             "resource_url": "https://courses.company.com/workforce-planning",
-            "start_date": "2025-12-01",
-            "end_date": "2026-01-15"
+            "start_date": "2026-01-01",
+            "end_date": "2026-12-15"
         },
         {
             "id": 8,
@@ -1013,8 +1013,8 @@
             "target_skill_id": 14,
             "level_gain": 1,
             "resource_url": "https://courses.company.com/aws-security",
-            "start_date": "2025-12-01",
-            "end_date": "2026-01-15"
+            "start_date": "2026-01-01",
+            "end_date": "2026-12-15"
         },
         {
             "id": 9,
@@ -1022,7 +1022,7 @@
             "target_skill_id": 14,
             "level_gain": 1,
             "resource_url": "https://courses.company.com/aws-security",
-            "start_date": "2025-12-31",
+            "start_date": "2026-01-31",
             "end_date": "2026-05-15"
         }
     ],
@@ -1107,7 +1107,7 @@
             "project_id": 1,
             "missing_skill_id": 4,
             "gap_level": 2,
-            "created_at": "2025-12-10T00:00:00Z"
+            "created_at": "2026-01-10T00:00:00Z"
         },
         {
             "id": 2,
@@ -1115,7 +1115,7 @@
             "project_id": 3,
             "missing_skill_id": 10,
             "gap_level": 3,
-            "created_at": "2025-12-15T00:00:00Z"
+            "created_at": "2026-01-15T00:00:00Z"
         }
     ],
     "project_evaluations": [
@@ -1127,7 +1127,7 @@
             "skill_id": 1,
             "score": 5,
             "comments": "Excellent backend architecture and performance optimization",
-            "created_at": "2024-12-01T00:00:00Z"
+            "created_at": "2026-01-01T00:00:00Z"
         },
         {
             "id": 2,
@@ -1137,7 +1137,7 @@
             "skill_id": 4,
             "score": 5,
             "comments": "Outstanding React component design and reusability",
-            "created_at": "2025-12-15T00:00:00Z"
+            "created_at": "2026-01-15T00:00:00Z"
         },
         {
             "id": 3,
@@ -1147,7 +1147,7 @@
             "skill_id": 10,
             "score": 5,
             "comments": "Exceptional AWS infrastructure design with high availability",
-            "created_at": "2025-12-10T00:00:00Z"
+            "created_at": "2026-01-10T00:00:00Z"
         }
     ],
     "skill_audit_logs": [
@@ -1156,28 +1156,28 @@
             "user_id": 1,
             "action_type": "Skill_Update",
             "description": "Node.js skill updated from 4 to 5",
-            "created_at": "2025-12-10T00:00:00Z"
+            "created_at": "2026-01-10T00:00:00Z"
         },
         {
             "id": 2,
             "user_id": 2,
             "action_type": "Course_Complete",
             "description": "Started course: Enterprise Design Systems in React",
-            "created_at": "2025-12-14T00:00:00Z"
+            "created_at": "2026-01-14T00:00:00Z"
         },
         {
             "id": 3,
             "user_id": 6,
             "action_type": "Project_Review",
             "description": "Evaluated backend engineer's security practices",
-            "created_at": "2024-12-01T00:00:00Z"
+            "created_at": "2026-01-01T00:00:00Z"
         },
         {
             "id": 4,
             "user_id": 1,
             "action_type": "Skill_Decay",
             "description": "React skill decreased from 3 to 2 due to inactivity",
-            "created_at": "2025-11-30T00:00:00Z"
+            "created_at": "2026-01-30T00:00:00Z"
         }
     ]
 }
