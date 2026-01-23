@@ -553,6 +553,9 @@ function renderSkillMatrix() {
 }
 
 function openEmployeeDetail(employeeId) {
+    const titleName = document.getElementById('title-name');
+    titleName.textContent = "Employee Details";
+
     if (!mockData) return;
     const employee = mockData.employees.find((e) => e.id === employeeId);
     if (!employee) return;
@@ -1451,6 +1454,8 @@ function initFilters() {
 
     if (backToMatrixBtn) {
         backToMatrixBtn.addEventListener("click", () => {
+            const titleName = document.getElementById('title-name');
+            titleName.textContent = "Employee Skill List";
             showView("skill-matrix");
             setActiveNav("skill-matrix");
         });
