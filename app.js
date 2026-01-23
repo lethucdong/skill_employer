@@ -371,12 +371,6 @@ function renderSkillCell(td, employee, skillName, category = "") {
     td.appendChild(sel);
 }
 
-function initMatrixSorting() {
-    // Setup sorting controls for skill matrix
-    // This function initializes event listeners for sorting if needed
-    // Currently matrixSort is set to { key: "department", dir: "desc" }
-}
-
 function renderSkillMatrix() {
     if (!mockData) {
         console.warn("renderSkillMatrix: mockData is null");
@@ -433,25 +427,7 @@ function renderSkillMatrix() {
     window.skillMatrixPageSize = pageSize;
 
     // Lấy danh sách nhân viên cho trang hiện tại
-    const pagedEmployees = filtered.slice((currentPage - 1) * pageSize, currentPage * pageSize);
-
-    // Hiển thị thông tin phân trang
-    const paginationInfoEl = document.getElementById('pagination-info');
-    if (paginationInfoEl) {
-        const startIdx = filtered.length === 0 ? 0 : (currentPage - 1) * pageSize + 1;
-        const endIdx = Math.min(currentPage * pageSize, filtered.length);
-        paginationInfoEl.textContent = `Showing ${startIdx}-${endIdx} of ${filtered.length} employees`;
-    }
-    // Xử lý thay đổi pageSize
-    const pageSizeSelect = document.getElementById('page-size-select');
-    if (pageSizeSelect) {
-        pageSizeSelect.value = pageSize;
-        pageSizeSelect.onchange = function () {
-            window.skillMatrixPageSize = Number(pageSizeSelect.value);
-            window.skillMatrixCurrentPage = 1;
-            renderSkillMatrix();
-        };
-    }
+    const pagedEmployees = filtered;
 
     // Build columns for skills; header sẽ là 3 hàng: Category, Sub-Category, Skill
     skillMatrixBody.innerHTML = "";
@@ -574,52 +550,6 @@ function renderSkillMatrix() {
         skillMatrixBody.appendChild(tr);
     });
 
-    // Hiển thị phân trang
-    const paginationEl = document.getElementById('pagination');
-    if (paginationEl) {
-        paginationEl.innerHTML = '';
-        // Previous button
-        const prevLi = document.createElement('li');
-        const prevBtn = document.createElement('button');
-        prevBtn.textContent = '«';
-        prevBtn.disabled = currentPage === 1;
-        prevBtn.onclick = function () {
-            if (currentPage > 1) {
-                window.skillMatrixCurrentPage = currentPage - 1;
-                renderSkillMatrix();
-            }
-        };
-        prevLi.appendChild(prevBtn);
-        paginationEl.appendChild(prevLi);
-
-        // Page numbers
-        for (let i = 1; i <= totalPages; i++) {
-            const li = document.createElement('li');
-            const btn = document.createElement('button');
-            btn.textContent = i;
-            if (i === currentPage) btn.classList.add('active');
-            btn.onclick = function () {
-                window.skillMatrixCurrentPage = i;
-                renderSkillMatrix();
-            };
-            li.appendChild(btn);
-            paginationEl.appendChild(li);
-        }
-
-        // Next button
-        const nextLi = document.createElement('li');
-        const nextBtn = document.createElement('button');
-        nextBtn.textContent = '»';
-        nextBtn.disabled = currentPage === totalPages;
-        nextBtn.onclick = function () {
-            if (currentPage < totalPages) {
-                window.skillMatrixCurrentPage = currentPage + 1;
-                renderSkillMatrix();
-            }
-        };
-        nextLi.appendChild(nextBtn);
-        paginationEl.appendChild(nextLi);
-    }
 }
 
 function openEmployeeDetail(employeeId) {
@@ -1210,7 +1140,6 @@ function handleImportFile(e) {
 
                 populateDepartmentFilter();
                 if (mockData.skills_master) matrixSkillNames = mockData.skills_master.map(s => s.skill_name || s.skillName || s.name);
-                initMatrixSorting();
                 renderSkillMatrix();
                 alert('Import successful');
             } else if (file.name.endsWith('.csv')) {
@@ -1963,7 +1892,6 @@ async function init() {
 
     populateDepartmentFilter();
     // Initialize column sorting then render matrix
-    initMatrixSorting();
     renderSkillMatrix();
 
     // Open detail for first employee by default when user clicks any row
