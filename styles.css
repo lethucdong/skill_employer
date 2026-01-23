@@ -1166,7 +1166,7 @@ select {
     box-shadow: var(--shadow-subtle);
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 8px;
     justify-content: space-between;
 }
 
@@ -1200,7 +1200,7 @@ select {
 
 @media (max-width: 1024px) {
     .controls-row {
-        gap: 12px;
+        gap: 8px;
         padding: 14px;
     }
 
@@ -1216,7 +1216,7 @@ select {
 @media (max-width: 900px) {
     .controls-row {
         flex-wrap: wrap;
-        gap: 12px;
+        gap: 8px;
         padding: 12px;
         justify-content: flex-start;
     }
