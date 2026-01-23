@@ -300,7 +300,7 @@ select {
     /* position: sticky;
     left: 0; */
     height: 100%;
-    background: auto;
+    background: #f8f9fa;
     /* z-index: 2; */
     background-color: white;
 }
@@ -1705,7 +1705,7 @@ select {
 }
 
 .skill-matrix {
-    border-collapse: collapse;
+    border-collapse: separate;
     width: 100%;
     min-width: 800px;
     background: white;
@@ -1744,19 +1744,19 @@ select {
 
 /* Row 1: Category */
 .skill-matrix thead tr:nth-child(1) th {
-    top: 0;
+    top: 0px;
     /* z-index: 30; */
 }
 
 /* Row 2: Sub-category */
 .skill-matrix thead tr:nth-child(2) th {
-    top: 42px;
+    top: 45px;
     z-index: 20;
 }
 
 /* Row 3: Skill */
 .skill-matrix thead tr:nth-child(3) th {
-    top: 84px;
+    top: 90px;
     z-index: 10;
 }
 
