@@ -498,9 +498,9 @@ select {
         min-width: var(--col1-width);
         max-width: var(--col1-width);
         width: var(--col1-width);
-        /* position: sticky;
+        position: sticky;
         left: 0;
-        z-index: 6; */
+        z-index: 6!important;
         background: #fff;
         text-overflow: ellipsis;
         overflow: hidden;
@@ -1745,7 +1745,7 @@ select {
 /* Row 1: Category */
 .skill-matrix thead tr:nth-child(1) th {
     top: 0;
-    z-index: 30;
+    /* z-index: 30; */
 }
 
 /* Row 2: Sub-category */
