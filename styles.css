@@ -1733,9 +1733,26 @@ select {
 /* Sticky header */
 .skill-matrix thead th {
     position: sticky;
-    top: 0;
-    z-index: 20;
     background: #f1f5f9;
+    z-index: 10;
+}
+
+/* Row 1: Category */
+.skill-matrix thead tr:nth-child(1) th {
+    top: 0;
+    z-index: 30;
+}
+
+/* Row 2: Sub-category */
+.skill-matrix thead tr:nth-child(2) th {
+    top: 42px;
+    z-index: 20;
+}
+
+/* Row 3: Skill */
+.skill-matrix thead tr:nth-child(3) th {
+    top: 84px;
+    z-index: 10;
 }
 
 .skill-matrix th {
